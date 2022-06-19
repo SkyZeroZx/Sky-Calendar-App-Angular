@@ -1,0 +1,215 @@
+<div class="header bg-primary pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<br><br>
+
+<div class="container-fluid mt--7">
+  <div id="hamburgerButton">
+    <div class="btn-group" dropdown [dropup]="true">
+      <i id="button-dropup" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+        class="fa fa-bars fa-2x" aria-controls="dropdown-dropup">
+      </i>
+      <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-dropup">
+        <li role="menuitem" id="activarNotificaciones" (click)="suscribeToNotifications()"><a class="dropdown-item"><i
+              class="fas fa-bell fa-2x"></i><span>Activar notificaciones</span> </a></li>
+        <li role="menuitem" id="guardar" (click)="saveTracking()"><a class="dropdown-item"><i
+              class="fas fa-save fa-2x"></i><span>Guardar Tramite</span></a></li>
+        <li role="menuitem" id="historial" (click)="listHistory()"><a class="dropdown-item"><i
+              class="fas fa-history fa-2x"></i>
+            <span>Ver historial</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h2 class="mb-0 text-center">Seguimiento Tramites</h2>
+        </div>
+        <form class="border p-3 form" [formGroup]="trackingForm">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-4 d-flex justify-content-center">
+              <input type="text" placeholder="N° Tramite" formControlName="idDocTramite" class="form-control"
+                maxlength="30">
+            </div>
+
+            <div class="col-lg-4 d-flex justify-content-center">
+              <input type="text" placeholder="DNI Estudiante" formControlName="dni" class="form-control" maxlength="8"
+                oninput="process(this)" minlength="8">
+            </div>
+
+            <div class="col-lg-4 d-flex justify-content-center">
+              <button type="submit" [disabled]="trackingForm.invalid" (click)="buscarTramiteTracking()"
+                class="btn btn-primary"><i class="fas fa-search"></i> &nbsp;Buscar</button>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-4 d-flex justify-content-center">
+              <div *ngIf="trackingForm.controls.idDocTramite.invalid && trackingForm.controls.idDocTramite.touched">
+                <small id="minlengthTramite" class="text-left"
+                  *ngIf="trackingForm.controls.idDocTramite.errors?.minlength">
+                  La longitud minima es 14 caracteres</small>
+                <small id="reqlengthTramite" class="text-left"
+                  *ngIf="trackingForm.controls.idDocTramite.errors?.required">
+                  Se requiere ingresar N° Tramite para seguimiento</small>
+              </div>
+            </div>
+
+            <div class="col-lg-4 d-flex justify-content-center">
+              <div *ngIf="trackingForm.controls.dni.invalid && trackingForm.controls.dni.touched">
+                <small id="minLenghtDNI" class="text-left" *ngIf="trackingForm.controls.dni.errors?.minlength">
+                  La longitud minima es 8 caracteres</small>
+                <small id="reqDNI" class="text-left" *ngIf="trackingForm.controls.dni.errors?.required">
+                  Se requiere ingresar dni para seguimiento</small>
+              </div>
+            </div>
+
+            <div class="col-lg-4 d-flex justify-content-center">
+            </div>
+          </div>
+        </form>
+        <br>
+        <div *ngIf="this.detalleOk">
+          <br>
+          <!-- Segun el ultimo estado se da un color respectivo a nuestro estado -->
+          <div class="row multi-steps-wrap">
+            <ul class="list-unstyled multi-steps">
+              <li class="job-status job-created"
+                [ngClass]="{'job-inprogress is-active negative': this.listaDetalles[0].estado =='REGISTRADO'}">
+                REGISTRADO
+              </li>
+              <li class="job-status"
+                [ngClass]="{'job-inprogress is-active negative':    this.listaDetalles[0].estado== 'PROCESANDO'}">
+                PROCESANDO</li>
+              <li class="job-status job-completed " *ngIf="this.listaDetalles[0].estado == 'OBSERVADO'"
+                [ngClass]="{'job-inprogress is-active observado': this.listaDetalles[0].estado == 'OBSERVADO'}">
+                OBSERVADO
+              </li>
+              <li class="job-status job-closed"
+                [ngClass]="{'job-inprogress is-active finalizado': this.listaDetalles[0].estado == 'FINALIZADO'}">
+                FINALIZADO
+              </li>
+            </ul>
+          </div>
+          <br>
+        </div>
+        <!-- Tabla Detalles -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="detalleOk">
+          <tabset class="table">
+            <tab heading="Detalles" id="tab1">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-light">
+                    <tr>
+                      <!--      <th>N° Tramite</th>-->
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                      <th>Observacion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let itemDetalle of listaDetalles">
+                      <!--  <td>{{itemDetalle.id_est_doc}}</td> -->
+                      <td>{{itemDetalle.fecha}}</td>
+                      <td>{{itemDetalle.estado}}</td>
+                      <td>{{itemDetalle.observaciones}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </tab>
+            <!-- Tabla Adjuntos -->
+            <tab heading="Adjuntos" id="tab2">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-light">
+                    <tr>
+                      <!--      <th>N° Tramite</th> -->
+                      <th>Fecha</th>
+                      <th>Descargar</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="adjuntoOk">
+                    <tr *ngFor="let itemAdjunto of listaAdjuntos">
+                      <!--      <td>{{itemAdjunto.ID_EST_DOC}}</td> -->
+                      <td>{{itemAdjunto.FECHA}}</td>
+                      <td class="text-center"> <a href="{{itemAdjunto.URL}}" target="_blank">
+                          <i class="ni ni-cloud-download-95"></i>
+                        </a> </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </tab>
+            <!-- Tabla Certificados -->
+            <tab heading="Certificado" id="tab3">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-light">
+                    <tr>
+                      <!--      <th>N° Tramite</th>-->
+                      <th>Fecha</th>
+                      <th>Descargar</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="certificadoOk">
+                    <tr *ngFor="let itemCertificado of listaCertificado">
+                      <!--    <td>{{itemCertificado.id_est_doc}}</td>-->
+                      <td>{{itemCertificado.fecha}}</td>
+                      <td class="text-center">
+                        <a href="{{itemCertificado.url}}" target="_blank">
+                          <i class="ni ni-paper-diploma"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </tab>
+          </tabset>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" bsModal #modalHistory="bs-modal" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-static-name" class="modal-title pull-left">Tramites Guardados</h4>
+          <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalHistory.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
+        </div>
+        <div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th>N° Tramite</th>
+                  <th>DNI</th>
+                  <th class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let itemHistory of listaTramitesGuardados">
+                  <td class="history">{{itemHistory.id_est_doc}}</td>
+                  <td class="history">{{itemHistory.dni}}</td>
+                  <td class="history text-center"> <i (click)="searchHistory(itemHistory)" role="search"
+                      class="fas fa-search"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
