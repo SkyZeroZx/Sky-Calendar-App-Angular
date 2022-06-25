@@ -86,11 +86,11 @@ _**Calendario** : Apartado con el calendario de tareas , registro de tareas , ed
 
 ![Calendario 1](/docs/layout/calendario_1.png)
 
-![Calendario 2](/docs/Layout/dashboard_2.png)
+![Calendario 2](/docs/layout/calendario_2.png)
 
-![Calendario 3](/docs/Layout/dashboard_3.png)
+![Calendario 3](/docs/layout/calendario_3.png)
 
-![Calendario 4](/docs/Layout/dashboard_4.png)
+![Calendario 4](/docs/layout/calendario_4.png)
 
 ## Ejecutando como PWA 👨🏻‍💻
 
@@ -110,20 +110,20 @@ _Este comando se encuentra configurado en el archivo *package.json de la raiz de
 
 _La PWA se encuentra configurada para ejecutarse en la vista Tracking para consulta de tramites_
 
-![PWA 1](/docs/layout/pwa/pwa_1.png)
+![PWA 1](/docs/pwa/pwa_1.png)
 
-![PWA 2](/docs/layout/pwa/pwa_2.png)
+![PWA 2](/docs/pwa/pwa_2.png)
 
-![PWA 3](/docs/layout/pwa/pwa_3.png)
+![PWA 3](/docs/pwa/pwa_3.png)
 
-![PWA 4](/docs/layout/pwa/pwa_4.png)
+![PWA 4](/docs/pwa/pwa_4.png)
 
 
 _Se cuenta con soporte de notificaciones Push integrado en el modulo de Tracking_
 
 _Se creo el archivo *src/custom-service-worker.js* para la gestion de evento de notificaciones personalizado_
 
-![PWA 5](/docs/layout/pwa/pwa_5.png)
+![PWA 5](/docs/pwa/pwa_5.png)
 
 
 ## Despliegue 📦
