@@ -1,32 +1,23 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, finalize } from "rxjs";
-import { AuthService } from "./auth.service";
-import { SpinnerService } from "./spinner.service";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, finalize } from 'rxjs';
+import { AuthService } from './auth.service';
+import { SpinnerService } from './spinner.service';
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class InterceptorService implements HttpInterceptor {
-  constructor(
-    private spinnerService: SpinnerService,
-    private auth: AuthService
-  ) {}
+  constructor(private spinnerService: SpinnerService, private auth: AuthService) {}
   // Servicio para interceptar llamas HTTP para llamar al spinner de carga asi como envio de token en las cabeceras
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.spinnerService.llamarSpinner();
     if (
-      (req.url.includes("auth") ||
+     /*  (req.url.includes("auth") ||
         req.url.includes("users") ||
-        req.url.includes("documento")) &&
-      !req.url.includes("auth/login")
+        req.url.includes("documento") ||
+        req.url.includes("task") ||
+        req.url.includes("type")) &&*/
+      !req.url.includes('auth/login')
     ) {
       const userValue = this.auth.userValue;
       if (userValue !== null) {
@@ -35,13 +26,9 @@ export class InterceptorService implements HttpInterceptor {
             Authorization: 'Bearer ' + userValue.token,
           },
         });
-        return next
-          .handle(authReq)
-          .pipe(finalize(() => this.spinnerService.detenerSpinner()));
+        return next.handle(authReq).pipe(finalize(() => this.spinnerService.detenerSpinner()));
       }
     }
-    return next
-      .handle(req)
-      .pipe(finalize(() => this.spinnerService.detenerSpinner()));
+    return next.handle(req).pipe(finalize(() => this.spinnerService.detenerSpinner()));
   }
 }

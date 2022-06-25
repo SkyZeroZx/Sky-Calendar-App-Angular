@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "isekai-angular": {
+    "sky-calendar-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -95,14 +95,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "isekai-angular:build"
+            "browserTarget": "sky-calendar-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "isekai-angular:build:production"
+              "browserTarget": "sky-calendar-app:build:production"
             },
             "development": {
-              "browserTarget": "isekai-angular:build:development"
+              "browserTarget": "sky-calendar-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -110,19 +110,19 @@
         "serve-coverage": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "isekai-angular:build:e2e"
+            "browserTarget": "sky-calendar-app:build:e2e"
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "isekai-angular:serve-coverage",
+            "devServerTarget": "sky-calendar-app:serve-coverage",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "isekai-angular:serve-coverage:production"
+              "devServerTarget": "sky-calendar-app:serve-coverage:production"
             }
           }
         },
@@ -130,20 +130,20 @@
           "builder": "@cypress/schematic:cypress",
           "options": {
             "browser": "chrome",
-            "devServerTarget": "isekai-angular:serve-coverage",
+            "devServerTarget": "sky-calendar-app:serve-coverage",
             "headless": true,
             "watch": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "isekai-angular:serve-coverage:production"
+              "devServerTarget": "sky-calendar-app:serve-coverage:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "isekai-angular:build"
+            "browserTarget": "sky-calendar-app:build"
           }
         },
         "test": {
@@ -172,7 +172,7 @@
         }
       }
     },
-    "isekai-angular-e2e": {
+    "sky-calendar-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -195,7 +195,7 @@
       }
     }
   },
-  "defaultProject": "isekai-angular",
+  "defaultProject": "sky-calendar-app",
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss"

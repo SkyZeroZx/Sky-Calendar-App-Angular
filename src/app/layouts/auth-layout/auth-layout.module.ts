@@ -16,6 +16,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import esLocale from '@fullcalendar/core/locales/es';
 
 
 @NgModule({

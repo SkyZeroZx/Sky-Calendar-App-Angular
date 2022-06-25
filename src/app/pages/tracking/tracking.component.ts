@@ -121,9 +121,10 @@ export class TrackingComponent implements OnInit {
         this.saveNotification(tokens);
       })
       .catch((err) => {
+        console.log('Error al suscribirse' , err);
         // En caso contrario de suceder un error lo notificamos
         this.toastrService.error(
-          "Sucedio un error al suscribirse " + err,
+          "Sucedio un error al suscribirse ",
           "Error",
           {
             timeOut: 5000,

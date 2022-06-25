@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule, DatePipe } from "@angular/common";
@@ -34,9 +34,16 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import { NewTaskComponent } from "src/app/pages/calendar-admin/components/new-task/new-task.component";
+import { DetailComponent } from "src/app/pages/calendar-view/detail/detail.component";
+import { CalendarViewComponent } from "src/app/pages/calendar-view/calendar-view.component";
+import { EditTaskComponent } from "src/app/pages/calendar-admin/components/edit-task/edit-task.component";
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 defineLocale("es", esLocale);
-
+// Importaciones de FullCalendarModule
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
@@ -44,10 +51,10 @@ FullCalendarModule.registerPlugins([
   interactionPlugin
 ])
 
-
-
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
+    NgSelectModule, // Ng-select
     CommonModule,
     ModalModule.forRoot(),
     TabsModule.forRoot(),
@@ -63,6 +70,7 @@ FullCalendarModule.registerPlugins([
     SweetAlert2Module.forRoot(),
     FullCalendarModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [DatePipe],
   declarations: [
     DashboardComponent,
@@ -80,7 +88,10 @@ FullCalendarModule.registerPlugins([
     CrearUserComponent,
     EditUserComponent,
     CalendarAdminComponent,
-
+    NewTaskComponent,
+    EditTaskComponent,
+    CalendarViewComponent, 
+    DetailComponent
   ],
   bootstrap: [DashboardComponent],
 })

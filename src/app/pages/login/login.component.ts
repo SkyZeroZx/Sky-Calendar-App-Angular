@@ -18,7 +18,6 @@ import Swal from "sweetalert2";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
   show_button: boolean = false;
   show_eye: boolean = false;
   constructor(
@@ -68,7 +67,11 @@ export class LoginComponent implements OnInit {
             // Es tu primer login modal debes cambiar tu contraseña aceptar o rechazar
             this.alertFirstLogin();
           } else {
-            this.router.navigate(["/users"]);
+            if (res.role == "admin") {
+              this.router.navigate(["/calendar-admin"]);
+            } else {
+              this.router.navigate(["/calendar-view"]);
+            }
           }
         } else {
           this.toastrService.error(res.message, "Error", {

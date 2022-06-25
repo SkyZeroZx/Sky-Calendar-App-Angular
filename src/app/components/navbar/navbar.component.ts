@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
 import {
-  ROUTES_ADMINISTRADOR,
-  ROUTES_TRAMITADOR,
+  ROUTES_ADMINISTRADOR, ROUTES_VIEWER,
 } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
@@ -31,8 +30,8 @@ export class NavbarComponent implements OnInit {
       case "admin":
         this.listTitles = ROUTES_ADMINISTRADOR.filter((listTitle) => listTitle);
         break;
-      case "tramitador":
-        this.listTitles = ROUTES_TRAMITADOR.filter((listTitle) => listTitle);
+      case "viewer":
+        this.listTitles = ROUTES_VIEWER.filter((listTitle) => listTitle);
         break;
       default:
         break;

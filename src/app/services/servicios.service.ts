@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import {
   Adjunto,
   Certificado,
@@ -11,13 +11,13 @@ import {
   Imagen,
   Tramite,
   TramiteDoc,
-} from "../entities/tramite";
-import { environment } from "src/environments/environment";
-import { UserUpdate, UserResponse } from "../entities/user";
-import { AuthService } from "./auth.service";
+} from '../entities/tramite';
+import { environment } from 'src/environments/environment';
+import { UserUpdate, UserResponse } from '../entities/user';
+import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ServiciosService {
   tramites: Tramite[];
@@ -71,7 +71,7 @@ export class ServiciosService {
   }
 
   deleteUser(id): Observable<any> {
-    console.log("id", id);
+    console.log('id', id);
     return this.http
       .delete<any>(`${environment.API_URL}/users`, {
         body: {
@@ -105,9 +105,7 @@ export class ServiciosService {
 
   twoDates(tramite: string, DateFrom: Date, dateTo: Date): Observable<any> {
     return this.fromEstado(tramite).pipe(
-      map((res) =>
-        res.filter((val) => val.fecha >= DateFrom && val.fecha <= dateTo)
-      )
+      map((res) => res.filter((val) => val.fecha >= DateFrom && val.fecha <= dateTo)),
     );
   }
 
@@ -121,9 +119,7 @@ export class ServiciosService {
 
   twoMonths(estado: string, DateFrom: Date, dateTo: Date): Observable<any> {
     return this.fromTramiteEstado(estado).pipe(
-      map((res) =>
-        res.filter((val) => val.fecha >= DateFrom && val.fecha <= dateTo)
-      )
+      map((res) => res.filter((val) => val.fecha >= DateFrom && val.fecha <= dateTo)),
     );
   }
 
@@ -133,7 +129,7 @@ export class ServiciosService {
       .pipe(
         map((res) => {
           return res;
-        })
+        }),
       );
   }
 
@@ -203,17 +199,14 @@ export class ServiciosService {
   }
 
   uploadFile(archivo): Observable<any> {
-    console.log("SERVICIO API upload file");
+    console.log('SERVICIO API upload file');
     console.log(archivo);
-    return this.http.post(
-      `${environment.API_URL}/tramite/updatecertificado`,
-      archivo
-    );
+    return this.http.post(`${environment.API_URL}/tramite/updatecertificado`, archivo);
   }
 
   /* *********************UTILITARIOS*********************** */
   handlerError(error): Observable<never> {
-    let errorMessage = "Error unknown";
+    let errorMessage = 'Error unknown';
     if (error) {
       errorMessage = `Error ${error.message}`;
     }
@@ -222,11 +215,83 @@ export class ServiciosService {
     return throwError(() => errorMessage);
   }
 
+  /* ********************* SERVICIOS TASK *********************** */
+
+  getAllTasks(): Observable<any> {
+    return this.http
+      .get<any>(`${environment.API_URL}/task`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  getTaskByUser(): Observable<any> {
+    return this.http
+      .get<any>(`${environment.API_URL}/task/user`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  getUsersByTask(taskId: Object): Observable<any> {
+    return this.http
+      .post<any>(`${environment.API_URL}/task/task_user`, taskId)
+      .pipe(catchError(this.handlerError));
+  }
+
+  createNewTask(task: any) {
+    return this.http
+      .post<any>(`${environment.API_URL}/task/`, task)
+      .pipe(catchError(this.handlerError));
+  }
+
+  updateTask(task: any): Observable<any> {
+    return this.http
+      .patch(`${environment.API_URL}/task`, task)
+      .pipe(catchError(this.handlerError));
+  }
+
+  deleteUserToTask(userToTask: any): Observable<any> {
+    return this.http
+      .delete<any>(`${environment.API_URL}/task`, {
+        body: userToTask,
+      })
+      .pipe(catchError(this.handlerError));
+  }
+
+  addUserToTask(userToTask: any): Observable<any> {
+    return this.http
+      .post<any>(`${environment.API_URL}/task/add_user`, userToTask)
+      .pipe(catchError(this.handlerError));
+  }
+
+  deleteTask(task: any): Observable<any> {
+    return this.http
+      .delete<any>(`${environment.API_URL}/task/remove_task`, {
+        body: task,
+      })
+      .pipe(catchError(this.handlerError));
+  }
+ 
+
+  /********************* SERVICIOS TYPE ******************************** */
+
+  getAllTypes(): Observable<any> {
+    return this.http
+      .get<any>(`${environment.API_URL}/type`)
+      .pipe(catchError(this.handlerError));
+  }
+
   /************************ Servicios Notificacion Push *************************** */
 
   saveUserNotification(data): Observable<any> {
     return this.http
-      .post<any>(`${environment.API_URL}/notificacion/suscripcion`, data)
+      .post<any>(`${environment.API_URL}/notificacion`, data)
       .pipe(catchError(this.handlerError));
   }
+
+
+  sendNotification(data): Observable<any> {
+    console.log('Estoy enviando en sendNotification ' , data);
+    return this.http
+    .post<any>(`${environment.API_URL}/notificacion/send`, data)
+    .pipe(catchError(this.handlerError));
+  }
+
 }

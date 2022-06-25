@@ -10,7 +10,7 @@ importScripts("./ngsw-worker.js");
     if (clients.openWindow && event.notification.data.url) {
       event.waitUntil(
         clients.openWindow(
-          event.notification.data.url + event.notification.data.params
+          event.notification.data.url
         )
       );
       console.log("Evento custom openWindow ", event.notification.data.url);

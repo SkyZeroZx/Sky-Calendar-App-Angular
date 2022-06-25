@@ -95,7 +95,6 @@ export class ChangePasswordComponent implements OnInit {
               }
             );
           } else {
-            this.router.navigate(["/dashboard"]);
             this.toastrService.success(
               "Se cambio con exitosa la contraseña",
               "Exito",
@@ -103,6 +102,16 @@ export class ChangePasswordComponent implements OnInit {
                 timeOut: 3000,
               }
             );
+            switch (this.authService.getItemToken("role")) {
+              case "admin":
+                this.router.navigate(["/calendar-admin"]);
+                break;
+              case "estudiante":
+                this.router.navigate(["/calendar-view"]);
+                break;
+              default:
+                break;
+            }
           }
         } else {
           this.toastrService.error(res.message, "Error", {
@@ -127,7 +136,18 @@ export class ChangePasswordComponent implements OnInit {
       this.authService.logout();
       this.router.navigate(["/login"]);
     } else {
-      this.router.navigate(["/dashboard"]);
+      switch (this.authService.getItemToken("role")) {
+        case "admin":
+          this.router.navigate(["/calendar-admin"]);
+          break;
+        case "viewer":
+          this.router.navigate(["/calendar-view"]);
+          break;
+        default:
+          break;
+      }
+
+     
     }
   }
 }

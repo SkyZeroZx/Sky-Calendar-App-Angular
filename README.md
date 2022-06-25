@@ -1,6 +1,6 @@
-# Isekai Orpheus Bot
+# Sky Calendar
 
-_Es el modulo web del sistema de gestion de tramites registrados via ChatBot y seguimiento de tramites_
+_Es el modulo web del sistema de registro de tareas de calendario con notificaciones push a traves del API Sky Calendar en NestJS_
 
 _Adicionalmente funciona como PWA(Progresive Web App) que puede integrarse en cualquier dispositivo movil_
 
@@ -17,10 +17,10 @@ adminDemo@gmail.com
 Admin2
 ```
 
-_**Tramitador**_
+_**Viewer**_
 
 ```
-tramitadorDemo@gmail.com
+viewerDemo@gmail.com
 Admin2
 ```
 
@@ -64,43 +64,33 @@ _Dirigirse a la ruta http://localhost:4200/#/login/ se tendra la pantalla de Log
 
 _**Login** : Apartado de inicio de sesion para ambos tipos de roles_
 
-![Login](/docs/Layout/login.PNG)
+![Login](/docs/layout/login.png)
 
 _**Change Password** : Apartado para el cambio de contraseña_
 
-![Change Password](/docs/Layout/change_password.PNG)
+![Change Password](/docs/layout/change_password.png)
 
-_**DashBoard** : Apartado con graficos sobre las cantidad de estados con filtros de fechas_
 
-![DashBoard 1](/docs/Layout/dashboard_1.PNG)
+_**Gestion de Usuarios** : Apartado para la gestion de usuarios , creacion , reseteo , edicion , eliminacion_
 
-![DashBoard 2](/docs/Layout/dashboard_2.PNG)
+![Gestion Usuarios 1](/docs/layout/gestion_usuarios_1.png)
 
-![DashBoard 3](/docs/Layout/dashboard_3.PNG)
+![Gestion Usuarios 2](/docs/layout/gestion_usuarios_2.png)
 
-_**Rol Administrador** : Rol que gestiona Usuarios y Documentos , comparte el dashboard con el rol tramitador_
+![Gestion Usuarios 3](/docs/layout/gestion_usuarios_3.png)
 
-_*Usuarios*_
+![Gestion Usuarios 4](/docs/layout/gestion_usuarios_4.png)
 
-![Admin Users](/docs/Layout/admin_users.PNG)
 
-_*Documentos*_
+_**Calendario** : Apartado con el calendario de tareas , registro de tareas , edicion , eliminacion  (Se envia notificaciones push a los usuarios suscritos)_
 
-![Admin Docs](/docs/Layout/admin_docs.PNG)
+![Calendario 1](/docs/layout/calendario_1.png)
 
-_**Rol Tramitador** : Rol que gestiona los tramites de los estudiantes , comparte el dashboard con el rol administrador_
+![Calendario 2](/docs/Layout/dashboard_2.png)
 
-_*Tramites*_
+![Calendario 3](/docs/Layout/dashboard_3.png)
 
-![Tramitador Tramites](/docs/Layout/tramitador_1.PNG)
-
-![Tramitador Tramites](/docs/Layout/tramitador_2.PNG)
-
-![Tramitador Tramites](/docs/Layout/tramitador_3.PNG)
-
-_**Tracking** : Apartado para el seguimiento del tramite por parte de los estudiantes_
-
-![Tracking](/docs/Layout/tracking.PNG)
+![Calendario 4](/docs/Layout/dashboard_4.png)
 
 ## Ejecutando como PWA 👨🏻‍💻
 
@@ -120,95 +110,21 @@ _Este comando se encuentra configurado en el archivo *package.json de la raiz de
 
 _La PWA se encuentra configurada para ejecutarse en la vista Tracking para consulta de tramites_
 
-![PWA 1](/docs/Layout/pwa/pwa_1.PNG)
+![PWA 1](/docs/layout/pwa/pwa_1.png)
 
-![PWA 2](/docs/Layout/pwa/pwa_2.PNG)
+![PWA 2](/docs/layout/pwa/pwa_2.png)
 
-![PWA 3](/docs/Layout/pwa/pwa_3.PNG)
+![PWA 3](/docs/layout/pwa/pwa_3.png)
+
+![PWA 4](/docs/layout/pwa/pwa_4.png)
+
 
 _Se cuenta con soporte de notificaciones Push integrado en el modulo de Tracking_
 
 _Se creo el archivo *src/custom-service-worker.js* para la gestion de evento de notificaciones personalizado_
 
-![PWA 4](/docs/Layout/pwa/pwa_4.PNG)
+![PWA 5](/docs/layout/pwa/pwa_5.png)
 
-## Ejecutando las pruebas ⚙️
-
-_Se crearon 2 tipos de pruebas siendo las primeras las pruebas unitarias en Jasmine y Karma que son integradas por Angular_
-
-_Las segundo tipo de pruebas son las Automatizadas E2E en Cypress para la verificacion funcional del sistema_
-
-### Pruebas Unitarias Jasmine/Karma⌨️
-
-_Las pruebas unitarias en Jasmine y Karma verifican la funcionalidad adecuada y logica del codigo asi como la cobertura del codigo_
-
-_Para ejecutar las pruebas unitarias ejecutar el siguiente comando en la terminal de la raiz del proyecto, el cual levanta el servidor local del test runner Karma_
-
-```
-ng test
-```
-
-![Unit Test](/docs/unit/unit_2.PNG)
-
-_Para obtener la cobertura del codigo de esta pruebas ejecutar el siguiente comando para obtener un reporte detallado de las pruebas_
-
-_La carpeta con la cobertura del codigo se creara en la raiz del proyecto con la siguiente ruta coverage/Isekai_Bot/index.html el cual se puede visualizar_
-
-```
-ng test --code-coverage
-```
-
-![Unit Coverage](/docs/unit/unit_coverage.PNG)
-
-### Pruebas End-To-End 🔩
-
-_Para ejecutar las pruebas E2E en Cypress del sistema ejecutar el siguiente comando en la terminal de la raiz del proyecto_
-
-_El cual ejecuta Cypress en modo headless las pruebas E2E_
-
-```
-npm run e2e:ci
-```
-
-![E2E Execution 1](/docs/e2e/e2e_1.PNG)
-
-![E2E Execution 2](/docs/e2e/e2e_2.PNG)
-
-_Para obtener un summary del reporte de pruebas ejecutar el siguiente comando_
-
-```
-npm run e2e:coverage
-```
-
-![E2E Coverage](/docs/e2e/e2e_summary.PNG)
-
-_Para visualizar el reporte grafico de la cobertura de codigo de las pruebas E2E en la raiz del proyecto ubicarse en la ruta coverage-e2e/Icov-report/index.html_
-
-![E2E Coverage](/docs/e2e/e2e_coverage.PNG)
-
-## Analisis de calidad de codigo
-
-_**Pre requisitos**_
-
-_En la raiz del proyecto se tiene el archivo *sonar-project.properties* el cual tiene las propiedades necesarias para ejecutarlo sobre un SonarQube_
-
-_Configurar los apartados : *sonar.host.url* , *sonar.login* *sonar.password* con los datos de su instancia correspondiente_
-
-```
-Sonaqube >= 9.X
-```
-
-![SonarQube Properties](/docs/sonar/sonar_properties.PNG)
-
-_Las pruebas fueron realizas sobre *SonarQube 9.4* para ejecutar el analisis de codigo ejecutar el comando:_
-
-```
-npm run sonar
-```
-
-![SonarQube Coverage 1](/docs/sonar/sonar_cobertura.PNG)
-
-![SonarQube Coverage 2](/docs/sonar/sonar_cobertura_2.PNG)
 
 ## Despliegue 📦
 
@@ -230,10 +146,6 @@ _Las herramientas utilizadas son:_
 
 - [Angular](https://angular.io/docs) - El Framework para Desarrollo Web
 - [NPM](https://www.npmjs.com/) - Manejador de dependencias
-- [Jasmine](https://jasmine.github.io/) - Framework Testing para pruebas unitarias
-- [Karma](https://karma-runner.github.io/latest/index.html) - Test Runner para pruebas unitarias
-- [Cypress](https://www.cypress.io/) - Framework para pruebas E2E
-- [SonarQube](https://www.sonarqube.org/) - Evaluacion de codigo
 - [Visual Studio Code](https://code.visualstudio.com/) - Editor de Codigo
 - [Prettier](https://prettier.io/) - Formateador de Codigo
 - [TabNine](https://www.tabnine.com/) - Autocompletador de Codigo
@@ -248,8 +160,6 @@ Usamos [GIT](https://git-scm.com/) para el versionado.
 _Los integrantes del proyecto_
 
 - **Jaime Burgos Tejada** - _Developer_ - [SkyZeroZx](https://github.com/SkyZeroZx)
-- **Omar Ramos More** - _Documentación && Manual Testing_ - [Vengenace](https://github.com/Vengenace)
-- **Gianfranco Alfaro Mariño** - _Documentación && Manual Testing_ - [Franco](https://github.com/Gianfranco622)
 
 ## Licencia 📄
 

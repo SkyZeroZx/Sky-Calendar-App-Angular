@@ -6,10 +6,34 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-primary" (click)="test()">TEST CALENDAR</button>
 <div class="container-fluid">
     <div class="row">
         <full-calendar [options]='calendarOptions' style="width: 100%" class="show-content"></full-calendar>
+    </div>
+</div>
+
+<div id="hamburgerButton">
+    <div class="btn-group" dropdown [dropup]="true">
+        <i id="button-dropup" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+            class="fa fa-bars fa-2x" aria-controls="dropdown-dropup">
+        </i>
+        <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-dropup">
+            <li role="menuitem" id="activarNotificaciones" (click)="suscribeToNotifications()" style="
+            display: inline-block;">
+                <p  class="notificationItem" >
+                    Activar Notificaciones  
+                    <i class="fas fa-bell">
+                    </i>
+                </p>
+            </li>
+            <!--   <li role="menuitem" id="guardar" (click)="saveTracking()"><a class="dropdown-item"><i
+              class="fas fa-save fa-2x"></i><span>Guardar Tramite</span></a></li>
+        <li role="menuitem" id="historial" (click)="listHistory()"><a class="dropdown-item"><i
+              class="fas fa-history fa-2x"></i>
+            <span>Ver historial</span></a>
+        </li>-->
+        </ul>
     </div>
 </div>
 
@@ -18,7 +42,7 @@
 <!-- Modal Nuevo Task -->
 <div bsModal class="modal fade" #modalNewTask="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarTask()"
     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 id="dialog-static-name" class="modal-title pull-left">Nuevo Task</h4>
@@ -27,7 +51,29 @@
                     <span aria-hidden="true" class="visually-hidden">&times;</span>
                 </button>
             </div>
-            <app-crear-user></app-crear-user>
+            <app-new-task (respuestaNewTaskComponent)="modalNewTask.hide();listarTask();" [in_dateSelect]="dateSelect"
+                *ngIf="taskCreateOk"></app-new-task>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal Edit Task -->
+<div bsModal class="modal fade" #modalEditTask="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarTask()"
+    tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-static-name" class="modal-title pull-left">Editar Task</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="modalEditTask.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <app-edit-task (respuestaEditTaskComponent)="modalEditTask.hide(); listarTask();" [in_editTask]="taskEdit"
+                *ngIf="taskEditOk"></app-edit-task>
         </div>
     </div>
 </div>

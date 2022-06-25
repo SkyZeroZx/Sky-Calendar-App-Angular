@@ -15,11 +15,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ModalModule } from "ngx-bootstrap/modal";
-import { NewTaskComponent } from './pages/calendar-admin/new-task/new-task.component';
- 
- 
-
-@NgModule({
+   
+ @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,
@@ -43,16 +40,9 @@ import { NewTaskComponent } from './pages/calendar-admin/new-task/new-task.compo
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:5000'
     }), 
-  
-  
-  
-  
-  
   ],
 
-
-
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, NewTaskComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
     { provide: ToastrService, useClass: ToastrService },

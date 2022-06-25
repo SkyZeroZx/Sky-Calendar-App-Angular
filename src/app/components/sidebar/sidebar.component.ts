@@ -8,19 +8,13 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
-export const ROUTES_TRAMITADOR: RouteInfo[] = [
+export const ROUTES_VIEWER: RouteInfo[] = [
   {
-    path: "/dashboard",
-    title: "Dashboard",
+    path: "/calendar-view",
+    title: "Calendario",
     icon: "ni-tv-2 text-primary",
     class: "",
-  },
-  {
-    path: "/tramites",
-    title: "Tramites",
-    icon: "ni-bullet-list-67 text-red",
-    class: "",
-  },
+  }
 ];
 
 export const ROUTES_ADMINISTRADOR: RouteInfo[] = [
@@ -54,8 +48,8 @@ export class SidebarComponent implements OnInit {
       case "admin":
         this.menuItems = ROUTES_ADMINISTRADOR.filter((menuItem) => menuItem);
         break;
-      case "tramitador":
-        this.menuItems = ROUTES_TRAMITADOR.filter((menuItem) => menuItem);
+      case "viewer":
+        this.menuItems = ROUTES_VIEWER.filter((menuItem) => menuItem);
         break;
       default:
         break;
