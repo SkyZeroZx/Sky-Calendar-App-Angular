@@ -216,7 +216,7 @@ export class CalendarAdminComponent implements OnInit {
   }
 
   formatSaveToken(token) {
-    return { tokenPush: token };
+    return { tokenPush: JSON.stringify(token) };
   }
 
   saveNotification(token) {
