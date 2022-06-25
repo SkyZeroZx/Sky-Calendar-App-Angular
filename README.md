@@ -68,7 +68,7 @@ _**Login** : Apartado de inicio de sesion para ambos tipos de roles_
 
 _**Change Password** : Apartado para el cambio de contraseña_
 
-![Change Password](/docs/layout/change_password.png)
+![Change Password](/docs/layout/change-password.png)
 
 
 _**Gestion de Usuarios** : Apartado para la gestion de usuarios , creacion , reseteo , edicion , eliminacion_
