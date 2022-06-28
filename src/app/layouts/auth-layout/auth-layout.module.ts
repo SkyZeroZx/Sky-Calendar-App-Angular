@@ -8,15 +8,10 @@ import { ChangePasswordComponent } from '../../pages/change-password/change-pass
 import { TrackingComponent } from 'src/app/pages/tracking/tracking.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalDirective, ModalModule } from "ngx-bootstrap/modal";
+import { ModalModule } from "ngx-bootstrap/modal";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
- import { ChartsModule } from 'ng2-charts';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { ClipboardModule } from 'ngx-clipboard';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import esLocale from '@fullcalendar/core/locales/es';
 
 
 @NgModule({

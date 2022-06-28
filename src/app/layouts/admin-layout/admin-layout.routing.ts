@@ -1,7 +1,4 @@
 import { Routes } from "@angular/router";
-
-import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
-import { TramitesComponent } from "../../pages/tramites/tramites.component";
 import { IsLogged } from "src/app/guards/IsLogged.guard";
  
 import { CheckRole } from "src/app/guards/checkRole.guard";

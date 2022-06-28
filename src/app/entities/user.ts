@@ -8,7 +8,8 @@ export interface ChangePassword {
   newPassword: string;
 }
 
-export type Roles = "admin" | "tramitador";
+export type Roles = "admin" | "viewer";
+
 export interface UserResponse {
   username?: string;
   message?: string;

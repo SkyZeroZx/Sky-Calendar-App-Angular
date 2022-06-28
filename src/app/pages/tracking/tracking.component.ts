@@ -10,7 +10,6 @@ import { SwPush } from "@angular/service-worker";
 import { ModalDirective } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import { Constant } from "src/app/Constants/Constant";
-import { Adjunto, Certificado, Detalle } from "src/app/entities/tramite";
 import { ServiciosService } from "src/app/services/servicios.service";
 import { environment } from "src/environments/environment";
 
@@ -21,9 +20,9 @@ import { environment } from "src/environments/environment";
 })
 export class TrackingComponent implements OnInit {
   trackingForm: FormGroup;
-  listaAdjuntos: Adjunto[] = [];
-  listaDetalles: Detalle[];
-  listaCertificado: Certificado[] = [];
+  listaAdjuntos: any[] = [];
+  listaDetalles: any[];
+  listaCertificado: any[] = [];
   adjuntoOk: boolean = false;
   certificadoOk: boolean = false;
   detalleOk: boolean = false;
@@ -76,7 +75,7 @@ export class TrackingComponent implements OnInit {
       ) {
         this.trackingForm.controls.idDocTramite.setValue(params.idDocTramite);
         this.trackingForm.controls.dni.setValue(params.dni);
-        this.buscarTramiteTracking();
+      //  this.buscarTramiteTracking();
       }
     });
   }
@@ -208,7 +207,7 @@ export class TrackingComponent implements OnInit {
   searchHistory(value): void {
     this.trackingForm.controls.idDocTramite.setValue(value.id_est_doc);
     this.trackingForm.controls.dni.setValue(value.dni);
-    this.buscarTramiteTracking();
+  //  this.buscarTramiteTracking();
   }
 
   // Metodo que limpia nuestra tabla al realizar una nueva consulta
@@ -217,14 +216,14 @@ export class TrackingComponent implements OnInit {
     this.certificadoOk = false;
     this.detalleOk = false;
   }
-
+/*
   // Metodo que llama al servicio buscarTramiteDetalle por DNI y N°
   buscarTramiteTracking() {
     this.limpiarTabla();
     this.servicios
       .buscarTramiteDetalleDniAndId(this.trackingForm.value)
       .subscribe({
-        next: (res: Detalle[]) => {
+        next: (res: any[]) => {
           if (res.length > 0) {
             this.listaDetalles = res;
             this.detalleOk = true;
@@ -285,5 +284,5 @@ export class TrackingComponent implements OnInit {
           });
         },
       });
-  }
+  }*/
 }

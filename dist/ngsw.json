@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1656200320785,
+  "timestamp": 1656399874447,
   "appData": {
     "version": "v1.0.0",
     "session": "logout"
@@ -15,21 +15,21 @@
         "ignoreVary": true
       },
       "urls": [
-        "/159.2f12302323db0d9d.js",
-        "/182.e2985b0b46a56597.js",
-        "/477.394d5041726df882.js",
-        "/735.aef2e1a5827ff21a.js",
-        "/820.9d2634c24e64e22e.js",
-        "/991.0c4854d31d01a2c3.js",
+        "/159.js",
+        "/182.js",
+        "/735.js",
+        "/772.js",
+        "/820.js",
+        "/991.js",
         "/custom-service-worker.js",
         "/favicon.ico",
         "/index.html",
-        "/main.2bb8c9a356f566df.js",
+        "/main.js",
         "/manifest.webmanifest",
-        "/polyfills.7eba4fc3a4e3f00b.js",
-        "/runtime.3a57a3b7f42f0970.js",
-        "/scripts.65c9e965f16476dd.js",
-        "/styles.8ceecd17b9695527.css"
+        "/polyfills.js",
+        "/runtime.js",
+        "/scripts.js",
+        "/styles.css"
       ],
       "patterns": []
     },
@@ -1564,12 +1564,12 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/159.2f12302323db0d9d.js": "7d20db9348eec7cceeb3eaa895813c743337914d",
-    "/182.e2985b0b46a56597.js": "3f9f230280449718b5ee642cc09d5ee1b3f1870f",
-    "/477.394d5041726df882.js": "a59d635042cd9032ce3f90a497371194bbe000ad",
-    "/735.aef2e1a5827ff21a.js": "511a7461af6e105325f769dd8a79205fded4bb85",
-    "/820.9d2634c24e64e22e.js": "9d7d4a4bb9595665e72e6572cabde38579b22acc",
-    "/991.0c4854d31d01a2c3.js": "7b5dc6994e999d709aa6a764087a0286b105a0fb",
+    "/159.js": "7d20db9348eec7cceeb3eaa895813c743337914d",
+    "/182.js": "037167a6202afeb4178c73d2815d3992713eb6db",
+    "/735.js": "511a7461af6e105325f769dd8a79205fded4bb85",
+    "/772.js": "54dbe3c7df716e06c1a5518d5a13c1a66742968b",
+    "/820.js": "9d7d4a4bb9595665e72e6572cabde38579b22acc",
+    "/991.js": "ab284578bd7c2b59fd2c5bfba4c5ac348ff7fb1e",
     "/assets/fonts/nucleo/nucleo-icons.eot": "b2dee001981e635c2a6709f97f707b7f799703c5",
     "/assets/fonts/nucleo/nucleo-icons.svg": "0bd4e40449c239d34bf4a1b0a770ae39140ff1f4",
     "/assets/fonts/nucleo/nucleo-icons.ttf": "e251b6b0211dadf880db8a281c7e0f86b148892a",
@@ -3089,13 +3089,13 @@
     "/assets/vendor/nucleo/fonts/nucleo-icons.woff2": "64baa3293e90631d5257d6056b089ba11510d0f4",
     "/custom-service-worker.js": "d89e1f0f397ecf43a3f1bf1cb4351211739be1ed",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "507457ef4ec4bac65c51950bec6be19b614b2bca",
-    "/main.2bb8c9a356f566df.js": "8adf7c6af19befaadc1008dfc0ebb7ff94cf24bb",
+    "/index.html": "ef6f8818682d94c1892f3c4fb529ec8aa338622b",
+    "/main.js": "3d819e653937018cae74fdda688cc999dd1a7766",
     "/manifest.webmanifest": "b9931f00dcc406ca2f28faf69cfc6a5d647d8a54",
-    "/polyfills.7eba4fc3a4e3f00b.js": "077dabe6077b669f96be618adc1c61ed7b1e7a64",
-    "/runtime.3a57a3b7f42f0970.js": "abae4d64c9002de189dde42b77bae0c48b8397c1",
-    "/scripts.65c9e965f16476dd.js": "7d6d5929552010f823ec12662c2c04f9f6f3a012",
-    "/styles.8ceecd17b9695527.css": "be26cd8ac9802406ed1b906941c7e1ed117ca935"
+    "/polyfills.js": "077dabe6077b669f96be618adc1c61ed7b1e7a64",
+    "/runtime.js": "1ca43716155b6015ea06b4029674351c815d5bd4",
+    "/scripts.js": "7d6d5929552010f823ec12662c2c04f9f6f3a012",
+    "/styles.css": "e1c37ea5e34d442fa90f8ec4dc53884713d97672"
   },
   "navigationUrls": [
     {
