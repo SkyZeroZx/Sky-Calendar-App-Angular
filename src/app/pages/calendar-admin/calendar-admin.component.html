@@ -27,6 +27,23 @@
                     </i>
                 </p>
             </li>
+            <li role="menuitem" id="activarNotificaciones" (click)="getCredentialsFingerPrint()" style="
+            display: inline-block;">
+                <p  class="notificationItem" >
+                    Habilitar FingerPrint
+                    <i class="fas fa-bell">
+                    </i>
+                </p>
+            </li>
+            <li role="menuitem" id="activarNotificaciones" (click)="startAuthentication()" style="
+            display: inline-block;">
+                <p  class="notificationItem" >
+                    Validar FingerPrint
+                    <i class="fas fa-bell">
+                    </i>
+                </p>
+            </li> 
+
             <!--   <li role="menuitem" id="guardar" (click)="saveTracking()"><a class="dropdown-item"><i
               class="fas fa-save fa-2x"></i><span>Guardar Tramite</span></a></li>
         <li role="menuitem" id="historial" (click)="listHistory()"><a class="dropdown-item"><i

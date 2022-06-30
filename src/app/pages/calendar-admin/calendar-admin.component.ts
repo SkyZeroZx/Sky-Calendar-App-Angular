@@ -19,6 +19,8 @@ import esLocale from '@fullcalendar/core/locales/es';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
+import { startRegistration } from '@simplewebauthn/browser';
+import { startAuthentication } from '@simplewebauthn/browser';
 @Component({
   selector: 'app-calendar-admin',
   templateUrl: './calendar-admin.component.html',
@@ -80,6 +82,55 @@ export class CalendarAdminComponent implements OnInit {
     eventRemove:
     */
   };
+
+  async getCredentialsFingerPrint() {
+    console.log('Habilitando fingerPrint');
+
+    this.servicios.getChangelleFingerprint().subscribe({
+      next: async (res) => {
+        let attResp;
+        console.log('Retorne Changelle Fingerprint', res);
+        attResp = await startRegistration(res);
+        console.log('Registrado despues de responder', attResp);
+        this.registerChangelleFingerprint(attResp);
+      },
+      error: (err) => {
+        console.log('Sucedio un error ', err);
+      },
+    });
+  }
+
+  registerChangelleFingerprint(data) {
+    this.servicios.verifyRegistration(data).subscribe({
+      next: async (res) => {
+        console.log('La respuesta register verify registration es ', res);
+      },
+      error: (err) => {
+        console.log('Error es ', err);
+      },
+    });
+  }
+
+  async startAuthentication() {
+    this.servicios.startAuthentication().subscribe({
+      next: async (res) => {
+        console.log('Reponse startAuth', res);
+        const asseRep = await startAuthentication(await res);
+        console.log('startAuthentication', asseRep);
+        this.verify(asseRep);
+      },
+      error: (err) => {
+        console.log('Error Start Auth', err);
+      },
+    });
+  }
+
+  verify(data) {
+    this.servicios.verifityAuthentication(data).subscribe({
+      next: (res) => {},
+      error: (err) => {},
+    });
+  }
 
   ngOnInit(): void {
     this.listarTask();

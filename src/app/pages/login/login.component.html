@@ -20,7 +20,7 @@
             <div class="text-center text-muted mb-4">
               <p>Ingrese sus credenciales</p>
             </div>
-            <form role="form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <form role="form" [formGroup]="loginForm" >
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
@@ -56,7 +56,9 @@
                 </div>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary my-4" [disabled]="loginForm.invalid">Ingresar</button>
+                <button type="submit" (click)="onLogin()" class="btn btn-primary my-4" [disabled]="loginForm.invalid">Ingresar</button>
+                <br>
+                <button (click)="fingeprintloggin()"  class="btn btn-primary my-4">FingerPrint Loggin</button>
               </div>
             </form>
           </div>
