@@ -115,7 +115,13 @@ export class CalendarAdminComponent implements OnInit {
     this.servicios.startAuthentication().subscribe({
       next: async (res) => {
         console.log('Reponse startAuth', res);
-        const asseRep = await startAuthentication(await res);
+        let asseRep
+        try {
+            asseRep = await startAuthentication(await res);
+        } catch(err){
+          console.log('Error startAuthentication ', err);
+        }
+       
         console.log('startAuthentication', asseRep);
         this.verify(asseRep);
       },
