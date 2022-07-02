@@ -64,7 +64,7 @@
               </div>
               <div class="text-center">
                 <button (click)="startAuthentication()"
-                  [disabled]="this.userStorage == null ? true : false"
+                  [disabled]="this.enableFingerPrint"
                 class="btn btn-primary my-4" style="bottom: 35px">
                   <em class="fas fa-fingerprint"></em></button>
               </div>

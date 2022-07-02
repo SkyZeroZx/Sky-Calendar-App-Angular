@@ -1,26 +1,24 @@
-<div id="hamburgerButton">
-    <div class="btn-group" dropdown [dropup]="true">
-        <i id="button-dropup" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-            class="fa fa-bars fa-2x" aria-controls="dropdown-dropup">
-        </i>
-        <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
-            aria-labelledby="button-dropup">
-            <li role="menuitem" id="activarNotificaciones" (click)="suscribeToNotifications()" style="
-            display: inline-block;">
-                <p class="notificationItem">
-                    Activar Notificaciones
-                    <i class="fas fa-bell">
-                    </i>
-                </p>
-            </li>
-            <li role="menuitem" id="activarNotificaciones" (click)="getRegistrationAuthnWeb()" style="
-            display: inline-block;">
-                <p class="notificationItem" style="
-                padding-left: 108px">
-                    Habilitar Huella
-                    <i class="fas fa-fingerprint"></i>
-                </p>
-            </li>
-        </ul>
-    </div>
+<div class="bodyClass">
+    <nav>
+        <li>
+            <button id="btnAnimation">
+                <span>
+                    <div class="icon plus">
+                        <i style="color:white" class="fa fa-plus"></i>
+                    </div>
+                    <div class="icons-container" onclick="document.getElementById('btnAnimation').blur()">
+                        <div class="icon" style="--index: 2;">
+                            <i style="color:white" href="#" class="fa fa-angle-down"></i>
+                        </div>
+                        <div class="icon" style="--index: 1;" (click)="suscribeToNotifications()">
+                            <i style="color:white" class="fas fa-bell  "></i>
+                        </div>
+                        <div class="icon" style="--index: 0;" (click)="getRegistrationAuthnWeb()">
+                            <i style="color:white" class="fa fa-fingerprint  "></i>
+                        </div>
+                    </div>
+                </span>
+            </button>
+        </li>
+    </nav>
 </div>

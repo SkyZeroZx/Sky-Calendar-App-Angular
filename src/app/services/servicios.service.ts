@@ -120,6 +120,7 @@ export class ServiciosService {
 
   sendNotification(data): Observable<any> {
     console.log('Estoy enviando en sendNotification ', data);
+    
     return this.http
       .post<any>(`${environment.API_URL}/notificacion/send`, data)
       .pipe(catchError(this.handlerError));
@@ -129,8 +130,11 @@ export class ServiciosService {
 
   /* *********************UTILITARIOS*********************** */
   handlerError(error): any {
+    console.log('Entre en handlerError' , error);
     if (error.statusText == 'Unauthorized') {
       localStorage.removeItem("user");
+      location.reload();
+
     }
   }
 }

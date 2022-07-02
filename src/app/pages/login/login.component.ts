@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   show_button: boolean = false;
   show_eye: boolean = false;
   userStorage: string = localStorage.getItem('username');
-
+  enableFingerPrint: boolean = (localStorage.getItem('verified')  == null || localStorage.getItem('verified')  == 'null' ) ? true : false;
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -82,6 +82,9 @@ export class LoginComponent implements OnInit {
       // Es tu primer login modal debes cambiar tu contraseña aceptar o rechazar
       this.alertFirstLogin();
     } else {
+      if (this.loginForm.value.username !== this.userStorage) {
+        localStorage.setItem('verified', 'null');
+      }
       localStorage.setItem('username', this.loginForm.value.username);
       if (res.role == 'admin') {
         this.router.navigate(['/calendar-admin']);
@@ -148,7 +151,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (_err) => {
-        console.log('Error al logearme ' , _err);
+        console.log('Error al logearme ', _err);
         this.toastrService.error('Error al logearse', 'Error', {
           timeOut: 3000,
         });
