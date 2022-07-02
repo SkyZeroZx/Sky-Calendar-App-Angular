@@ -6,6 +6,7 @@ import { Constant } from 'src/app/Constants/Constant';
 import { AuthService } from 'src/app/services/auth.service';
 import { ServiciosService } from 'src/app/services/servicios.service';
  import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-hamburguer',
   templateUrl: './hamburguer.component.html',
@@ -103,6 +104,11 @@ export class HamburguerComponent implements OnInit {
     this.authService.verifyRegistration(data).subscribe({
       next: async (res) => {
         console.log('La respuesta register verify registration es ', res);
+        Swal.fire(
+          'Exito',
+          'Se registro exitosamente',
+          'success'
+        )
       },
       error: (err) => {
         console.log('Error es ', err);
