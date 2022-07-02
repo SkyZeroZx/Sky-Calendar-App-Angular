@@ -1,0 +1,26 @@
+<div id="hamburgerButton">
+    <div class="btn-group" dropdown [dropup]="true">
+        <i id="button-dropup" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+            class="fa fa-bars fa-2x" aria-controls="dropdown-dropup">
+        </i>
+        <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-dropup">
+            <li role="menuitem" id="activarNotificaciones" (click)="suscribeToNotifications()" style="
+            display: inline-block;">
+                <p class="notificationItem">
+                    Activar Notificaciones
+                    <i class="fas fa-bell">
+                    </i>
+                </p>
+            </li>
+            <li role="menuitem" id="activarNotificaciones" (click)="getRegistrationAuthnWeb()" style="
+            display: inline-block;">
+                <p class="notificationItem" style="
+                padding-left: 108px">
+                    Habilitar Huella
+                    <i class="fas fa-fingerprint"></i>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>

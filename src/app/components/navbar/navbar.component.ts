@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
     console.log("logout");
     this.auth.logout();
     this.router.navigate(["/login"]);
-    localStorage.clear();
+    localStorage.removeItem("user");
   }
 
   changePassword() {

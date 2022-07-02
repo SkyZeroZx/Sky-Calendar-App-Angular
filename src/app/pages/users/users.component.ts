@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
-import { BsModalService, ModalDirective } from "ngx-bootstrap/modal";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import { Constant } from "src/app/Constants/Constant";
 import { ReporteService } from "src/app/services/report.service";
@@ -30,7 +30,6 @@ export class UsersComponent implements OnInit {
   constructor(
     private servicios: ServiciosService,
     private fb: FormBuilder,
-    private modalService: BsModalService,
     private toastrService: ToastrService,
     private reporteService: ReporteService
   ) {}

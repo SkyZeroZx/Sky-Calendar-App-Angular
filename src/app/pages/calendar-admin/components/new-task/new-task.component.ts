@@ -130,7 +130,7 @@ export class NewTaskComponent implements OnInit {
           timeOut: 3000,
         });
       },
-      error(err) {
+      error(_err) {
         this.toastrService.error('Error al enviar notificacion task', 'Error', {
           timeOut: 3000,
         });
@@ -161,7 +161,7 @@ export class NewTaskComponent implements OnInit {
           });
         }
       },
-      error: (err) => {
+      error: (_err) => {
         this.respuestaNewTaskComponent.emit();
         this.toastrService.error('Error al registrar task', 'Error', {
           timeOut: 3000,

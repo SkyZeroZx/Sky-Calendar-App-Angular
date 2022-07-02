@@ -47,7 +47,7 @@ fdescribe("SidebarComponent", () => {
   }));
 
   beforeEach(() => {
-    localStorage.clear();
+    localStorage.removeItem("user");
     fixture = TestBed.createComponent(SidebarComponent);
     service = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
@@ -102,7 +102,7 @@ fdescribe("SidebarComponent", () => {
     component.ngOnInit();
     expect(component.menuItems).toEqual(verifyMenuItemAdmin);
     expect(component.usuarioLogeado).toEqual(mockUserAdmin.username);
-    localStorage.clear();
+    localStorage.removeItem("user");
 
     // Hace el servicio retorne el valor tramitador para validar las condiciones
     spyOn(service, "getItemToken").and.returnValue("tramitador");

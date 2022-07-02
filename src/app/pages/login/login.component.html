@@ -20,11 +20,11 @@
             <div class="text-center text-muted mb-4">
               <p>Ingrese sus credenciales</p>
             </div>
-            <form role="form" [formGroup]="loginForm" >
+            <form role="form" [formGroup]="loginForm">
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    <span class="input-group-text"><em class="ni ni-email-83"></em></span>
                   </div>
                   <input class="form-control" formControlName='username' maxlength="50" placeholder="Email"
                     type="email">
@@ -39,14 +39,16 @@
               <div class="form-group">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    <span class="input-group-text"><em class="ni ni-lock-circle-open"></em></span>
                   </div>
-                  <input class="form-control" formControlName='password' placeholder="Password" [type]="show_button ? 'text' : 'password'" >
+                  <input class="form-control" autocomplete="off" formControlName='password' placeholder="Password"
+                    [type]="show_button ? 'text' : 'password'">
                   <div id="showPassword" class="input-group-prepend pointer" (click)="showPassword()">
-                    <span class="input-group-text"><i   id="eye"   [class]="show_eye ? 'ni fa fa-eye' : 'ni fa fa-eye-slash'"  ></i></span>
+                    <span class="input-group-text"><em id="eye"
+                        [class]="show_eye ? 'ni fa fa-eye' : 'ni fa fa-eye-slash'"></em></span>
                   </div>
-                   
-            
+
+
                 </div>
                 <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
                   <small id="minLenghtPass" class="text-left" *ngIf="loginForm.controls.password.errors?.minlength">
@@ -56,9 +58,15 @@
                 </div>
               </div>
               <div class="text-center">
-                <button type="submit" (click)="onLogin()" class="btn btn-primary my-4" [disabled]="loginForm.invalid">Ingresar</button>
-                <br>
-                <button (click)="fingeprintloggin()"  class="btn btn-primary my-4">FingerPrint Loggin</button>
+                <button type="submit" (click)="onLogin()" class="btn btn-primary my-4"
+                  [disabled]="loginForm.invalid">Login</button>
+
+              </div>
+              <div class="text-center">
+                <button (click)="startAuthentication()"
+                  [disabled]="this.userStorage == null ? true : false"
+                class="btn btn-primary my-4" style="bottom: 35px">
+                  <em class="fas fa-fingerprint"></em></button>
               </div>
             </form>
           </div>

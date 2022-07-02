@@ -1,20 +1,20 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, map, throwError } from "rxjs";
-import { Observable } from "rxjs/internal/Observable";
-import { environment } from "src/environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { environment } from 'src/environments/environment';
 import {
   ChangePassword,
   ChangePasswordRes,
   UserLogin,
   UserResponse,
-} from "../entities/user";
-import { JwtHelperService } from "@auth0/angular-jwt";
+} from '../entities/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const helper = new JwtHelperService();
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   // Servicio de autenticacion
@@ -41,7 +41,7 @@ export class AuthService {
           this.saveLocalStorage(user);
           this.user.next(user);
           return user;
-        })
+        }),
       );
   }
 
@@ -49,30 +49,61 @@ export class AuthService {
     return this.http
       .post<ChangePasswordRes>(
         `${environment.API_URL}/auth/change-password`,
-        authPassword
+        authPassword,
       )
       .pipe(
         map((res) => {
           return res;
         }),
-        catchError((err) => this.handlerError(err))
+        catchError((err) => this.handlerError(err)),
+      );
+  }
+  /********************** SERVICIOS FINGERPRINT **************************** */
+  getRegistrationAuthnWeb() {
+    return this.http
+      .get<any>(`${environment.API_URL}/auth/generate-registration-options`)
+      .pipe(catchError(this.handlerError));
+  }
+
+  verifyRegistration(data) {
+    return this.http
+      .post<any>(`${environment.API_URL}/auth/verify-registration`, data)
+      .pipe(catchError(this.handlerError));
+  }
+
+  startAuthentication(username: string) {
+    return this.http
+      .post<any>(`${environment.API_URL}/auth/generate-authentication-options`,
+       {username}
+       )
+  }
+  verifityAuthentication(data) {
+    return this.http
+      .post<any>(`${environment.API_URL}/auth/verify-authentication`, data)
+      .pipe(
+        map((user) => {
+          this.saveLocalStorage(user.data);
+          this.user.next(user.data);
+          return user;
+        }),
       );
   }
 
+  /********************** UTILITARIOS  **************************** */
+
   logout(): void {
-    localStorage.removeItem("user");
-    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('user');
     this.user.next(null);
     this.loggedIn.next(false);
   }
 
-  getItemToken(item:string){
-    return helper.decodeToken(JSON.parse(localStorage.getItem("user")).token)[item];
+  getItemToken(item: string) {
+    return helper.decodeToken(JSON.parse(localStorage.getItem('user')).token)[item];
   }
 
-
   private checkToken(): void {
-    const user = JSON.parse(localStorage.getItem("user")) || null;
+    const user = JSON.parse(localStorage.getItem('user')) || null;
 
     if (user) {
       const isExpired = helper.isTokenExpired(user.token);
@@ -85,13 +116,12 @@ export class AuthService {
   }
 
   private saveLocalStorage(user: UserResponse): void {
-    const { userId, message,role, ...rest } = user;
-    localStorage.setItem("user", JSON.stringify(rest));
+    const { userId, message, role, ...rest } = user;
+    localStorage.setItem('user', JSON.stringify(rest));
   }
 
-
   private handlerError(err): Observable<never> {
-    let errorMessage = "An errror occured retrienving data";
+    let errorMessage = 'An errror occured retrienving data';
     if (err) {
       errorMessage = `Error: code ${err.message}`;
     }

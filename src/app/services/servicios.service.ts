@@ -125,35 +125,12 @@ export class ServiciosService {
       .pipe(catchError(this.handlerError));
   }
 
-/********************** SERVICIOS FINGERPRINT **************************** */
-  getChangelleFingerprint(){
-    return this.http
-    .get<any>(`${environment.API_URL}/auth/generate-registration-options`)
-    .pipe(catchError(this.handlerError));
-  }
-
-  verifyRegistration(data) {
-    return this.http
-      .post<any>(`${environment.API_URL}/auth/verify-registration`, data)
-      .pipe(catchError(this.handlerError));
-  }
-
-  startAuthentication(){
-    return this.http
-    .get<any>(`${environment.API_URL}/auth/generate-authentication-options`)
-    .pipe(catchError(this.handlerError));
-  }
-  verifityAuthentication(data) {
-    return this.http
-      .post<any>(`${environment.API_URL}/auth/verify-authentication`, data)
-      .pipe(catchError(this.handlerError));
-  }
 
 
   /* *********************UTILITARIOS*********************** */
   handlerError(error): any {
     if (error.statusText == 'Unauthorized') {
-      localStorage.clear();
+      localStorage.removeItem("user");
     }
   }
 }

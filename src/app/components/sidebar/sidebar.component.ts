@@ -60,7 +60,7 @@ export class SidebarComponent implements OnInit {
   onLogout() {
     this.auth.logout();
     this.router.navigate(["/login"]);
-    localStorage.clear();
+    localStorage.removeItem("user");
   }
 
   changePassword() {

@@ -44,13 +44,8 @@ export class EditTaskComponent implements OnInit {
     console.log('in_editTask ', this.in_editTask);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.crearFormularioNewTask();
-    this.listarUserByTask();
-    this.listarUsers();
-    this.listarTypeTask();
-    this.detailsEdit();
-    console.log('in_editTask ', this.in_editTask);
+  ngOnChanges(_changes: SimpleChanges): void {
+    this.ngOnInit()
   }
 
   editarTask() {
@@ -69,8 +64,8 @@ export class EditTaskComponent implements OnInit {
           });
         }
       },
-      error: (err) => {
-        console.log('  ERR EDITAR TASK ', err);
+      error: (_err) => {
+        console.log('  ERR EDITAR TASK ', _err);
         this.respuestaEditTaskComponent.emit();
         this.toastrService.error('Error al actualizar la tarea', 'Error', {
           timeOut: 3000,
@@ -129,11 +124,18 @@ export class EditTaskComponent implements OnInit {
     console.log('Usuario removido es ', item.value);
     this.servicios.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
       next: (res) => {
-        this.toastrService.success('Se removio exitosamente al usuario', 'Exito', {
-          timeOut: 3000,
-        });
+        if ( res.message == Constant.MENSAJE_OK){
+          this.toastrService.success('Se removio exitosamente al usuario', 'Exito', {
+            timeOut: 3000,
+          });
+        } else {
+          this.toastrService.error('Error al remover usuario', 'Error', {
+            timeOut: 3000,
+          });
+        }
+  
       },
-      error: (err) => {
+      error: (_err) => {
         this.toastrService.error('Error al remover usuario', 'Error', {
           timeOut: 3000,
         });
@@ -149,11 +151,18 @@ export class EditTaskComponent implements OnInit {
     console.log('Usuario agregado es ', item.id);
     this.servicios.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
       next: (res) => {
-        this.toastrService.success('Se agrego exitosamente al usuario', 'Exito', {
-          timeOut: 3000,
-        });
+        if ( res.message == Constant.MENSAJE_OK){
+          this.toastrService.success('Se agrego exitosamente al usuario', 'Exito', {
+            timeOut: 3000,
+          });
+        } else {
+          this.toastrService.error('Error al agregar usuario', 'Error', {
+            timeOut: 3000,
+          });
+        }
+     
       },
-      error: (err) => {
+      error: (_err) => {
         this.toastrService.error('Error al agregar usuario', 'Error', {
           timeOut: 3000,
         });

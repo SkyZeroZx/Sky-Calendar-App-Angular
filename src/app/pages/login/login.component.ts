@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { startAuthentication } from '@simplewebauthn/browser';
 import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
- 
-import { startRegistration } from '@simplewebauthn/browser';
-
-
 
 @Component({
   selector: 'app-login',
@@ -19,6 +16,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   show_button: boolean = false;
   show_eye: boolean = false;
+  userStorage: string = localStorage.getItem('username');
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -28,8 +27,11 @@ export class LoginComponent implements OnInit {
 
   //Al renderizar componente creamos el formulario
   ngOnInit() {
-    localStorage.clear();
+    localStorage.removeItem('user');
     this.crearFormularioLogin();
+    this.loginForm.controls.username.setValue(
+      this.userStorage == null ? '' : this.userStorage,
+    );
   }
 
   //Funcion que muestra password al usuario
@@ -54,21 +56,11 @@ export class LoginComponent implements OnInit {
 
   // Llamada al servicio Login
   onLogin() {
-    const formValue = this.loginForm.value;
-    this.authService.login(formValue).subscribe({
+    this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         // Segun response realizamos una accion
         if (res.message == Constant.MENSAJE_OK) {
-          if (res.firstLogin) {
-            // Es tu primer login modal debes cambiar tu contraseña aceptar o rechazar
-            this.alertFirstLogin();
-          } else {
-            if (res.role == 'admin') {
-              this.router.navigate(['/calendar-admin']);
-            } else {
-              this.router.navigate(['/calendar-view']);
-            }
-          }
+          this.validateLogin(res);
         } else {
           this.toastrService.error(res.message, 'Error', {
             timeOut: 3000,
@@ -83,6 +75,20 @@ export class LoginComponent implements OnInit {
         });
       },
     });
+  }
+
+  validateLogin(res) {
+    if (res.firstLogin) {
+      // Es tu primer login modal debes cambiar tu contraseña aceptar o rechazar
+      this.alertFirstLogin();
+    } else {
+      localStorage.setItem('username', this.loginForm.value.username);
+      if (res.role == 'admin') {
+        this.router.navigate(['/calendar-admin']);
+      } else {
+        this.router.navigate(['/calendar-view']);
+      }
+    }
   }
 
   // Alerta de advertencia al ser primerlogin
@@ -102,17 +108,51 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/change-password']);
       } else {
         // En caso contrario limpiamos localstorage
-        localStorage.clear();
+        localStorage.removeItem('user');
       }
     });
   }
-  test = {
-    username: 'TEST',
-    password: 'TEST'
+
+  async startAuthentication() {
+    this.authService.startAuthentication(this.userStorage).subscribe({
+      next: async (res) => {
+        try {
+          const asseRep = await startAuthentication(await res);
+          Object.assign(asseRep, { username: this.userStorage });
+          this.verifityAuthentication(asseRep);
+        } catch (err) {
+          this.toastrService.error('Sucedio un error al intentar autenticarse', 'Error', {
+            timeOut: 3000,
+          });
+        }
+      },
+      error: (_err) => {
+        this.toastrService.error('Sucedio un error al intentar autenticarse', 'Error', {
+          timeOut: 3000,
+        });
+      },
+    });
   }
 
-  async fingeprintloggin() {
-    console.log('Finger Print');
-
+  verifityAuthentication(data) {
+    console.log('Envie desde Angular', data);
+    this.authService.verifityAuthentication(data).subscribe({
+      next: (res) => {
+        console.log('Autentificacion OK', res);
+        if (res.verified) {
+          this.validateLogin(res.data);
+        } else {
+          this.toastrService.error('Error al logearse', 'Error', {
+            timeOut: 3000,
+          });
+        }
+      },
+      error: (_err) => {
+        console.log('Error al logearme ' , _err);
+        this.toastrService.error('Error al logearse', 'Error', {
+          timeOut: 3000,
+        });
+      },
+    });
   }
 }

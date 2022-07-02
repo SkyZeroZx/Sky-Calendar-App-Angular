@@ -12,50 +12,7 @@
     </div>
 </div>
 
-<div id="hamburgerButton">
-    <div class="btn-group" dropdown [dropup]="true">
-        <i id="button-dropup" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-            class="fa fa-bars fa-2x" aria-controls="dropdown-dropup">
-        </i>
-        <ul id="dropdown-dropup" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
-            aria-labelledby="button-dropup">
-            <li role="menuitem" id="activarNotificaciones" (click)="suscribeToNotifications()" style="
-            display: inline-block;">
-                <p  class="notificationItem" >
-                    Activar Notificaciones  
-                    <i class="fas fa-bell">
-                    </i>
-                </p>
-            </li>
-            <li role="menuitem" id="activarNotificaciones" (click)="getCredentialsFingerPrint()" style="
-            display: inline-block;">
-                <p  class="notificationItem" >
-                    Habilitar FingerPrint
-                    <i class="fas fa-bell">
-                    </i>
-                </p>
-            </li>
-            <li role="menuitem" id="activarNotificaciones" (click)="startAuthentication()" style="
-            display: inline-block;">
-                <p  class="notificationItem" >
-                    Validar FingerPrint
-                    <i class="fas fa-bell">
-                    </i>
-                </p>
-            </li> 
-
-            <!--   <li role="menuitem" id="guardar" (click)="saveTracking()"><a class="dropdown-item"><i
-              class="fas fa-save fa-2x"></i><span>Guardar Tramite</span></a></li>
-        <li role="menuitem" id="historial" (click)="listHistory()"><a class="dropdown-item"><i
-              class="fas fa-history fa-2x"></i>
-            <span>Ver historial</span></a>
-        </li>-->
-        </ul>
-    </div>
-</div>
-
-
-
+  
 <!-- Modal Nuevo Task -->
 <div bsModal class="modal fade" #modalNewTask="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarTask()"
     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">

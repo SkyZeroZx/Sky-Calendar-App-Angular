@@ -11,7 +11,6 @@ import { defineLocale } from "ngx-bootstrap/chronos";
 import { esLocale } from "ngx-bootstrap/locale";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { TabsModule } from "ngx-bootstrap/tabs";
-import { NgxPaginationModule } from "ngx-pagination";
 import { UsersComponent } from "src/app/pages/users/users.component";
 import { CrearUserComponent } from "src/app/pages/users/crear-user/crear-user.component";
 import { EditUserComponent } from "src/app/pages/users/edit-user/edit-user.component";
@@ -24,13 +23,13 @@ import { DetailComponent } from "src/app/pages/calendar-view/detail/detail.compo
 import { CalendarViewComponent } from "src/app/pages/calendar-view/calendar-view.component";
 import { EditTaskComponent } from "src/app/pages/calendar-admin/components/edit-task/edit-task.component";
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import { NgxPaginationModule } from "ngx-pagination";
 defineLocale("es", esLocale);
 // Importaciones de FullCalendarModule
 FullCalendarModule.registerPlugins([

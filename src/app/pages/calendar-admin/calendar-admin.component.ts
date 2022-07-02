@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { SwPush } from '@angular/service-worker';
 import {
   CalendarOptions,
   DateSelectArg,
@@ -7,21 +6,15 @@ import {
   EventApi,
   EventInput,
 } from '@fullcalendar/angular';
-import { Draggable } from '@fullcalendar/interaction'; // for dateClick
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
 import { ServiciosService } from 'src/app/services/servicios.service';
-import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { INITIAL_EVENTS, createEventId, INITIAL_EVENTS_AFETER } from './event-utils';
 import esLocale from '@fullcalendar/core/locales/es';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { DatePipe } from '@angular/common';
-import { startRegistration } from '@simplewebauthn/browser';
-import { startAuthentication } from '@simplewebauthn/browser';
-@Component({
+ @Component({
   selector: 'app-calendar-admin',
   templateUrl: './calendar-admin.component.html',
   styleUrls: ['./calendar-admin.component.scss'],
@@ -46,12 +39,11 @@ export class CalendarAdminComponent implements OnInit {
   // Variables booleas que validan activacion de los modales
   taskEditOk: boolean = false;
   taskCreateOk: boolean = false;
-  constructor(
+
+   constructor(
     private servicios: ServiciosService,
     private toastrService: ToastrService,
-    private swPush: SwPush,
     private localeService: BsLocaleService,
-    private datePipe: DatePipe,
   ) {
     this.localeService.use(this.locale);
   }
@@ -64,7 +56,6 @@ export class CalendarAdminComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
     },
     initialView: 'dayGridMonth',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
     selectable: true,
@@ -75,71 +66,10 @@ export class CalendarAdminComponent implements OnInit {
     eventClick: this.handleEventClick.bind(this),
     eventChange: this.eventDraggable.bind(this),
     locales: [esLocale],
-
-    /* you can update a remote database when these fire:
-    eventAdd:
-    eventChange:
-    eventRemove:
-    */
   };
 
-  async getCredentialsFingerPrint() {
-    console.log('Habilitando fingerPrint');
-
-    this.servicios.getChangelleFingerprint().subscribe({
-      next: async (res) => {
-        let attResp;
-        console.log('Retorne Changelle Fingerprint', res);
-        attResp = await startRegistration(res);
-        console.log('Registrado despues de responder', attResp);
-        this.registerChangelleFingerprint(attResp);
-      },
-      error: (err) => {
-        console.log('Sucedio un error ', err);
-      },
-    });
-  }
-
-  registerChangelleFingerprint(data) {
-    this.servicios.verifyRegistration(data).subscribe({
-      next: async (res) => {
-        console.log('La respuesta register verify registration es ', res);
-      },
-      error: (err) => {
-        console.log('Error es ', err);
-      },
-    });
-  }
-
-  async startAuthentication() {
-    this.servicios.startAuthentication().subscribe({
-      next: async (res) => {
-        console.log('Reponse startAuth', res);
-        let asseRep
-        try {
-            asseRep = await startAuthentication(await res);
-        } catch(err){
-          console.log('Error startAuthentication ', err);
-        }
-       
-        console.log('startAuthentication', asseRep);
-        this.verify(asseRep);
-      },
-      error: (err) => {
-        console.log('Error Start Auth', err);
-      },
-    });
-  }
-
-  verify(data) {
-    this.servicios.verifityAuthentication(data).subscribe({
-      next: (res) => {},
-      error: (err) => {},
-    });
-  }
-
   ngOnInit(): void {
-    this.listarTask();
+     this.listarTask();
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -150,6 +80,8 @@ export class CalendarAdminComponent implements OnInit {
     this.modalNewTask.show();
     calendarApi.unselect();
   }
+
+ 
 
   listarTask() {
     this.servicios.getAllTasks().subscribe({
@@ -188,7 +120,7 @@ export class CalendarAdminComponent implements OnInit {
             });
           }
         },
-        error: (err) => {
+        error: (_err) => {
           this.toastrService.error('Error al actualizar tarea', 'Error', {
             timeOut: 3000,
           });
@@ -223,7 +155,7 @@ export class CalendarAdminComponent implements OnInit {
           });
         }
       },
-      error: (err) => {
+      error: (_err) => {
         this.toastrService.error('Error al eliminar la tarea', 'Error', {
           timeOut: 3000,
         });
@@ -247,68 +179,6 @@ export class CalendarAdminComponent implements OnInit {
       } else if (result.isDenied) {
         this.removeTask(item.event?._def?.publicId);
       }
-    });
-  }
-
-  // Metodo que solicita al usuario habilitar las notificaciones en el navegador
-  suscribeToNotifications(): any {
-    console.log('suscribeToNotifications');
-    // Realizamos la suscripcion a las notificaciones del navegador  13161522543671642522 71642522  13161521506970666555 72514695
-    this.swPush
-      .requestSubscription({
-        serverPublicKey: environment.VAPID_PUBLIC_KEY,
-      })
-      .then((token) => {
-        // Validamos que el usuario de permisos
-        console.log('Request Token Subscription');
-        this.saveNotification(token);
-      })
-      .catch((err) => {
-        console.log('Error al suscribirse', err);
-        // En caso contrario de suceder un error lo notificamos
-        this.toastrService.error('Sucedio un error al suscribirse ', 'Error', {
-          timeOut: 5000,
-        });
-      });
-  }
-
-  formatSaveToken(token) {
-    return { tokenPush: JSON.stringify(token) };
-  }
-
-  saveNotification(token) {
-    this.servicios.saveUserNotification(this.formatSaveToken(token)).subscribe({
-      next: (res) => {
-        // Para el caso de exito de respuesta del servicio saveUserNotification
-        if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success(
-            'Las notificaciones fueron habilitadas exitosamente',
-            'Exito',
-            {
-              timeOut: 5000,
-            },
-          );
-        } else {
-          this.toastrService.error(
-            'Sucedio un error al suscribir sus notificaciones',
-            'Error',
-            {
-              timeOut: 5000,
-            },
-          );
-        }
-      },
-      error: (err) => {
-        // En caso de un error con el servicio lo mostramos
-        console.log('Error al suscribir notificaciones saveNotification ', err);
-        this.toastrService.error(
-          'Sucedio un error al suscribir sus notificaciones ',
-          'Error',
-          {
-            timeOut: 5000,
-          },
-        );
-      },
     });
   }
 }
