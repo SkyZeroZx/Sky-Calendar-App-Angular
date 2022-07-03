@@ -5,8 +5,10 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsDatepickerConfig, BsDaterangepickerDirective } from 'ngx-bootstrap/datepicker';
 import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
 import { ServiciosService } from 'src/app/services/servicios.service';
@@ -17,7 +19,6 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 })
 export class NewTaskComponent implements OnInit {
   crearNewTask: FormGroup;
-
   @Output()
   respuestaNewTaskComponent = new EventEmitter<any>();
 
@@ -25,12 +26,19 @@ export class NewTaskComponent implements OnInit {
   in_dateSelect: any;
   listaUsuarios: any[] = [];
   listarTypes: any[] = [];
+  today: Date;
+  maxDate: Date;
+  minDate: Date;
+
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
     private servicios: ServiciosService,
   ) {
-    // This is intentional
+    this.today = new Date();
+    this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
+    this.maxDate = new Date(this.today.getFullYear(), this.today.getMonth(), new Date(this.today.getFullYear(),  this.today.getMonth() + 1, 0).getDate());
+ 
   }
 
   ngOnInit(): void {

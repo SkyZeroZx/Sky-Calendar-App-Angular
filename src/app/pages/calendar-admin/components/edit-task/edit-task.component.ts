@@ -26,13 +26,18 @@ export class EditTaskComponent implements OnInit {
   in_editTask: any;
   listaUsuarios: any[] = [];
   listarTypes: any[] = [];
-
+  today: Date;
+  maxDate: Date;
+  minDate: Date;
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
     private servicios: ServiciosService,
   ) {
-    // This is intentional
+    this.today = new Date();
+    this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
+    this.maxDate = new Date(this.today.getFullYear(), this.today.getMonth(), new Date(this.today.getFullYear(),  this.today.getMonth() + 1, 0).getDate());
+ 
   }
 
   ngOnInit(): void {
@@ -45,7 +50,7 @@ export class EditTaskComponent implements OnInit {
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
-    this.ngOnInit()
+    this.ngOnInit();
   }
 
   editarTask() {
@@ -124,7 +129,7 @@ export class EditTaskComponent implements OnInit {
     console.log('Usuario removido es ', item.value);
     this.servicios.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
       next: (res) => {
-        if ( res.message == Constant.MENSAJE_OK){
+        if (res.message == Constant.MENSAJE_OK) {
           this.toastrService.success('Se removio exitosamente al usuario', 'Exito', {
             timeOut: 3000,
           });
@@ -133,7 +138,6 @@ export class EditTaskComponent implements OnInit {
             timeOut: 3000,
           });
         }
-  
       },
       error: (_err) => {
         this.toastrService.error('Error al remover usuario', 'Error', {
@@ -151,7 +155,7 @@ export class EditTaskComponent implements OnInit {
     console.log('Usuario agregado es ', item.id);
     this.servicios.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
       next: (res) => {
-        if ( res.message == Constant.MENSAJE_OK){
+        if (res.message == Constant.MENSAJE_OK) {
           this.toastrService.success('Se agrego exitosamente al usuario', 'Exito', {
             timeOut: 3000,
           });
@@ -160,7 +164,6 @@ export class EditTaskComponent implements OnInit {
             timeOut: 3000,
           });
         }
-     
       },
       error: (_err) => {
         this.toastrService.error('Error al agregar usuario', 'Error', {
@@ -177,7 +180,7 @@ export class EditTaskComponent implements OnInit {
       this.in_editTask?.event?._def?.extendedProps?.description,
     );
     this.editTaskForm.controls.codType.setValue(
-      this.in_editTask?.event?._def?.extendedProps?.codType
+      this.in_editTask?.event?._def?.extendedProps?.codType,
     );
     this.editTaskForm.controls.dateRange.setValue([
       this.in_editTask?.event?._instance?.range.start,
