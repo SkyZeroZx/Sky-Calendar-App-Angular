@@ -14,7 +14,8 @@ import Swal from 'sweetalert2';
 import esLocale from '@fullcalendar/core/locales/es';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
- @Component({
+import { FullCalendarComponent } from '@fullcalendar/angular';
+@Component({
   selector: 'app-calendar-admin',
   templateUrl: './calendar-admin.component.html',
   styleUrls: ['./calendar-admin.component.scss'],
@@ -40,7 +41,9 @@ export class CalendarAdminComponent implements OnInit {
   taskEditOk: boolean = false;
   taskCreateOk: boolean = false;
 
-   constructor(
+  @ViewChild('calendar') ucCalendar: any;
+
+  constructor(
     private servicios: ServiciosService,
     private toastrService: ToastrService,
     private localeService: BsLocaleService,
@@ -62,6 +65,7 @@ export class CalendarAdminComponent implements OnInit {
     selectMirror: true,
     dayMaxEvents: true,
     longPressDelay: 300,
+    unselectAuto: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventChange: this.eventDraggable.bind(this),
@@ -69,7 +73,7 @@ export class CalendarAdminComponent implements OnInit {
   };
 
   ngOnInit(): void {
-     this.listarTask();
+    this.listarTask();
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -80,8 +84,6 @@ export class CalendarAdminComponent implements OnInit {
     this.modalNewTask.show();
     calendarApi.unselect();
   }
-
- 
 
   listarTask() {
     this.servicios.getAllTasks().subscribe({
@@ -102,15 +104,17 @@ export class CalendarAdminComponent implements OnInit {
   }
 
   eventDraggable(item: any) {
-    console.log('test eventDraggable', item);
-    console.log('test eventDraggable event', item.event);
+
+
     this.servicios
       .updateTask(
         this.formatedTaskChange(item.event._def.publicId, item.event._instance.range),
       )
       .subscribe({
         next: (res) => {
+          this.listarTask();
           if (res.message == Constant.MENSAJE_OK) {
+            console.log('Calendar API ', item.event._context.calendarApi.view.calendar);
             this.toastrService.success('Tarea actualizada exitosamente', 'Exito', {
               timeOut: 3000,
             });
