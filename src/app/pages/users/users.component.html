@@ -16,40 +16,40 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input type="text" (keyup)="onChangeForm()" placeholder="Nombres" formControlName="filterNombreUser"
-                                    class="form-control">
+                                <input type="text" (keyup)="onChangeForm()" placeholder="Nombres"
+                                    formControlName="filterNombreUser" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input type="text" (keyup)="onChangeForm()" placeholder="Apellido Paterno" formControlName="filterPaternoUser"
-                                    class="form-control">
+                                <input type="text" (keyup)="onChangeForm()" placeholder="Apellido Paterno"
+                                    formControlName="filterPaternoUser" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input type="text" (keyup)="onChangeForm()" placeholder="Apellido Materno" formControlName="filterMaternoUser"
-                                    class="form-control">
+                                <input type="text" (keyup)="onChangeForm()" placeholder="Apellido Materno"
+                                    formControlName="filterMaternoUser" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="text"(keyup)="onChangeForm()" placeholder="Codigo Usuario" formControlName="filterCodUser"
-                                    class="form-control">
+                                <input type="text" (keyup)="onChangeForm()" placeholder="Codigo Usuario"
+                                    formControlName="filterCodUser" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="text" (keyup)="onChangeForm()" placeholder="Email Usuario" formControlName="filterEmailUser"
-                                    class="form-control">
+                                <input type="text" (keyup)="onChangeForm()" placeholder="Email Usuario"
+                                    formControlName="filterEmailUser" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <input type="text" (keyup)="onChangeForm()" placeholder="Rol Usuario" formControlName="filterRolUser"
-                                    class="form-control">
+                                <input type="text" (keyup)="onChangeForm()" placeholder="Rol Usuario"
+                                    formControlName="filterRolUser" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -68,21 +68,14 @@
 
                 <div class="card-header">
                     <div class="row">
-                        <div class="row col-md-6" style="text-align: left;">
-                            <div class="col-md-1">
-                                <button type="button" class="btn btn-outline-primary" (click)="crearUsuario()">
-                                    <a><i class="fa fa-user-plus" aria-hidden="true"></i>
-                                        Nuevo</a>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row col-md-6" style="text-align: right;">
-                            <div class="col-md-4">
-                                <button id="pdfUsers" type="button" class="btn btn-outline-danger" (click)="exportarPDF()">
-                                    <a> <i class="fa fa-file-pdf" aria-hidden="true"></i> PDF</a>
-                                </button>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-outline-primary" (click)="crearUsuario()">
+                            <a><i class="fa fa-user-plus" aria-hidden="true"></i>
+                                Nuevo</a>
+                        </button>
+
+                        <button id="pdfUsers" type="button" class="btn btn-outline-danger" (click)="exportarPDF()">
+                            <a> <i class="fa fa-file-pdf" aria-hidden="true"></i> PDF</a>
+                        </button>
                     </div>
                 </div>
 

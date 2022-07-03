@@ -8,20 +8,20 @@ _Adicionalmente funciona como PWA(Progresive Web App) que puede integrarse en cu
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-_Puede visualizar una Demo del Proyecto en el siguiente enlace : https://isekai-orpheus-bot.vercel.app/#/login_
+_Puede visualizar una Demo del Proyecto en el siguiente enlace : https://sky-calendar-app.vercel.app/#/login_
 
 _**Administrador**_
 
 ```
-adminDemo@gmail.com
-Admin2
+saivergx@gmail.com
+Admin1
 ```
 
 _**Viewer**_
 
 ```
-viewerDemo@gmail.com
-Admin2
+jaimeburgostejada@gmail.com
+Admin1
 ```
 
 Mira **Deployment** para conocer como desplegar el proyecto.
@@ -70,7 +70,6 @@ _**Change Password** : Apartado para el cambio de contraseña_
 
 ![Change Password](/docs/layout/change-password.png)
 
-
 _**Gestion de Usuarios** : Apartado para la gestion de usuarios , creacion , reseteo , edicion , eliminacion_
 
 ![Gestion Usuarios 1](/docs/layout/gestion_usuarios_1.png)
@@ -81,8 +80,7 @@ _**Gestion de Usuarios** : Apartado para la gestion de usuarios , creacion , res
 
 ![Gestion Usuarios 4](/docs/layout/gestion_usuarios_4.png)
 
-
-_**Calendario** : Apartado con el calendario de tareas , registro de tareas , edicion , eliminacion  (Se envia notificaciones push a los usuarios suscritos)_
+_**Calendario** : Apartado con el calendario de tareas , registro de tareas , edicion , eliminacion (Se envia notificaciones push a los usuarios suscritos)_
 
 ![Calendario 1](/docs/layout/calendario_1.png)
 
@@ -108,7 +106,7 @@ npm run start-pwa
 
 _Este comando se encuentra configurado en el archivo *package.json de la raiz del proyecto por default ejecuta el puerto 8080*_
 
-_La PWA se encuentra configurada para ejecutarse en la vista Tracking para consulta de tramites_
+_La PWA se encuentra configurada para ejecutarse en la vista de Login si no se esta logeado_
 
 ![PWA 1](/docs/pwa/pwa_1.png)
 
@@ -118,13 +116,31 @@ _La PWA se encuentra configurada para ejecutarse en la vista Tracking para consu
 
 ![PWA 4](/docs/pwa/pwa_4.png)
 
-
-_Se cuenta con soporte de notificaciones Push integrado en el modulo de Tracking_
+_Se cuenta con soporte de notificaciones Push integrado para el calendario tanto para escritorio como dispositivos moviles_
 
 _Se creo el archivo *src/custom-service-worker.js* para la gestion de evento de notificaciones personalizado_
 
 ![PWA 5](/docs/pwa/pwa_5.png)
 
+![PWA 6](/docs/pwa/pwa_6.png)
+
+## Web Authn FingerPrint 👨🏻‍💻
+
+_Cuenta con soporte para logeo mediante huella dactilar o patron/pin del dispostivo movil usando el estandar web authn_
+
+![AUTH 1](/docs/web-authn/web-authn_1.jpg)
+
+_Para habilitarlo ir al menu hamburguesa y desplegar opciones para habilitar la verificacion dactilar o por patron/pin_
+
+![AUTH 2](/docs/web-authn/web-authn_2.jpg)
+
+![AUTH 4](/docs/web-authn/web-authn_4.jpg)
+
+_En caso el dispositivo se encuentre registro se tendra mensaje de informacion de registro_
+
+![AUTH 3](/docs/web-authn/web-authn_3.jpg)
+
+_Más informacion de Web Authn : https://webauthn.io/_
 
 ## Despliegue 📦
 
@@ -149,6 +165,7 @@ _Las herramientas utilizadas son:_
 - [Visual Studio Code](https://code.visualstudio.com/) - Editor de Codigo
 - [Prettier](https://prettier.io/) - Formateador de Codigo
 - [TabNine](https://www.tabnine.com/) - Autocompletador de Codigo
+- [WebAuthn](https://webauthn.io/) - Web Authentication
 - [Argon DashBoard](https://demos.creative-tim.com/argon-dashboard-angular/#/documentation/tutorial) - Plantilla Web Utilizada
 
 ## Versionado 📌
