@@ -36,13 +36,13 @@ export class NewTaskComponent implements OnInit {
     private toastrService: ToastrService,
     private servicios: ServiciosService,
   ) {
-    this.today = new Date();
+   /* this.today = new Date();
     this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
     this.maxDate = new Date(
       this.today.getFullYear(),
       this.today.getMonth(),
       new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).getDate(),
-    );
+    );*/
   }
 
   ngOnInit(): void {

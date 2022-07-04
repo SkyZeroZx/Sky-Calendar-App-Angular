@@ -34,12 +34,12 @@
             </div>
         </div>
 
-
+<!--[minDate]="minDate" [maxDate]="maxDate"-->
         <div class="col">
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Rango Fechas (*)</label>
                 <input readonly type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker
-                    formControlName="dateRange" [minDate]="minDate" [maxDate]="maxDate"
+                    formControlName="dateRange" 
                     [bsConfig]="{ rangeInputFormat :'YYYY-MM-DD' , dateInputFormat: 'YYYY-MM-DD' ,containerClass:'theme-blue',  displayOneMonthRange: true}">
 
             </div>
