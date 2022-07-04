@@ -19,6 +19,20 @@ export interface UserResponse {
   firstLogin?: boolean;
 }
 
+export interface IUser {
+  id?: number;
+  username?: string;
+  role?: string;
+  createdAt?: Date;
+  updateAt?: Date;
+  nombre: string;
+  apellidoPaterno?: string;
+  apellidoMaterno?: string;
+  estado?: string;
+  firstLogin?: boolean;
+}
+
+
 export interface UserUpdate {
   apellidoMaterno: string;
   apellidoPaterno: string;

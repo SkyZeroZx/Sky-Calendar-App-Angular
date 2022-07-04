@@ -9,6 +9,8 @@ import {
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
+import { IType } from 'src/app/entities/type';
+import { IUser } from 'src/app/entities/user';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
 @Component({
@@ -18,17 +20,18 @@ import { ServiciosService } from 'src/app/services/servicios.service';
 })
 export class EditTaskComponent implements OnInit {
   editTaskForm: FormGroup;
-
+  //Output para emitir respuesta que cerrara el modal al terminar de editar
   @Output()
   respuestaEditTaskComponent = new EventEmitter<any>();
-
+  // Valor de entrada del componente padre
   @Input()
   in_editTask: any;
-  listaUsuarios: any[] = [];
-  listarTypes: any[] = [];
+  listaUsuarios: IUser[] = [];
+  listarTypes: IType[] = [];
   today: Date;
   maxDate: Date;
   minDate: Date;
+
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
@@ -36,8 +39,11 @@ export class EditTaskComponent implements OnInit {
   ) {
     this.today = new Date();
     this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
-    this.maxDate = new Date(this.today.getFullYear(), this.today.getMonth(), new Date(this.today.getFullYear(),  this.today.getMonth() + 1, 0).getDate());
- 
+    this.maxDate = new Date(
+      this.today.getFullYear(),
+      this.today.getMonth(),
+      new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).getDate(),
+    );
   }
 
   ngOnInit(): void {

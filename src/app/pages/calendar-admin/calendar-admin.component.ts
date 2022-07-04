@@ -3,8 +3,8 @@ import {
   CalendarOptions,
   DateSelectArg,
   EventClickArg,
-  EventApi,
   EventInput,
+  EventChangeArg,
 } from '@fullcalendar/angular';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 import esLocale from '@fullcalendar/core/locales/es';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { FullCalendarComponent } from '@fullcalendar/angular';
+
 @Component({
   selector: 'app-calendar-admin',
   templateUrl: './calendar-admin.component.html',
@@ -23,15 +23,12 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 export class CalendarAdminComponent implements OnInit {
   locale = 'es';
   locales = listLocales();
-  @ViewChild('externalEvents', { static: true })
-  externalEvents: ElementRef;
   // Modal Crear Nuevo Task
   @ViewChild('modalNewTask', { static: false })
   public modalNewTask: ModalDirective;
   // Modal Editar Task
   @ViewChild('modalEditTask', { static: false })
   public modalEditTask: ModalDirective;
-  currentEvents: EventApi[] = [];
   taskList: EventInput[] = [];
   // Valor del Task seleccionado que pasaremos para editarlo
   taskEdit: any;
@@ -41,7 +38,6 @@ export class CalendarAdminComponent implements OnInit {
   taskEditOk: boolean = false;
   taskCreateOk: boolean = false;
 
-  @ViewChild('calendar') ucCalendar: any;
 
   constructor(
     private servicios: ServiciosService,
@@ -50,7 +46,8 @@ export class CalendarAdminComponent implements OnInit {
   ) {
     this.localeService.use(this.locale);
   }
-  dateEndTest: any;
+
+  // Creamos nuestro calendario con las configuraciones respectivas para el administrador
   calendarOptions: CalendarOptions = {
     contentHeight: 'auto',
     headerToolbar: {
@@ -89,11 +86,13 @@ export class CalendarAdminComponent implements OnInit {
     this.servicios.getAllTasks().subscribe({
       next: (res) => {
         console.log('response All Task ->', res);
-        this.taskList = [...res];
         this.calendarOptions.events = res;
       },
-      error: (err) => {
-        console.log('Error All Task ', err);
+      error: (_err) => {
+        console.log('Error All Task ', _err);
+        this.toastrService.error('Sucedio un error al listar las tareas', 'Error', {
+          timeOut: 3000,
+        });
       },
     });
   }
@@ -103,31 +102,32 @@ export class CalendarAdminComponent implements OnInit {
     this.optionsClickEvent(clickInfo);
   }
 
-  eventDraggable(item: any) {
-
-
+  eventDraggable(item: EventChangeArg) {
+    item.event.remove();
     this.servicios
       .updateTask(
         this.formatedTaskChange(item.event._def.publicId, item.event._instance.range),
       )
       .subscribe({
         next: (res) => {
-          this.listarTask();
           if (res.message == Constant.MENSAJE_OK) {
             console.log('Calendar API ', item.event._context.calendarApi.view.calendar);
             this.toastrService.success('Tarea actualizada exitosamente', 'Exito', {
               timeOut: 3000,
             });
+            this.listarTask();
           } else {
             this.toastrService.error('Error al actualizar tarea', 'Error', {
               timeOut: 3000,
             });
+            this.listarTask();
           }
         },
         error: (_err) => {
           this.toastrService.error('Error al actualizar tarea', 'Error', {
             timeOut: 3000,
           });
+          this.listarTask();
         },
       });
   }
@@ -136,10 +136,7 @@ export class CalendarAdminComponent implements OnInit {
     return { codTask: codTask, dateRange: [dateRange.start, dateRange.end] };
   }
 
-  handleEvents(events: EventApi[]) {
-    console.log('Events ', events);
-    this.currentEvents = events;
-  }
+
 
   formatDataRemoveTask(id) {
     return { codTask: parseInt(id) };

@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { UserUpdate, UserResponse } from '../entities/user';
+import { UserUpdate, UserResponse, IUser } from '../entities/user';
 import { AuthService } from './auth.service';
+import { IAddUserTask, ICodTask, IRegisterTask, ITaskResponse, IUserByTask } from '../entities/task';
+import { IType } from '../entities/type';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +44,7 @@ export class ServiciosService {
       .pipe(catchError(this.handlerError));
   }
 
-  getAllUsers(): Observable<UserResponse[]> {
+  getAllUsers(): Observable<IUser[]> {
     return this.http
       .get<any>(`${environment.API_URL}/users`)
       .pipe(catchError(this.handlerError));
@@ -50,25 +52,25 @@ export class ServiciosService {
 
   /* ********************* SERVICIOS TASK *********************** */
 
-  getAllTasks(): Observable<any> {
+  getAllTasks(): Observable<ITaskResponse[]> {
     return this.http
       .get<any>(`${environment.API_URL}/task`)
       .pipe(catchError(this.handlerError));
   }
 
-  getTaskByUser(): Observable<any> {
+  getTaskByUser(): Observable<ITaskResponse[]> {
     return this.http
       .get<any>(`${environment.API_URL}/task/user`)
       .pipe(catchError(this.handlerError));
   }
 
-  getUsersByTask(taskId: Object): Observable<any> {
+  getUsersByTask(taskId: Object): Observable<IUserByTask[]> {
     return this.http
       .post<any>(`${environment.API_URL}/task/task_user`, taskId)
       .pipe(catchError(this.handlerError));
   }
 
-  createNewTask(task: any) {
+  createNewTask(task: IRegisterTask) {
     return this.http
       .post<any>(`${environment.API_URL}/task/`, task)
       .pipe(catchError(this.handlerError));
@@ -80,7 +82,7 @@ export class ServiciosService {
       .pipe(catchError(this.handlerError));
   }
 
-  deleteUserToTask(userToTask: any): Observable<any> {
+  deleteUserToTask(userToTask: IAddUserTask): Observable<any> {
     return this.http
       .delete<any>(`${environment.API_URL}/task`, {
         body: userToTask,
@@ -88,13 +90,13 @@ export class ServiciosService {
       .pipe(catchError(this.handlerError));
   }
 
-  addUserToTask(userToTask: any): Observable<any> {
+  addUserToTask(userToTask: IAddUserTask): Observable<any> {
     return this.http
       .post<any>(`${environment.API_URL}/task/add_user`, userToTask)
       .pipe(catchError(this.handlerError));
   }
 
-  deleteTask(task: any): Observable<any> {
+  deleteTask(task: ICodTask): Observable<any> {
     return this.http
       .delete<any>(`${environment.API_URL}/task/remove_task`, {
         body: task,
@@ -104,7 +106,7 @@ export class ServiciosService {
 
   /********************* SERVICIOS TYPE ******************************** */
 
-  getAllTypes(): Observable<any> {
+  getAllTypes(): Observable<IType[]> {
     return this.http
       .get<any>(`${environment.API_URL}/type`)
       .pipe(catchError(this.handlerError));
@@ -120,7 +122,6 @@ export class ServiciosService {
 
   sendNotification(data): Observable<any> {
     console.log('Estoy enviando en sendNotification ', data);
-    
     return this.http
       .post<any>(`${environment.API_URL}/notificacion/send`, data)
       .pipe(catchError(this.handlerError));
@@ -134,7 +135,6 @@ export class ServiciosService {
     if (error.statusText == 'Unauthorized') {
       localStorage.removeItem("user");
       location.reload();
-
     }
   }
 }

@@ -5,12 +5,13 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsDatepickerConfig, BsDaterangepickerDirective } from 'ngx-bootstrap/datepicker';
+import { DateSelectArg } from '@fullcalendar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
+import { IType } from 'src/app/entities/type';
+import { IUser } from 'src/app/entities/user';
 import { ServiciosService } from 'src/app/services/servicios.service';
 @Component({
   selector: 'app-new-task',
@@ -23,9 +24,9 @@ export class NewTaskComponent implements OnInit {
   respuestaNewTaskComponent = new EventEmitter<any>();
 
   @Input()
-  in_dateSelect: any;
-  listaUsuarios: any[] = [];
-  listarTypes: any[] = [];
+  in_dateSelect: DateSelectArg;
+  listaUsuarios: IUser[] = [];
+  listarTypes: IType[] = [];
   today: Date;
   maxDate: Date;
   minDate: Date;
@@ -37,8 +38,11 @@ export class NewTaskComponent implements OnInit {
   ) {
     this.today = new Date();
     this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
-    this.maxDate = new Date(this.today.getFullYear(), this.today.getMonth(), new Date(this.today.getFullYear(),  this.today.getMonth() + 1, 0).getDate());
- 
+    this.maxDate = new Date(
+      this.today.getFullYear(),
+      this.today.getMonth(),
+      new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).getDate(),
+    );
   }
 
   ngOnInit(): void {
@@ -74,7 +78,6 @@ export class NewTaskComponent implements OnInit {
   // Metodo que valida el type seleccionado en caso de ser nocturno
   validateTypeDate() {
     // Nocturno es type 3
-
     if (this.crearNewTask.value.codType == 3) {
       let endDate = new Date(this.in_dateSelect.end);
       endDate.setDate(endDate.getDate());
@@ -130,6 +133,10 @@ export class NewTaskComponent implements OnInit {
     });
   }
 
+  /**
+   * It sends a notification to the user.
+   * @param data - The data to send to the server.
+   */
   sendNotification(data) {
     this.servicios.sendNotification(data).subscribe({
       next: (res) => {
@@ -146,10 +153,13 @@ export class NewTaskComponent implements OnInit {
     });
   }
 
-  formatDataNotification(users, taskToUser) {
-    return { users: users, taskToUser: taskToUser };
+  formatDataNotification(users) {
+    return { users: users };
   }
 
+  /**
+   * It creates a new task.
+   */
   crearTask() {
     console.log('Value Form', this.crearNewTask.value);
     this.servicios.createNewTask(this.crearNewTask.value).subscribe({
@@ -161,7 +171,7 @@ export class NewTaskComponent implements OnInit {
             timeOut: 3000,
           });
           this.sendNotification(
-            this.formatDataNotification(this.crearNewTask.value.users, res.taskToUser),
+            this.formatDataNotification(this.crearNewTask.value.users),
           );
         } else {
           this.toastrService.error('Error al registrar task', 'Error', {

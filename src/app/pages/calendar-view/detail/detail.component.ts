@@ -2,20 +2,20 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { IType } from 'src/app/entities/type';
 import { ServiciosService } from 'src/app/services/servicios.service';
-
+import { EventClickArg } from '@fullcalendar/core';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
+  
   viewForm: FormGroup;
-
   @Input()
-  in_detailTask: any;
-  listaUsuarios: any[] = [];
-  listarTypes: any[] = [];
+  in_detailTask: EventClickArg;
+  listarTypes: IType[] = [];
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
@@ -44,8 +44,9 @@ export class DetailComponent implements OnInit {
         this.listarTypes = res;
         this.viewForm.controls.codType.disable();
       },
-      error: (err) => {
-        this.toastrService.error('Error al listar types' + err, 'Error', {
+      error: (_err) => {
+        console.log('Error al listar Types ' , _err);
+        this.toastrService.error('Error al listar types', 'Error', {
           timeOut: 3000,
         });
       },

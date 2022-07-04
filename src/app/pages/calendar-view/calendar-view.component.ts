@@ -13,12 +13,12 @@ import esLocale from '@fullcalendar/core/locales/es';
 export class CalendarViewComponent implements OnInit {
   locale = 'es';
   locales = listLocales();
-
-  @ViewChild('externalEvents', { static: true }) externalEvents: ElementRef;
-  public modalNewTask: ModalDirective;
-  // Modal Crear Nuevo Task
+  // Modal para visualizar el detalle de nuestra tarea
   @ViewChild('modaViewTask', { static: false })
   public modaViewTask: ModalDirective;
+  dateSelect: EventClickArg;
+  taskViewOk: boolean = false;
+  // Configuramos las opciones de calendarOptions segun nuestros requerimientos
   calendarOptions: CalendarOptions = {
     contentHeight: 'auto',
     headerToolbar: {
@@ -41,25 +41,30 @@ export class CalendarViewComponent implements OnInit {
   constructor(
     private servicios: ServiciosService,
     private toastrService: ToastrService,
-  ) {    }
+  ) {}
 
   ngOnInit(): void {
     this.listarTaskByUser();
   }
 
+  // Llamamos al servicios que nos lista la tareas por usuario ( segun el usuario logeado)
   listarTaskByUser() {
     this.servicios.getTaskByUser().subscribe({
       next: (res) => {
+        // Asigamos la respuesta de los eventos a nuestro calendario
         this.calendarOptions.events = res;
       },
       error: (err) => {
         console.log('Error Listar Task By User', err);
+        this.toastrService.error('Sucedio un error al listar las tareas', 'Error', {
+          timeOut: 3000,
+        });
       },
     });
   }
-  dateSelect: any;
-  taskViewOk: boolean = false;
 
+
+  // Metodo que escucha los click sobre las tareas en el calendario
   handleEventClick(selectInfo: EventClickArg) {
     console.log('handleDateSelect ', selectInfo);
     const calendarApi = selectInfo.view.calendar;

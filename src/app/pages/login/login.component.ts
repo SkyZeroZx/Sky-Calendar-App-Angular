@@ -17,7 +17,10 @@ export class LoginComponent implements OnInit {
   show_button: boolean = false;
   show_eye: boolean = false;
   userStorage: string = localStorage.getItem('username');
-  enableFingerPrint: boolean = (localStorage.getItem('verified')  == null || localStorage.getItem('verified')  == 'null' ) ? true : false;
+  enableFingerPrint: boolean =
+    localStorage.getItem('verified') == null || localStorage.getItem('verified') == 'null'
+      ? true
+      : false;
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
