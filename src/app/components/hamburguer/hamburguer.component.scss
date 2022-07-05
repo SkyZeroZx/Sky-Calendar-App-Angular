@@ -1,68 +1,16 @@
-#hamburgerButton {
-  padding: 12px 16px;
-  background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
-  position: fixed;
-  bottom: 25px;
-  left: 95%;
-  @media (max-width: 900px) {
-    left: 87% !important;
-  }
-  @media (max-width: 520px) {
-    left: 82% !important;
-  }
-  border-radius: 50%;
-  z-index: 1;
-  i {
-    color: whitesmoke !important;
-  }
-  cursor: pointer;
-}
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
 
-#dropdown-dropup {
-  background: transparent !important;
-  border-color: transparent !important;
-  border-left-width: 33px;
-  border-bottom-width: 45px;
-  padding-bottom: 0px;
-  padding-top: 0px;
-}
 
-#dropdown-dropup i {
-  padding: 8px;
-  border-radius: 50%;
-  background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
-}
 
-.notificationItem {
-  width: 265px;
-  color: rgb(57, 145, 233) !important;
-  font-weight: bold !important;
-  font-size: 0.95rem !important;
-  padding-left: 62px;
-}
-
-.dropdown-menu {
-  box-shadow: none !important;
-}
-
-li {
-  cursor: pointer;
-}
-
-i {
-  cursor: pointer;
-}
-
-.history {
-  padding: 8px !important;
-}
-
-:root {
-  // --icon-size: 10px;
-}
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -71,6 +19,8 @@ i {
   width: 100%;
   right:    0;
   bottom:   1%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: fixed;
   left: 90%;
@@ -111,9 +61,17 @@ nav {
 
 nav  li {
 
+  display: -webkit-box;
+
+  display: -ms-flexbox;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   list-style: none;
 }
 
@@ -140,6 +98,8 @@ nav button {
   }
   width: var(--size);
   height: var(--size);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 nav button span {
@@ -147,46 +107,81 @@ nav button span {
   height: var(--size);
   border-radius: 50px;
   background: #75a0ff !important;
+  -webkit-transition: height 200ms ease, margin 200ms ease;
+  -o-transition: height 200ms ease, margin 200ms ease;
   transition: height 200ms ease, margin 200ms ease;
-  overflow: hidden; //870
+  overflow: hidden
 
 }
 nav button .icon {
   --icon-size: 24px;
   cursor: pointer;
+  -webkit-transition: opacity 200ms ease, -webkit-transform 320ms ease;
+  transition: opacity 200ms ease, -webkit-transform 320ms ease;
+  -o-transition: transform 320ms ease, opacity 200ms ease;
   transition: transform 320ms ease, opacity 200ms ease;
+  transition: transform 320ms ease, opacity 200ms ease, -webkit-transform 320ms ease;
 }
 
 nav button .icon.plus {
   width: var(--size);
   height: var(--size);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 nav button .icons-container {
   width: 100%;
   height: calc(2 * var(--size));
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 nav button .icons-container .icon {
   background: rgba(204, 220, 255, 0.25);
   width: calc(1.8 * var(--icon-size));
   height: calc(1.8 * var(--icon-size));
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
   left: 50%;
   top: calc(-25% + var(--index) * 40%);
-  transform: translate(-50%, 100%) rotate(-45deg);
+  -webkit-transform: translate(-50%, 100%) rotate(-45deg);
+      -ms-transform: translate(-50%, 100%) rotate(-45deg);
+          transform: translate(-50%, 100%) rotate(-45deg);
+  -webkit-transition: background 150ms ease, -webkit-transform 300ms cubic-bezier(0.65, -0.55, 0.25, 1.25);
+  transition: background 150ms ease, -webkit-transform 300ms cubic-bezier(0.65, -0.55, 0.25, 1.25);
+  -o-transition: transform 300ms cubic-bezier(0.65, -0.55, 0.25, 1.25), background 150ms ease;
   transition: transform 300ms cubic-bezier(0.65, -0.55, 0.25, 1.25), background 150ms ease;
-  transition-delay: calc(var(--index) * 55ms);
+  transition: transform 300ms cubic-bezier(0.65, -0.55, 0.25, 1.25), background 150ms ease, -webkit-transform 300ms cubic-bezier(0.65, -0.55, 0.25, 1.25);
+  -webkit-transition-delay: calc(var(--index) * 55ms);
+       -o-transition-delay: calc(var(--index) * 55ms);
+          transition-delay: calc(var(--index) * 55ms);
 }
 nav button .icons-container .icon:hover {
   background: rgba(204, 220, 255, 0.45);
@@ -200,11 +195,15 @@ nav button:focus span {
   margin-top: calc(-1.6 * var(--size));
 }
 nav button:focus .icon.plus {
-  transform: translateY(-50px) rotate(180deg);
+  -webkit-transform: translateY(-50px) rotate(180deg);
+      -ms-transform: translateY(-50px) rotate(180deg);
+          transform: translateY(-50px) rotate(180deg);
   opacity: 0;
 }
 nav button:focus .icons-container .icon {
-  transform: translate(-50%, -50%) rotate(0);
+  -webkit-transform: translate(-50%, -50%) rotate(0);
+      -ms-transform: translate(-50%, -50%) rotate(0);
+          transform: translate(-50%, -50%) rotate(0);
 }
 nav button::-moz-focus-inner {
   border: none;
