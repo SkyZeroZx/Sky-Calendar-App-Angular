@@ -1,2 +1,92 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.text-left {
+  color: red;
+}
+
 @import "~@ng-select/ng-select/themes/default.theme.css";
- 
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #3e76df;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #3e76df;
+}
+
+.dark-content {
+  /* Estilos ngSelect para darktheme*/
+
+  .ng-option {
+    background-color: #27293c !important;
+    background: #27293c !important;
+    color: #c6c7cc !important;
+  }
+
+  select {
+    color: #c6c7cc !important;
+    background-color: #27293c !important;
+    background: #27293c !important;
+    border-color: #2b3553 !important;
+  }
+
+  .ng-select-container {
+    color: #c6c7cc !important;
+    background-color: #27293c !important;
+    background: #27293c !important;
+    border-color: #2b3553 !important;
+  }
+
+  /*Calendario Estilos*/
+  .fc-list-day-cushion {
+    background: #27293c !important;
+    background-color: #27293c !important;
+    color: whitesmoke;
+  }
+
+  .fc-timegrid-slots {
+    td {
+      border: 1px;
+    }
+
+    th {
+      border: 1px;
+    }
+  }
+
+  /*Estilos paginator*/
+  .paginator {
+    .ng-star-inserted {
+      background-color: transparent !important;
+      background: transparent !important;
+    }
+  }
+  
+}
+
+.btn.btn-primary {
+  background-image: linear-gradient(to bottom left, #5e72e4, #5e72e4, #5e72e4);
+}
+
+// Posicionamiento Modal Top
+.modal-dialog.modal-lg {
+  transform: translate(0, 0%) !important;
+}
+
+.modal-dialog.modal-xl {
+  transform: translate(0, 0%) !important;
+}
+
+i {
+  cursor: pointer;
+}
+
+.col-md-12{
+  padding-left: 3px!important;
+}

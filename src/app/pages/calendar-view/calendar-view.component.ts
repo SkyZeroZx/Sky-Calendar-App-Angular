@@ -3,8 +3,8 @@ import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { ServiciosService } from 'src/app/services/servicios.service';
-import esLocale from '@fullcalendar/core/locales/es';
+ import esLocale from '@fullcalendar/core/locales/es';
+import { TaskService } from 'src/app/services/task/task.service';
 @Component({
   selector: 'app-calendar-view',
   templateUrl: './calendar-view.component.html',
@@ -39,7 +39,7 @@ export class CalendarViewComponent implements OnInit {
   };
 
   constructor(
-    private servicios: ServiciosService,
+    private taskService: TaskService,
     private toastrService: ToastrService,
   ) {}
 
@@ -49,16 +49,14 @@ export class CalendarViewComponent implements OnInit {
 
   // Llamamos al servicios que nos lista la tareas por usuario ( segun el usuario logeado)
   listarTaskByUser() {
-    this.servicios.getTaskByUser().subscribe({
+    this.taskService.getTaskByUser().subscribe({
       next: (res) => {
         // Asigamos la respuesta de los eventos a nuestro calendario
         this.calendarOptions.events = res;
       },
       error: (err) => {
         console.log('Error Listar Task By User', err);
-        this.toastrService.error('Sucedio un error al listar las tareas', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error('Sucedio un error al listar las tareas', 'Error');
       },
     });
   }

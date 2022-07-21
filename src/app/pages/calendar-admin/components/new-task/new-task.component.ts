@@ -12,8 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
 import { IType } from 'src/app/entities/type';
 import { IUser } from 'src/app/entities/user';
-import { ServiciosService } from 'src/app/services/servicios.service';
-@Component({
+import { TaskService } from 'src/app/services/task/task.service';
+import { UserService } from 'src/app/services/users/user.service';
+ @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.component.html',
   styleUrls: ['./new-task.component.scss'],
@@ -34,7 +35,8 @@ export class NewTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
-    private servicios: ServiciosService,
+    private userService: UserService,
+    private taskService: TaskService
   ) {
    /* this.today = new Date();
     this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
@@ -92,7 +94,7 @@ export class NewTaskComponent implements OnInit {
    * It gets all the users from the database and stores them in the listaUsuarios variable.
    */
   listarUsers() {
-    this.servicios.getAllUsers().subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (res) => {
         this.listaUsuarios = res;
       },
@@ -108,7 +110,7 @@ export class NewTaskComponent implements OnInit {
    * A function that lists the types of tasks.
    */
   listarTypeTask() {
-    this.servicios.getAllTypes().subscribe({
+    this.taskService.getAllTypes().subscribe({
       next: (res) => {
         this.listarTypes = res;
       },
@@ -138,7 +140,7 @@ export class NewTaskComponent implements OnInit {
    * @param data - The data to send to the server.
    */
   sendNotification(data) {
-    this.servicios.sendNotification(data).subscribe({
+    this.userService.sendNotification(data).subscribe({
       next: (res) => {
         console.log('Res sendNotification ->', res);
         this.toastrService.success('Notificaciones enviadas exitosamente', 'Exito', {
@@ -162,7 +164,7 @@ export class NewTaskComponent implements OnInit {
    */
   crearTask() {
     console.log('Value Form', this.crearNewTask.value);
-    this.servicios.createNewTask(this.crearNewTask.value).subscribe({
+    this.taskService.createNewTask(this.crearNewTask.value).subscribe({
       next: (res) => {
         this.respuestaNewTaskComponent.emit();
         if (res.message == Constant.MENSAJE_OK) {

@@ -6,29 +6,31 @@ import {
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { ToastrService } from "ngx-toastr";
 import { Constant } from "src/app/Constants/Constant";
-import { AuthService } from "src/app/services/auth.service";
-const helper = new JwtHelperService();
+import { AuthService } from "src/app/services/auth/auth.service";
+import { ThemeService } from "src/app/services/theme/theme.service";
 @Component({
   selector: "app-change-password",
   templateUrl: "./change-password.component.html",
   styleUrls: ["./change-password.component.scss"],
 })
 export class ChangePasswordComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router,
+    private toastrService: ToastrService,
+    private themeService: ThemeService
+  ) {}
+  darkTheme: boolean = this.themeService.getLocalStorageItem("darkTheme");
+
   changePasswordForm: FormGroup;
   //Variable booleana para validacion de password el cambio de contraseña (OldPassword & NewPassword)
   diferent: boolean = false;
   // Arreglo de variables booleanas para mostrar el password segun se requiera
   show_button: boolean[] = [false, false, false];
   show_eye: boolean[] = [false, false, false];
-  constructor(
-    private authService: AuthService,
-    private fb: FormBuilder,
-    private router: Router,
-    private toastrService: ToastrService
-  ) {}
 
   //Inicializamos el formulario al renderizar el componente
   ngOnInit() {
@@ -53,23 +55,6 @@ export class ChangePasswordComponent implements OnInit {
       ]),
     });
   }
-  // Se muestra password segun requierimiento de la posicion old , new y confirm password
-  showPassword(i) {
-    switch (i) {
-      case 0:
-        this.show_button[0] = !this.show_button[0];
-        this.show_eye[0] = !this.show_eye[0];
-        break;
-      case 1:
-        this.show_button[1] = !this.show_button[1];
-        this.show_eye[1] = !this.show_eye[1];
-        break;
-      case 2:
-        this.show_button[2] = !this.show_button[2];
-        this.show_eye[2] = !this.show_eye[2];
-        break;
-    }
-  }
 
   onChangePassword() {
     this.diferent = false;
@@ -89,24 +74,18 @@ export class ChangePasswordComponent implements OnInit {
             this.router.navigate(["/login"]);
             this.toastrService.success(
               "Se cambio con exitosa la contraseña",
-              "Exito",
-              {
-                timeOut: 3000,
-              }
+              "Exito"
             );
           } else {
             this.toastrService.success(
               "Se cambio con exitosa la contraseña",
-              "Exito",
-              {
-                timeOut: 3000,
-              }
+              "Exito"
             );
             switch (this.authService.getItemToken("role")) {
               case "admin":
                 this.router.navigate(["/calendar-admin"]);
                 break;
-              case "estudiante":
+              case "viewer":
                 this.router.navigate(["/calendar-view"]);
                 break;
               default:
@@ -114,19 +93,11 @@ export class ChangePasswordComponent implements OnInit {
             }
           }
         } else {
-          this.toastrService.error(res.message, "Error", {
-            timeOut: 3000,
-          });
+          this.toastrService.error(res.message, "Error");
         }
       },
       error: (err) => {
-        this.toastrService.error(
-          "Error al cambiar contraseña " + err,
-          "Error",
-          {
-            timeOut: 5000,
-          }
-        );
+        this.toastrService.error("Error al cambiar contraseña ", "Error");
       },
     });
   }
@@ -146,8 +117,6 @@ export class ChangePasswordComponent implements OnInit {
         default:
           break;
       }
-
-     
     }
   }
 }

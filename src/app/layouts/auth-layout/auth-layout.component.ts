@@ -1,31 +1,32 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ThemeService } from "src/app/services/theme/theme.service";
 
 @Component({
-  selector: 'app-auth-layout',
-  templateUrl: './auth-layout.component.html',
-  styleUrls: ['./auth-layout.component.scss']
+  selector: "app-auth-layout",
+  templateUrl: "./auth-layout.component.html",
+  styleUrls: ["./auth-layout.component.scss"],
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
-  date: Date = new Date();
-  public isCollapsed = true;
-
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-    var html = document.getElementsByTagName("html")[0];
-    html.classList.add("auth-layout");
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.add("bg-default");
-    this.router.events.subscribe((_event) => {
-      this.isCollapsed = true;
-   });
+  constructor(
+    private router: Router,
+    private modalService: NgbModal,
+    private themeService: ThemeService
+  ) {}
+  ngOnDestroy(): void {
 
   }
-  ngOnDestroy() {
-    var html = document.getElementsByTagName("html")[0];
-    html.classList.remove("auth-layout");
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.remove("bg-default");
+  ngOnInit(): void {
+    let body = document.getElementsByTagName("body")[0];
+    this.themeService.theme.subscribe({
+      next: (res) => {
+        if (res) {
+          body.classList.remove("white-content");
+        } else {
+          body.classList.add("white-content");
+        }
+      },
+    });
   }
 }

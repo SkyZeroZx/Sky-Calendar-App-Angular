@@ -1,59 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { startAuthentication } from '@simplewebauthn/browser';
-import { ToastrService } from 'ngx-toastr';
-import { Constant } from 'src/app/Constants/Constant';
-import { AuthService } from 'src/app/services/auth.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { Router } from "@angular/router";
+import { startAuthentication } from "@simplewebauthn/browser";
+import { ToastrService } from "ngx-toastr";
+import { Constant } from "src/app/Constants/Constant";
+import { AuthService } from "src/app/services/auth/auth.service";
+import { ThemeService } from "src/app/services/theme/theme.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  show_button: boolean = false;
-  show_eye: boolean = false;
-  userStorage: string = localStorage.getItem('username');
-  enableFingerPrint: boolean =
-    localStorage.getItem('verified') == null || localStorage.getItem('verified') == 'null'
-      ? true
-      : false;
+ 
+  userStorage: string = localStorage.getItem("username");
+  enableFingerPrint: boolean = !this.themeService.getLocalStorageItem("verified");
+  darkTheme: boolean = this.themeService.getLocalStorageItem("darkTheme");
+ 
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
     private toastrService: ToastrService,
+    private themeService: ThemeService
   ) {}
 
   //Al renderizar componente creamos el formulario
   ngOnInit() {
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     this.crearFormularioLogin();
     this.loginForm.controls.username.setValue(
-      this.userStorage == null ? '' : this.userStorage,
+      this.userStorage == null ? "" : this.userStorage
     );
   }
 
-  //Funcion que muestra password al usuario
-  showPassword() {
-    this.show_button = !this.show_button;
-    this.show_eye = !this.show_eye;
-  }
-
+ 
   //Creamos nuestro reactiveForm para Login
   crearFormularioLogin() {
     //Creamos validaciones respectiva para nuestro ReactiveForm
     this.loginForm = this.fb.group({
-      username: new FormControl('', [
+      username: new FormControl("", [
         Validators.required,
         Validators.email,
         Validators.minLength(6),
         Validators.maxLength(50),
       ]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl("", [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 
@@ -65,7 +69,7 @@ export class LoginComponent implements OnInit {
         if (res.message == Constant.MENSAJE_OK) {
           this.validateLogin(res);
         } else {
-          this.toastrService.error(res.message, 'Error', {
+          this.toastrService.error(res.message, "Error", {
             timeOut: 3000,
           });
         }
@@ -73,7 +77,7 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         //En caso de error
         //   console.log("Error en onLogin ", err);
-        this.toastrService.error('Error al logearse' + err, 'Error', {
+        this.toastrService.error("Error al logearse" + err, "Error", {
           timeOut: 3000,
         });
       },
@@ -86,13 +90,13 @@ export class LoginComponent implements OnInit {
       this.alertFirstLogin();
     } else {
       if (this.loginForm.value.username !== this.userStorage) {
-        localStorage.setItem('verified', 'null');
+        localStorage.setItem("verified", "null");
       }
-      localStorage.setItem('username', this.loginForm.value.username);
-      if (res.role == 'admin') {
-        this.router.navigate(['/calendar-admin']);
+      localStorage.setItem("username", this.loginForm.value.username);
+      if (res.role == "admin") {
+        this.router.navigate(["/calendar-admin"]);
       } else {
-        this.router.navigate(['/calendar-view']);
+        this.router.navigate(["/calendar-view"]);
       }
     }
   }
@@ -100,21 +104,21 @@ export class LoginComponent implements OnInit {
   // Alerta de advertencia al ser primerlogin
   alertFirstLogin() {
     Swal.fire({
-      title: 'Es su primer login',
-      text: 'Se recomienda cambiar su contraseña',
-      icon: 'warning',
+      title: "Es su primer login",
+      text: "Se recomienda cambiar su contraseña",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         // Caso de aceptar se redirije a change-password
-        this.router.navigate(['/change-password']);
+        this.router.navigate(["/change-password"]);
       } else {
         // En caso contrario limpiamos localstorage
-        localStorage.removeItem('user');
+        localStorage.removeItem("user");
       }
     });
   }
@@ -127,35 +131,45 @@ export class LoginComponent implements OnInit {
           Object.assign(asseRep, { username: this.userStorage });
           this.verifityAuthentication(asseRep);
         } catch (err) {
-          this.toastrService.error('Sucedio un error al intentar autenticarse', 'Error', {
-            timeOut: 3000,
-          });
+          this.toastrService.error(
+            "Sucedio un error al intentar autenticarse",
+            "Error",
+            {
+              timeOut: 3000,
+            }
+          );
         }
       },
       error: (_err) => {
-        this.toastrService.error('Sucedio un error al intentar autenticarse', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error(
+          "Sucedio un error al intentar autenticarse",
+          "Error",
+          {
+            timeOut: 3000,
+
+            positionClass: "toast-top-right",
+          }
+        );
       },
     });
   }
 
   verifityAuthentication(data) {
-    console.log('Envie desde Angular', data);
+    console.log("Envie desde Angular", data);
     this.authService.verifityAuthentication(data).subscribe({
       next: (res) => {
-        console.log('Autentificacion OK', res);
+        console.log("Autentificacion OK", res);
         if (res.verified) {
           this.validateLogin(res.data);
         } else {
-          this.toastrService.error('Error al logearse', 'Error', {
+          this.toastrService.error("Error al logearse", "Error", {
             timeOut: 3000,
           });
         }
       },
       error: (_err) => {
-        console.log('Error al logearme ', _err);
-        this.toastrService.error('Error al logearse', 'Error', {
+        console.log("Error al logearme ", _err);
+        this.toastrService.error("Error al logearse", "Error", {
           timeOut: 3000,
         });
       },

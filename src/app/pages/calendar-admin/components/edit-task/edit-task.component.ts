@@ -11,8 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
 import { IType } from 'src/app/entities/type';
 import { IUser } from 'src/app/entities/user';
-import { ServiciosService } from 'src/app/services/servicios.service';
-
+import { TaskService } from 'src/app/services/task/task.service';
+import { UserService } from 'src/app/services/users/user.service';
+ 
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
@@ -35,7 +36,8 @@ export class EditTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
-    private servicios: ServiciosService,
+    private userService: UserService,
+    private taskService: TaskService
   ) {
  /*   this.today = new Date();
     this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
@@ -61,7 +63,7 @@ export class EditTaskComponent implements OnInit {
 
   editarTask() {
     console.log('Form Edit Task Values ', this.editTaskForm.value);
-    this.servicios.updateTask(this.editTaskForm.value).subscribe({
+    this.taskService.updateTask(this.editTaskForm.value).subscribe({
       next: (res) => {
         console.log(' Res editar Task ', res);
         this.respuestaEditTaskComponent.emit();
@@ -86,7 +88,7 @@ export class EditTaskComponent implements OnInit {
   }
 
   listarUsers() {
-    this.servicios.getAllUsers().subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (res) => {
         console.log('Listar Usuarios ->', res);
         this.listaUsuarios = res;
@@ -100,7 +102,7 @@ export class EditTaskComponent implements OnInit {
   }
 
   listarTypeTask() {
-    this.servicios.getAllTypes().subscribe({
+    this.taskService.getAllTypes().subscribe({
       next: (res) => {
         this.listarTypes = res;
       },
@@ -118,7 +120,7 @@ export class EditTaskComponent implements OnInit {
 
   listarUserByTask() {
     // Enviamos el id del task
-    this.servicios.getUsersByTask(this.formatData()).subscribe({
+    this.taskService.getUsersByTask(this.formatData()).subscribe({
       next: (res) => {
         this.editTaskForm.controls.users.setValue(res);
       },
@@ -133,7 +135,7 @@ export class EditTaskComponent implements OnInit {
 
   removeUserToTask(item: any) {
     console.log('Usuario removido es ', item.value);
-    this.servicios.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
+    this.taskService.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
           this.toastrService.success('Se removio exitosamente al usuario', 'Exito', {
@@ -159,7 +161,7 @@ export class EditTaskComponent implements OnInit {
 
   addUserToTask(item: any) {
     console.log('Usuario agregado es ', item.id);
-    this.servicios.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
+    this.taskService.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
           this.toastrService.success('Se agrego exitosamente al usuario', 'Exito', {
