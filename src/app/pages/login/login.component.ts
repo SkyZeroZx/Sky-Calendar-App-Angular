@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -20,11 +20,11 @@ import Swal from "sweetalert2";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
- 
+
   userStorage: string = localStorage.getItem("username");
-  enableFingerPrint: boolean = !this.themeService.getLocalStorageItem("verified");
+  enableFingerPrint: boolean =
+    !this.themeService.getLocalStorageItem("verified");
   darkTheme: boolean = this.themeService.getLocalStorageItem("darkTheme");
- 
 
   constructor(
     private authService: AuthService,
@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
- 
   //Creamos nuestro reactiveForm para Login
   crearFormularioLogin() {
     //Creamos validaciones respectiva para nuestro ReactiveForm
@@ -74,12 +73,10 @@ export class LoginComponent implements OnInit {
           });
         }
       },
-      error: (err) => {
+      error: (_err) => {
         //En caso de error
         //   console.log("Error en onLogin ", err);
-        this.toastrService.error("Error al logearse" + err, "Error", {
-          timeOut: 3000,
-        });
+        this.toastrService.error("Error al logearse", "Error");
       },
     });
   }
@@ -130,25 +127,17 @@ export class LoginComponent implements OnInit {
           const asseRep = await startAuthentication(await res);
           Object.assign(asseRep, { username: this.userStorage });
           this.verifityAuthentication(asseRep);
-        } catch (err) {
+        } catch (_err) {
           this.toastrService.error(
             "Sucedio un error al intentar autenticarse",
-            "Error",
-            {
-              timeOut: 3000,
-            }
+            "Error"
           );
         }
       },
       error: (_err) => {
         this.toastrService.error(
           "Sucedio un error al intentar autenticarse",
-          "Error",
-          {
-            timeOut: 3000,
-
-            positionClass: "toast-top-right",
-          }
+          "Error"
         );
       },
     });
@@ -162,16 +151,12 @@ export class LoginComponent implements OnInit {
         if (res.verified) {
           this.validateLogin(res.data);
         } else {
-          this.toastrService.error("Error al logearse", "Error", {
-            timeOut: 3000,
-          });
+          this.toastrService.error("Error al logearse", "Error");
         }
       },
       error: (_err) => {
         console.log("Error al logearme ", _err);
-        this.toastrService.error("Error al logearse", "Error", {
-          timeOut: 3000,
-        });
+        this.toastrService.error("Error al logearse", "Error");
       },
     });
   }

@@ -2,7 +2,6 @@ import { Routes } from "@angular/router";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { IconsComponent } from "../../pages/icons/icons.component";
 import { NotificationsComponent } from "../../pages/notifications/notifications.component";
-import { UserComponent } from "../../pages/user/user.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { CalendarAdminComponent } from "../../pages/calendar-admin/calendar-admin.component";
 import { GestionUsuariosComponent } from "src/app/pages/gestion-usuarios/gestion-usuarios.component";
@@ -10,6 +9,7 @@ import { CalendarViewComponent } from "src/app/pages/calendar-view/calendar-view
 import { CheckRole } from "src/app/common/guards/checkRole.guard";
 import { FirstLogin } from "src/app/common/guards/FirstLogin.guard";
 import { IsLogged } from "src/app/common/guards/IsLogged.guard";
+import { UserComponent } from "src/app/pages/user-profile/user.component";
 
 export const AdminLayoutRoutes: Routes = [
   {

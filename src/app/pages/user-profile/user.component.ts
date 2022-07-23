@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -47,9 +47,10 @@ export class UserComponent implements OnInit {
   notificacionesControl: FormControl = new FormControl(
     this.notificacionesEnabled
   );
+  installPWAControl: FormControl = new FormControl(false);
+  userProfileForm: FormGroup = new FormGroup({});
 
   userStorage = JSON.parse(localStorage.getItem("user"));
-  userProfileForm: FormGroup = new FormGroup({});
 
   ngOnInit() {
     this.createUserProfileForm();
@@ -113,7 +114,6 @@ export class UserComponent implements OnInit {
       } else {
         this.disableFingerPrint();
       }
-
       localStorage.setItem("verified", res);
     });
 
@@ -126,6 +126,33 @@ export class UserComponent implements OnInit {
         localStorage.setItem("notificaciones", "false");
       }
     });
+
+    this.installPWAControl.valueChanges.subscribe((res) => {
+      if (res) {
+        // Si el usuario habilita el switch le proponemos instalar
+        console.log(
+          "this.themeService.promptEvent ",
+          this.themeService.promptEvent
+        );
+        console.log("Instalar");
+        this.installPwa();
+      }
+    });
+  }
+
+  // Metodo para llamar la propuesta de instalar nuestra PWA
+  installPwa() {
+    this.themeService.getInstallPwa.prompt();
+  }
+
+  // Metodo para validar si esta instalado por lo cual no mostrara el boton
+  shouldInstall(): boolean {
+    return !this.isRunningStandalone() && this.themeService.getInstallPwa;
+  }
+
+  //Metodo para validar si estamos en modo standalone
+  isRunningStandalone(): boolean {
+    return window.matchMedia("(display-mode: standalone)").matches;
   }
 
   // Metodo que solicita al usuario habilitar las notificaciones en el navegador

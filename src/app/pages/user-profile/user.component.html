@@ -12,31 +12,39 @@
             <img alt="Perfil" class="avatar" [width]="200" [height]="200" src="assets/img/user.jpg" />
             <p> {{userStorage.nombre + " " + userStorage.apellidoPaterno + " " + userStorage.apellidoMaterno }}</p>
             <h5 class=" title">Opciones</h5>
-            <div class=" row">
-              <div class=" col-md-3 px-md-1">
+            <div class="row">
+              <div class="col-md-3 px-md-1">
                 <div class=" form-group">
-                  <label><i class="fas fa-moon"></i> Dark Theme</label> <br>
-                  <mat-slide-toggle [formControl]="userTheme"></mat-slide-toggle>
+                  <label *ngIf="userTheme.value"><i class="fas fa-moon"></i> Dark Theme </label> 
+                  <label *ngIf="!userTheme.value"> <i class="fas fa-sun"></i> Light Theme </label>
+                  <br>
+                  <mat-slide-toggle [formControl]="userTheme" ></mat-slide-toggle>
                 </div>
               </div>
-              <div class=" col-md-3 px-md-1">
+              <div  [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
                 <div class=" form-group">
                   <label><i class="fas fa-bars"></i> Nav Bar</label> <br>
                   <mat-slide-toggle [formControl]="userNavBar"></mat-slide-toggle>
                 </div>
               </div>
-              <div class=" col-md-3 px-md-1">
+              <div   [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
                 <div class=" form-group">
                   <label><i class="fas fa-fingerprint"></i> FingerPrint</label> <br>
                   <mat-slide-toggle [formControl]="userFingerPrint"></mat-slide-toggle>
                 </div>
               </div>
-              <div class=" col-md-3 px-md-1">
+              <div class="col-md-2 px-md-1" *ngIf="shouldInstall()">
+                <div class=" form-group">
+                  <label><i class="fa fa-cloud-download"></i> Instalar</label> <br>
+                  <mat-slide-toggle [formControl]="installPWAControl"></mat-slide-toggle>
+                </div>
+              </div>
+              <div class="col-md-3 px-md-1">
                 <div class=" form-group">
                   <label><i class="fa-solid fa-bell"></i> Notificaciones</label> <br>
                   <mat-slide-toggle [formControl]="notificacionesControl"></mat-slide-toggle>
                 </div>
-              </div>
+              </div>  
             </div>
           </div>
         </div>
@@ -51,19 +59,19 @@
               <div class=" col-md-5 pr-md-1">
                 <div class=" form-group">
                   <label>UserName</label>
-                  <input class=" form-control" disabled="" placeholder="User" type="text" formControlName="username" />
+                  <input class=" form-control"  readonly placeholder="User" type="text" formControlName="username" />
                 </div>
               </div>
               <div class=" col-md-4 pl-md-1">
                 <div class=" form-group">
                   <label> Actualizado </label>
-                  <input class=" form-control" type="text" disabled="" formControlName="updateAt" />
+                  <input class=" form-control" type="text"  readonly  formControlName="updateAt" />
                 </div>
               </div>
               <div class=" col-md-3 pl-md-1">
                 <div class=" form-group">
                   <label> Rol </label>
-                  <input class=" form-control" type="text" disabled="" formControlName="role" />
+                  <input class=" form-control" type="text" readonly formControlName="role" />
                 </div>
               </div>
             </div>
@@ -141,9 +149,9 @@
             <div class=" col-md-5 pr-md-1">
               <div class=" form-group">
                 <button type="button" style="
-                background: #A72F2F !important;
+                background: #d83838 !important;
                 color : white !important;
-                " (click)="  onLogout()" class="btn  danger"> <i class="tim-icons  icon-button-power"></i> &nbsp;&nbsp;
+                " (click)="onLogout()" class="btn  danger"> <i class="tim-icons  icon-button-power"></i> &nbsp;&nbsp;
                   Logout</button>
               </div>
               <div class=" form-group">

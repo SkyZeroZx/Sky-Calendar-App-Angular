@@ -13,7 +13,7 @@ import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
 import { IconsComponent } from "../../pages/icons/icons.component";
 import { MapComponent } from "../../pages/map/map.component";
 import { NotificationsComponent } from "../../pages/notifications/notifications.component";
-import { UserComponent } from "../../pages/user/user.component";
+ 
 import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
@@ -42,6 +42,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { FilterPipeUser } from "src/app/common/pipes/filterUsers.pipe";
 import { DetailComponent } from "src/app/pages/calendar-view/detail/detail.component";
 import { CalendarViewComponent } from "src/app/pages/calendar-view/calendar-view.component";
+import { UserComponent } from "src/app/pages/user-profile/user.component";
 defineLocale("es", esLocale);
 // Importaciones de FullCalendarModule
 FullCalendarModule.registerPlugins([
