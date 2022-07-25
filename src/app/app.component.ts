@@ -8,7 +8,6 @@ import { ThemeService } from "./services/theme/theme.service";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  title = "sky-calendar-pwa";
   constructor(private swUpdate: SwUpdate, private themeService: ThemeService) {
     this.swUpdate.versionUpdates.subscribe({
       next: (res: any) => {
@@ -19,10 +18,17 @@ export class AppComponent {
       },
     });
   }
-
+//TODO HostListener FOR UPDATE PWA ->
   @HostListener("window:beforeinstallprompt", ["$event"])
   onbeforeinstallprompt(e) {
     e.preventDefault();
     this.themeService.promptEvent = e;
+  }
+
+
+  @HostListener("window:isUpdateAvailable", ["$event"])
+  updatePWAListener(e) {
+    e.preventDefault();
+    console.log("Update PWA is" , e)
   }
 }

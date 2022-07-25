@@ -15,8 +15,7 @@
             <div class="row">
               <div class="col-md-3 px-md-1">
                 <div class=" form-group">
-                  <label *ngIf="userTheme.value"><i class="fas fa-moon"></i> Dark Theme </label> 
-                  <label *ngIf="!userTheme.value"> <i class="fas fa-sun"></i> Light Theme </label>
+                  <label  ><i [class]="userTheme.value ? 'fas fa-moon' : 'fas fa-sun' "></i>Theme</label> 
                   <br>
                   <mat-slide-toggle [formControl]="userTheme" ></mat-slide-toggle>
                 </div>
