@@ -90,6 +90,19 @@ _**Calendario** : Apartado con el calendario de tareas , registro de tareas , ed
 
 ![Calendario 4](/docs/layout/calendario_4.png)
 
+<<<<<<< Updated upstream
+=======
+_**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar sus datos personales , habilitar notificaciones , fingerprint authentication , narbar mode y dark theme o light theme demanda (Se envia notificaciones push a los usuarios suscritos)_
+
+![Profile 1](/docs/layout/profile-1.png)
+
+![Profile 2](/docs/layout/profile-2.png)
+
+![Profile 3](/docs/layout/profile-3.png)
+
+![Profile 4](/docs/layout/profile-4.png)
+
+>>>>>>> Stashed changes
 ## Ejecutando como PWA 👨🏻‍💻
 
 _Para ejecutar como PWA(Progressive Web App) , previamente debe tenerse instalado la libreria http-serve_
@@ -105,8 +118,6 @@ npm run start-pwa
 ```
 
 _Este comando se encuentra configurado en el archivo *package.json de la raiz del proyecto por default ejecuta el puerto 8080*_
-
-_La PWA se encuentra configurada para ejecutarse en la vista de Login si no se esta logeado_
 
 ![PWA 1](/docs/pwa/pwa_1.png)
 
@@ -176,7 +187,13 @@ Usamos [GIT](https://git-scm.com/) para el versionado.
 
 _Los integrantes del proyecto_
 
+<<<<<<< Updated upstream
 - **Jaime Burgos Tejada** - _Developer_ - [SkyZeroZx](https://github.com/SkyZeroZx)
+=======
+- **Jaime Burgos Tejada** - _Developer_
+- [SkyZeroZx](https://github.com/SkyZeroZx)
+- Email : jaimeburgostejada@gmail.com
+>>>>>>> Stashed changes
 
 ## Licencia 📄
 
