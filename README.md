@@ -92,7 +92,7 @@ _**Calendario** : Apartado con el calendario de tareas , registro de tareas , ed
 
 <<<<<<< Updated upstream
 =======
-_**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar sus datos personales , habilitar notificaciones , fingerprint authentication , narbar mode y dark theme o light theme demanda (Se envia notificaciones push a los usuarios suscritos)_
+_**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar sus datos personales , habilitar notificaciones , fingerprint authentication , navbar mode y dark theme o light theme demanda (Se envia notificaciones push a los usuarios suscritos)_
 
 ![Profile 1](/docs/layout/profile-1.png)
 
