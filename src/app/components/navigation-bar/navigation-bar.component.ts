@@ -40,7 +40,6 @@ export class NavigationBarComponent implements OnInit {
 
   tabNavigation() {
     const tabs = document.querySelectorAll(".tab");
-    console.log(tabs);
     tabs.forEach((clickedTab) => {
       clickedTab.addEventListener("click", () => {
         tabs.forEach((tab) => {

@@ -7,15 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule, DatePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
 import { AdminLayoutRoutes } from "./admin-layout.routing";
-import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
-import { IconsComponent } from "../../pages/icons/icons.component";
-import { MapComponent } from "../../pages/map/map.component";
-import { NotificationsComponent } from "../../pages/notifications/notifications.component";
- 
-import { TablesComponent } from "../../pages/tables/tables.component";
-import { TypographyComponent } from "../../pages/typography/typography.component";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSliderModule } from "@angular/material/slider";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -25,7 +17,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
-
 import { defineLocale } from "ngx-bootstrap/chronos";
 import { esLocale } from "ngx-bootstrap/locale";
 import { NgSelectModule } from "@ng-select/ng-select";
@@ -43,6 +34,7 @@ import { FilterPipeUser } from "src/app/common/pipes/filterUsers.pipe";
 import { DetailComponent } from "src/app/pages/calendar-view/detail/detail.component";
 import { CalendarViewComponent } from "src/app/pages/calendar-view/calendar-view.component";
 import { UserComponent } from "src/app/pages/user-profile/user.component";
+
 defineLocale("es", esLocale);
 // Importaciones de FullCalendarModule
 FullCalendarModule.registerPlugins([
@@ -51,6 +43,7 @@ FullCalendarModule.registerPlugins([
   listPlugin,
   interactionPlugin,
 ]);
+
 @NgModule({
   imports: [
     CommonModule,
@@ -75,13 +68,7 @@ FullCalendarModule.registerPlugins([
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   declarations: [
-    DashboardComponent,
     UserComponent,
-    TablesComponent,
-    IconsComponent,
-    TypographyComponent,
-    NotificationsComponent,
-    MapComponent,
     CalendarAdminComponent,
     NewTaskComponent,
     EditTaskComponent,
@@ -90,7 +77,7 @@ FullCalendarModule.registerPlugins([
     EditUserComponent,
     FilterPipeUser,
     CalendarViewComponent,
-    DetailComponent
+    DetailComponent,
   ],
 })
 export class AdminLayoutModule {}

@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { InterceptorService } from "./services/interceptor/interceptor.service";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ErrorInterceptorService } from "./services/interceptor/error-interceptor.service";
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { environment } from '../environments/environment';
   providers: [
     { provide: ToastrService, useClass: ToastrService },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })

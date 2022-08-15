@@ -90,6 +90,20 @@ _**Calendario** : Apartado con el calendario de tareas , registro de tareas , ed
 
 ![Calendario 4](/docs/layout/calendario_4.png)
 
+
+_**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar sus datos personales , habilitar notificaciones , fingerprint authentication , narbar mode y dark theme o light theme demanda (Se envia notificaciones push a los usuarios suscritos)_
+
+
+![Profile 1](/docs/layout/profile-1.png)
+
+![Profile 2](/docs/layout/profile-2.png)
+
+![Profile 3](/docs/layout/profile-3.png)
+
+![Profile 4](/docs/layout/profile-4.png)
+
+
+
 ## Ejecutando como PWA 👨🏻‍💻
 
 _Para ejecutar como PWA(Progressive Web App) , previamente debe tenerse instalado la libreria http-serve_
@@ -172,11 +186,11 @@ _Las herramientas utilizadas son:_
 
 Usamos [GIT](https://git-scm.com/) para el versionado.
 
-## Autores ✒️
+## Autor✒️
 
-_Los integrantes del proyecto_
-
-- **Jaime Burgos Tejada** - _Developer_ - [SkyZeroZx](https://github.com/SkyZeroZx)
+- **Jaime Burgos Tejada** - _Developer_ 
+- [SkyZeroZx](https://github.com/SkyZeroZx)
+- Email : jaimeburgostejada@gmail.com
 
 ## Licencia 📄
 

@@ -10,10 +10,10 @@ export class ThemeService {
   public theme = new BehaviorSubject(this.darkTheme);
   public navBar = new BehaviorSubject(this.navBarPosition);
   // Declaramos el evento que escucharemos para generar el boton de instalar la PWA
-  public promptEvent
+  public promptEvent;
   constructor() {}
 
-  get getInstallPwa(){
+  get getInstallPwa() {
     return this.promptEvent;
   }
 

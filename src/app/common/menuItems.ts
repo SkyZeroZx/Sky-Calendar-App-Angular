@@ -1,16 +1,5 @@
-declare interface RouteInfo {
-  path: string;
-  title: string;
-  icon: string;
-  class: string;
-}
+
 export const ROUTES: RouteInfo[] = [
-  {
-    path: "/dashboard",
-    title: "Dashboard",
-    icon: "icon-chart-pie-36",
-    class: "azure",
-  },
   {
     path: "/gestion-usuarios",
     title: "Usuarios",
@@ -43,11 +32,5 @@ export const ROUTES_VIEWER : RouteInfo[] = [
     title: "Perfil",
     icon: "icon-single-02",
     class: "azure",
-  },
-  {
-    path: "/icons",
-    title: "Icons",
-    icon: "icon-atom",
-    class: "pink",
   }
 ];

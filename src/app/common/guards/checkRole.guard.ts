@@ -8,15 +8,14 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class CheckRole implements CanActivate {
   constructor(private router: Router, private authService: AuthService) {}
-
   canActivate() {
     console.log('Check Role');
     console.log(window.location.href);
     if (JSON.parse(localStorage.getItem('user')) == null) {
+      this.router.navigate(["/login"]);
       return false;
     }
     switch (this.authService.getItemToken('role')) {
-
       case 'admin':
         console.log('Role ' , this.authService.getItemToken('role'));
         if (window.location.href.includes('calendar-view')) {
@@ -26,7 +25,6 @@ export class CheckRole implements CanActivate {
           return true;
         }
       case 'viewer':
-    
         console.log('Role ' , this.authService.getItemToken('role'));
         if (
           window.location.href.includes('calendar-admin') ||

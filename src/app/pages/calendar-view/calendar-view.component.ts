@@ -55,7 +55,6 @@ export class CalendarViewComponent implements OnInit {
         this.calendarOptions.events = res;
       },
       error: (err) => {
-        console.log('Error Listar Task By User', err);
         this.toastrService.error('Sucedio un error al listar las tareas', 'Error');
       },
     });
@@ -64,7 +63,6 @@ export class CalendarViewComponent implements OnInit {
 
   // Metodo que escucha los click sobre las tareas en el calendario
   handleEventClick(selectInfo: EventClickArg) {
-    console.log('handleDateSelect ', selectInfo);
     const calendarApi = selectInfo.view.calendar;
     this.dateSelect = selectInfo;
     this.taskViewOk = true;

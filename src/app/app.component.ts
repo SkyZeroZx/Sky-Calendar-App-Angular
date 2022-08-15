@@ -11,24 +11,18 @@ export class AppComponent {
   constructor(private swUpdate: SwUpdate, private themeService: ThemeService) {
     this.swUpdate.versionUpdates.subscribe({
       next: (res: any) => {
-        console.log("Mi data res init PWA ->", res);
+        console.log("Init PWA ->", res);
       },
       error: (_err) => {
         console.log("Version Update is ERROR ", _err);
       },
     });
   }
-//TODO HostListener FOR UPDATE PWA ->
+  
+  //FOR INSTALL PWA BUTTON
   @HostListener("window:beforeinstallprompt", ["$event"])
   onbeforeinstallprompt(e) {
     e.preventDefault();
     this.themeService.promptEvent = e;
-  }
-
-
-  @HostListener("window:isUpdateAvailable", ["$event"])
-  updatePWAListener(e) {
-    e.preventDefault();
-    console.log("Update PWA is" , e)
   }
 }

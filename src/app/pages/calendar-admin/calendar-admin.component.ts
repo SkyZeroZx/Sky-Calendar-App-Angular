@@ -76,7 +76,6 @@ export class CalendarAdminComponent implements OnInit {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    console.log("handleDateSelect ", selectInfo);
     const calendarApi = selectInfo.view.calendar;
     this.dateSelect = selectInfo;
     this.taskCreateOk = true;
@@ -87,11 +86,9 @@ export class CalendarAdminComponent implements OnInit {
   listarTask() {
     this.servicios.getAllTasks().subscribe({
       next: (res) => {
-        console.log("response All Task ->", res);
         this.calendarOptions.events = res;
       },
       error: (_err) => {
-        console.log("Error All Task ", _err);
         this.toastrService.error(
           "Sucedio un error al listar las tareas",
           "Error",
@@ -104,7 +101,6 @@ export class CalendarAdminComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    console.log("Click Info", clickInfo);
     this.optionsClickEvent(clickInfo);
   }
 
@@ -120,10 +116,6 @@ export class CalendarAdminComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.message == Constant.MENSAJE_OK) {
-            console.log(
-              "Calendar API ",
-              item.event._context.calendarApi.view.calendar
-            );
             this.toastrService.success(
               "Tarea actualizada exitosamente",
               "Exito",
@@ -180,7 +172,7 @@ export class CalendarAdminComponent implements OnInit {
 
   optionsClickEvent(item: any) {
     Swal.fire({
-      title: "¿Que accion desea realizar?",
+      title: "¿Que acción desea realizar?",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Editar",

@@ -157,7 +157,7 @@
 </div>
 
 <!-- Modal Nuevo Usuario -->
-<div bsModal class="modal fade" #modalNewUser="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarUsuarios()"
+<div bsModal class="modal fade" #modalNewUser="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarUsuarios(); crearUsuarioOK = false"
     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
     <div class="modal-dialog modal-lg" >
 

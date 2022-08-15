@@ -35,7 +35,6 @@ export class EditUserComponent implements OnInit {
 
   // Detecta cambio en la variable Input para cargar nuevo tramite seleccionado
   ngOnChanges(_changes: SimpleChanges) {
-    console.log('Entrada Edit User' , this.in_user)
     this.crearFormularioEditarUser();
     this.detalleUsuario();
   }

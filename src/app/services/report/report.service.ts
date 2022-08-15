@@ -15,7 +15,6 @@ export class ReporteService {
     // This is intentional
   }
   public exportAsExcelFile(excelFileName: string): void {
-    console.log("Excel Reporte Doc", Constant.REPORT);
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(Constant.REPORT);
     const workbook: XLSX.WorkBook = {
       Sheets: { reporte: worksheet },

@@ -19,15 +19,14 @@ export class CheckLogin implements CanActivate {
       console.log('El rol es ', this.authService.getItemToken('role'));
       switch (this.authService.getItemToken('role')) {
         case 'admin':
-           
           this.router.navigateByUrl('/calendar-admin');
           break;
         case 'viewer':
           this.router.navigateByUrl('/calendar-view');
           break;
         default :
-        this.router.navigateByUrl('/login');
         localStorage.removeItem("user");
+        this.router.navigateByUrl('/login');
         break;
       }
     } else {

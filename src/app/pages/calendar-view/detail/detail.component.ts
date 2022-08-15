@@ -45,7 +45,6 @@ export class DetailComponent implements OnInit {
         this.viewForm.controls.codType.disable();
       },
       error: (_err) => {
-        console.log("Error al listar Types ", _err);
         this.toastrService.error("Error al listar types", "Error");
       },
     });
@@ -55,13 +54,11 @@ export class DetailComponent implements OnInit {
     // Enviamos el id del task
     this.taskService.getUsersByTask(this.formatData()).subscribe({
       next: (res) => {
-        console.log("Usuarios son " , res)
         this.listarUsers = res
         this.viewForm.controls.users.setValue(res);
         this.viewForm.controls.users.disable();
       },
-      error: (err) => {
-        console.log("Error Users By Task", err);
+      error: (_err) => {
         this.toastrService.error(
           "Error al listar usuarios por tarea",
           "Error"

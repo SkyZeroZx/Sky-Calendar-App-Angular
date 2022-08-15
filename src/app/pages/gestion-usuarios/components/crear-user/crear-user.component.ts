@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, SimpleChanges } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -9,7 +9,7 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import { Constant } from "src/app/Constants/Constant";
 import { UserService } from "src/app/services/users/user.service";
- 
+
 @Component({
   selector: "app-crear-user",
   templateUrl: "./crear-user.component.html",
@@ -49,34 +49,24 @@ export class CrearUserComponent implements OnInit {
   // Llamada al servicio updateUser para actualizar nuestro usuario
   crearUsuario() {
     this.trimCrearUserForm();
-    console.log(this.crearUserForm.value);
     this.userService.createUser(this.crearUserForm.value).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
           this.toastrService.success(
             "Se creo exitosamente el usuario",
-            "Exito",
-            {
-              timeOut: 2000,
-            }
+            "Exito"
           );
           this.crearUserForm.reset();
           this.crearUserForm.controls.role.setValue("admin");
         } else {
           this.toastrService.error(
             "Sucedio un error al crear : " + res.message,
-            "Error",
-            {
-              timeOut: 3000,
-            }
+            "Error"
           );
         }
       },
-      error: (err) => {
-        console.log("Error crearUsuario ", err);
-        this.toastrService.error("Hubo un error al crear el usuario", "Error", {
-          timeOut: 3000,
-        });
+      error: (_err) => {
+        this.toastrService.error("Hubo un error al crear el usuario", "Error");
       },
     });
   }

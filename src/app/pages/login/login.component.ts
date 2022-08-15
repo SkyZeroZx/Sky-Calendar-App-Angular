@@ -75,7 +75,6 @@ export class LoginComponent implements OnInit {
       },
       error: (_err) => {
         //En caso de error
-        //   console.log("Error en onLogin ", err);
         this.toastrService.error("Error al logearse", "Error");
       },
     });
@@ -144,10 +143,8 @@ export class LoginComponent implements OnInit {
   }
 
   verifityAuthentication(data) {
-    console.log("Envie desde Angular", data);
     this.authService.verifityAuthentication(data).subscribe({
       next: (res) => {
-        console.log("Autentificacion OK", res);
         if (res.verified) {
           this.validateLogin(res.data);
         } else {
@@ -155,7 +152,6 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (_err) => {
-        console.log("Error al logearme ", _err);
         this.toastrService.error("Error al logearse", "Error");
       },
     });

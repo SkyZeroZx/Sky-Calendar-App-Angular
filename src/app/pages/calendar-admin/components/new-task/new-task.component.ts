@@ -38,22 +38,14 @@ export class NewTaskComponent implements OnInit {
     private userService: UserService,
     private taskService: TaskService
   ) {
-   /* this.today = new Date();
-    this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
-    this.maxDate = new Date(
-      this.today.getFullYear(),
-      this.today.getMonth(),
-      new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).getDate(),
-    );*/
+
   }
 
   ngOnInit(): void {
-    console.log('Date Select pasado es 1 ', this.in_dateSelect);
     this.initNewTask();
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
-    console.log('Date Select pasado  2 es ', this.in_dateSelect);
     this.initNewTask();
   }
 
@@ -99,7 +91,7 @@ export class NewTaskComponent implements OnInit {
         this.listaUsuarios = res;
       },
       error: (err) => {
-        this.toastrService.error('Error al listar usuarios' + err, 'Error', {
+        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error', {
           timeOut: 3000,
         });
       },
@@ -115,9 +107,7 @@ export class NewTaskComponent implements OnInit {
         this.listarTypes = res;
       },
       error: (err) => {
-        this.toastrService.error('Error al listar types' + err, 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error(`Error al listar types  ${err}`, 'Error');
       },
     });
   }
@@ -142,15 +132,10 @@ export class NewTaskComponent implements OnInit {
   sendNotification(data) {
     this.userService.sendNotification(data).subscribe({
       next: (res) => {
-        console.log('Res sendNotification ->', res);
-        this.toastrService.success('Notificaciones enviadas exitosamente', 'Exito', {
-          timeOut: 3000,
-        });
+        this.toastrService.success('Notificaciones enviadas exitosamente', 'Exito');
       },
       error(_err) {
-        this.toastrService.error('Error al enviar notificacion task', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error('Error al enviar notificacion task', 'Error');
       },
     });
   }
@@ -159,33 +144,24 @@ export class NewTaskComponent implements OnInit {
     return { users: users };
   }
 
-  /**
-   * It creates a new task.
-   */
+
   crearTask() {
-    console.log('Value Form', this.crearNewTask.value);
     this.taskService.createNewTask(this.crearNewTask.value).subscribe({
       next: (res) => {
-        this.respuestaNewTaskComponent.emit();
         if (res.message == Constant.MENSAJE_OK) {
-          console.log('Response createTask ', res);
-          this.toastrService.success('Task registrada exitosamente', 'Exito', {
-            timeOut: 3000,
-          });
+
+          this.toastrService.success('Task registrada exitosamente', 'Exito');
           this.sendNotification(
             this.formatDataNotification(this.crearNewTask.value.users),
           );
         } else {
-          this.toastrService.error('Error al registrar task', 'Error', {
-            timeOut: 3000,
-          });
+          this.toastrService.error('Error al registrar task', 'Error');
         }
+        this.respuestaNewTaskComponent.emit();
       },
       error: (_err) => {
+        this.toastrService.error('Error al registrar task', 'Error');
         this.respuestaNewTaskComponent.emit();
-        this.toastrService.error('Error al registrar task', 'Error', {
-          timeOut: 3000,
-        });
       },
     });
   }

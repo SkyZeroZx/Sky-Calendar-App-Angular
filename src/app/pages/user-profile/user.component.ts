@@ -50,8 +50,6 @@ export class UserComponent implements OnInit {
   installPWAControl: FormControl = new FormControl(false);
   userProfileForm: FormGroup = new FormGroup({});
 
-  userStorage = JSON.parse(localStorage.getItem("user"));
-
   ngOnInit() {
     this.createUserProfileForm();
     this.suscribeChange();
@@ -59,10 +57,10 @@ export class UserComponent implements OnInit {
 
   createUserProfileForm() {
     this.userProfileForm = this.fb.group({
-      id: this.userStorage.id,
-      username: this.userStorage.username,
+      id: null,
+      username: null,
       nombre: new FormControl(
-        this.userStorage.nombre,
+        '',
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
@@ -70,10 +68,10 @@ export class UserComponent implements OnInit {
           Validators.pattern("[A-Za-z ]+"),
         ])
       ),
-      role: new FormControl(this.authService.getItemToken("role")),
-      estado: "HABILITADO",
+      role: null,
+      estado: null,
       apellidoMaterno: new FormControl(
-        this.userStorage.apellidoMaterno,
+        '',
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
@@ -82,7 +80,7 @@ export class UserComponent implements OnInit {
         ])
       ),
       apellidoPaterno: new FormControl(
-        this.userStorage.apellidoPaterno,
+        '',
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
@@ -90,21 +88,34 @@ export class UserComponent implements OnInit {
           Validators.pattern("[A-Za-z ]+"),
         ])
       ),
-      createAt: this.userStorage.createAt,
-      updateAt: this.userStorage.updateAt,
+      createAt: null,
+      updateAt: null,
+    });
+    
+    this.setProfileUser();
+  }
+
+  setProfileUser() {
+    this.userService.getProfile().subscribe({
+      next: (res) => {
+        this.userProfileForm.patchValue(res);
+      },
+      error: (_err) => {
+        this.toastrService.error(
+          "Sucedio un error al obtener el perfil",
+          "Error"
+        );
+      },
     });
   }
 
   // Nos suscribimos a nuestros formControls para escuchar los valores de los eventos y ejecutar segun sea necesario
   suscribeChange() {
     this.userTheme.valueChanges.subscribe((res) => {
-      console.log("Change Theme ", res);
-
       this.themeService.setTheme(res);
     });
 
     this.userNavBar.valueChanges.subscribe((res) => {
-      console.log("Change userNavBar ", res);
       this.themeService.setNavBar(res);
     });
 
@@ -118,7 +129,6 @@ export class UserComponent implements OnInit {
     });
 
     this.notificacionesControl.valueChanges.subscribe((res) => {
-      console.log("Change notificacionesControl ", res);
       if (res) {
         this.suscribeToNotifications();
         localStorage.setItem("notificaciones", "true");
@@ -130,11 +140,6 @@ export class UserComponent implements OnInit {
     this.installPWAControl.valueChanges.subscribe((res) => {
       if (res) {
         // Si el usuario habilita el switch le proponemos instalar
-        console.log(
-          "this.themeService.promptEvent ",
-          this.themeService.promptEvent
-        );
-        console.log("Instalar");
         this.installPwa();
       }
     });
@@ -157,18 +162,15 @@ export class UserComponent implements OnInit {
 
   // Metodo que solicita al usuario habilitar las notificaciones en el navegador
   suscribeToNotifications() {
-    console.log("suscribeToNotifications");
     this.swPush
       .requestSubscription({
         serverPublicKey: environment.VAPID_PUBLIC_KEY,
       })
       .then((token) => {
         // Validamos que el usuario de permisos
-        console.log("Request Token Subscription");
         this.saveNotification(token);
       })
       .catch((err) => {
-        console.log("Error al suscribirse", err);
         this.disableNotificaciones();
         // En caso contrario de suceder un error lo notificamos
         this.toastrService.error("Sucedio un error al suscribirse ", "Error");
@@ -226,13 +228,11 @@ export class UserComponent implements OnInit {
 
   // Obtener solicitud de registro de WebAuthn para el usuario desde el servicio
   async getRegistrationAuthnWeb() {
-    console.log("Habilitando fingerPrint");
     this.authService.getRegistrationAuthnWeb().subscribe({
       next: async (res) => {
         try {
           // Con la respuesta empezamos el proceso
           const attResp = await startRegistration(res);
-          console.log("Registrado despues de responder", attResp);
           // Si todo salio bien se llama al siguiente servicio para registrarlo
           this.registerAuthnWeb(attResp);
         } catch (e) {
@@ -250,7 +250,6 @@ export class UserComponent implements OnInit {
       },
       error: (_err) => {
         this.disableFingerPrint();
-        console.log("Sucedio un error ", _err);
       },
     });
   }
@@ -260,13 +259,11 @@ export class UserComponent implements OnInit {
     this.authService.verifyRegistration(data).subscribe({
       next: async (res) => {
         // Si todo va bien mostramos el mensaje de exito
-        console.log("La respuesta register verify registration es ", res);
         Swal.fire("Exito", "Se registro exitosamente", "success");
         this.storageUserData();
       },
       error: (_err) => {
         this.disableFingerPrint();
-        console.log("Error registerAuthnWeb", _err);
         Swal.fire("Error", "Algo salio mal al registrarse", "error");
       },
     });
