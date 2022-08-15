@@ -1,0 +1,165 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card card-user">
+        <div class=" card-body">
+          <p class=" card-text"></p>
+          <div class=" author">
+            <div class=" block block-one"></div>
+            <div class=" block block-two"></div>
+            <div class=" block block-three"></div>
+            <div class=" block block-four"></div>
+            <img alt="Perfil" class="avatar" [width]="200" [height]="200" src="assets/img/user.jpg" />
+            <p> {{userProfileForm.value.nombre + " " + userProfileForm.value.apellidoPaterno + " " + userProfileForm.value.apellidoMaterno }}</p>
+            <h5 class=" title">Opciones</h5>
+            <div class="row">
+              <div class="col-md-3 px-md-1">
+                <div class=" form-group">
+                  <label  ><i [class]="userTheme.value ? 'fas fa-moon' : 'fas fa-sun' "></i>Theme</label> 
+                  <br>
+                  <mat-slide-toggle [formControl]="userTheme" ></mat-slide-toggle>
+                </div>
+              </div>
+              <div  [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
+                <div class=" form-group">
+                  <label><i class="fas fa-bars"></i> Nav Bar</label> <br>
+                  <mat-slide-toggle [formControl]="userNavBar"></mat-slide-toggle>
+                </div>
+              </div>
+              <div   [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
+                <div class=" form-group">
+                  <label><i class="fas fa-fingerprint"></i> FingerPrint</label> <br>
+                  <mat-slide-toggle [formControl]="userFingerPrint"></mat-slide-toggle>
+                </div>
+              </div>
+              <div class="col-md-2 px-md-1" *ngIf="shouldInstall()">
+                <div class=" form-group">
+                  <label><i class="fa fa-cloud-download"></i> Instalar</label> <br>
+                  <mat-slide-toggle [formControl]="installPWAControl"></mat-slide-toggle>
+                </div>
+              </div>
+              <div class="col-md-3 px-md-1">
+                <div class=" form-group">
+                  <label><i class="fa-solid fa-bell"></i> Notificaciones</label> <br>
+                  <mat-slide-toggle [formControl]="notificacionesControl"></mat-slide-toggle>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" card">
+        <div class=" card-header">
+          <h5 class=" title">Mi Perfil</h5>
+        </div>
+        <div class=" card-body">
+          <form [formGroup]="userProfileForm">
+            <div class=" row">
+              <div class=" col-md-5 pr-md-1">
+                <div class=" form-group">
+                  <label>UserName</label>
+                  <input class=" form-control"  readonly placeholder="User" type="text" formControlName="username" />
+                </div>
+              </div>
+              <div class=" col-md-4 pl-md-1">
+                <div class=" form-group">
+                  <label> Actualizado </label>
+                  <input class=" form-control" type="text"  readonly  formControlName="updateAt" />
+                </div>
+              </div>
+              <div class=" col-md-3 pl-md-1">
+                <div class=" form-group">
+                  <label> Rol </label>
+                  <input class=" form-control" type="text" readonly formControlName="role" />
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class="col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Nombre </label>
+                  <input class=" form-control" placeholder="Nombre" type="text" formControlName="nombre" />
+                  <div *ngIf="userProfileForm.controls.nombre.invalid && userProfileForm.controls.nombre.touched">
+                    <small id="requiredNombres" class="text-left"
+                      *ngIf="userProfileForm.controls.nombre.errors?.required">
+                      Se requiere ingresar nombres</small>
+                    <small id="patternNombres" class="text-left"
+                      *ngIf="userProfileForm.controls.nombre.errors?.pattern">
+                      El nombre ingresado tiene formato invalido</small><br />
+                    <small id="minlengthNombres" class="text-left"
+                      *ngIf="userProfileForm.controls.nombre.errors?.minlength">
+                      La longitud minima del nombre es de 2 caracteres</small>
+                  </div>
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Apellido Paterno </label>
+                  <input class=" form-control" placeholder="Apellido Paterno" type="text"
+                    formControlName="apellidoPaterno" />
+                  <div
+                    *ngIf="userProfileForm.controls.apellidoPaterno.invalid && userProfileForm.controls.apellidoPaterno.touched">
+                    <small id="requiredPaterno" class="text-left"
+                      *ngIf="userProfileForm.controls.apellidoPaterno.errors?.required">
+                      Se requiere ingresar apellido paterno</small>
+                    <small id="patternPaterno" class="text-left"
+                      *ngIf="userProfileForm.controls.apellidoPaterno.errors?.pattern">
+                      El apellido paterno ingresado tiene formato invalido</small><br />
+                    <small id="minlengthPaterno" class="text-left"
+                      *ngIf="userProfileForm.controls.apellidoPaterno.errors?.minlength">
+                      La longitud minima del apellido paterno es de 2 caracteres</small>
+                  </div>
+                </div>
+              </div>
+              <div class=" col-md-4 pl-md-1">
+                <div class=" form-group">
+                  <label> Apellido Materno </label>
+                  <input class=" form-control" placeholder="Apellido Materno" type="text"
+                    formControlName="apellidoMaterno" />
+                  <div
+                    *ngIf="userProfileForm.controls.apellidoMaterno.invalid && userProfileForm.controls.apellidoMaterno.touched">
+                    <small id="requiredPaterno" class="text-left"
+                      *ngIf="userProfileForm.controls.apellidoMaterno.errors?.required">
+                      Se requiere ingresar apellido paterno</small>
+                    <small id="patternPaterno" class="text-left"
+                      *ngIf="userProfileForm.controls.apellidoMaterno.errors?.pattern">
+                      El apellido paterno ingresado tiene formato invalido</small><br />
+                    <small id="minlengthPaterno" class="text-left"
+                      *ngIf="userProfileForm.controls.apellidoMaterno.errors?.minlength">
+                      La longitud minima del apellido paterno es de 2 caracteres</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class=" card-footer">
+          <button class="btn btn-primary" [disabled]="userProfileForm.invalid"
+            (click)="actualizarPerfil()">Editar</button>
+        </div>
+      </div>
+
+      <div class=" card">
+        <div class=" card-header">
+          <h5 class="title">Danger Zone</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" row">
+            <div class=" col-md-5 pr-md-1">
+              <div class=" form-group">
+                <button type="button" style="
+                background: #d83838 !important;
+                color : white !important;
+                " (click)="onLogout()" class="btn  danger"> <i class="tim-icons  icon-button-power"></i> &nbsp;&nbsp;
+                  Logout</button>
+              </div>
+              <div class=" form-group">
+                <button type="button" [routerLink]="['/change-password']" class="btn outline danger"> <i
+                    class="tim-icons  icon-key-25"></i> &nbsp;&nbsp; Change Password</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

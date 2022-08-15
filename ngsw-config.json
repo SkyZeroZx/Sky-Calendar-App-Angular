@@ -2,8 +2,8 @@
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
   "appData": {
-    "version": "v1.0.0",
-    "session": "logout"
+    "version": "1.2.5",
+    "session": "Sky Calendar"
   },
   "assetGroups": [
     {

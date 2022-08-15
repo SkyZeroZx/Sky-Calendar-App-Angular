@@ -90,8 +90,9 @@ _**Calendario** : Apartado con el calendario de tareas , registro de tareas , ed
 
 ![Calendario 4](/docs/layout/calendario_4.png)
 
-=======
-_**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar sus datos personales , habilitar notificaciones , fingerprint authentication , navbar mode y dark theme o light theme demanda (Se envia notificaciones push a los usuarios suscritos)_
+
+_**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar sus datos personales , habilitar notificaciones , fingerprint authentication , narbar mode y dark theme o light theme demanda (Se envia notificaciones push a los usuarios suscritos)_
+
 
 ![Profile 1](/docs/layout/profile-1.png)
 
@@ -100,6 +101,8 @@ _**Profile** : Apartado de perfil del sistema del usuario donde puede actualizar
 ![Profile 3](/docs/layout/profile-3.png)
 
 ![Profile 4](/docs/layout/profile-4.png)
+
+
 
 ## Ejecutando como PWA 👨🏻‍💻
 
@@ -116,6 +119,8 @@ npm run start-pwa
 ```
 
 _Este comando se encuentra configurado en el archivo *package.json de la raiz del proyecto por default ejecuta el puerto 8080*_
+
+_La PWA se encuentra configurada para ejecutarse en la vista de Login si no se esta logeado_
 
 ![PWA 1](/docs/pwa/pwa_1.png)
 
@@ -181,11 +186,11 @@ _Las herramientas utilizadas son:_
 
 Usamos [GIT](https://git-scm.com/) para el versionado.
 
-## Autores ✒️
+## Autor✒️
 
-_Los integrantes del proyecto_
-
-- **Jaime Burgos Tejada** - _Developer_ - [SkyZeroZx](https://github.com/SkyZeroZx)
+- **Jaime Burgos Tejada** - _Developer_ 
+- [SkyZeroZx](https://github.com/SkyZeroZx)
+- Email : jaimeburgostejada@gmail.com
 
 ## Licencia 📄
 

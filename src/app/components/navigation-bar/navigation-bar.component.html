@@ -1,0 +1,29 @@
+<div class="tab-nav-container" (click)="tabNavigation()" [style]="darkTheme ? 'background-color:#1e1e2b;' : '' "
+   >
+    <div class="tab {{menuItem.class}}"   *ngFor="let menuItem of menuItems"
+    [style]="darkTheme ? 'background-color:#1e1e2b;' : '' " 
+    routerLinkActive="active" [routerLink]="[menuItem.path]">
+    <i class="tim-icons  {{ menuItem.icon }}  {{menuItem.class}}"></i>
+    <p>{{ menuItem.title }}</p>
+    </div>
+    <!--   
+        <div class="tab  purple" [style]="darkTheme ? 'background-color:#1e1e2b;' : '' " routerLinkActive="active">
+        <i class="fas fa-home"></i>
+        <p>Home</p>
+    </div>
+    
+    <div class="tab pink" [routerLink]="['/user']" [style]="darkTheme ? 'background-color:#1e1e2b;' : '' "
+        routerLinkActive="active">
+        <i class="far fa-heart"></i>
+        <p>Likes</p>
+    </div>
+    <div class="tab yellow" [routerLink]="['/notifications']" [style]="darkTheme ? 'background-color:#1e1e2b;' : '' "
+        routerLinkActive="active">
+        <i class="fas fa-search"></i>
+        <p>search</p>
+    </div>
+    <div class="tab teal" [style]="darkTheme ? 'background-color:#1e1e2b;' : '' " routerLinkActive="active">
+        <i class="far fa-bell"></i>
+        <p>Notifications</p>
+    </div>-->
+</div>

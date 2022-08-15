@@ -1,19 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: "app-footer",
+  templateUrl: "./footer.component.html",
+  styleUrls: ["./footer.component.css"]
 })
 export class FooterComponent implements OnInit {
-  test: Date = new Date();
+  date: Date = new Date();
 
-  constructor() { 
-    // This is intentional
-   }
+  constructor() {}
 
-  ngOnInit() {
-     // This is intentional
-  }
-
+  ngOnInit() {}
 }

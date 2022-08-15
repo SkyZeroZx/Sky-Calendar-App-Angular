@@ -1,16 +1,21 @@
 import { Routes } from "@angular/router";
-import { IsLogged } from "src/app/guards/IsLogged.guard";
- 
-import { CheckRole } from "src/app/guards/checkRole.guard";
-import { UsersComponent } from "src/app/pages/users/users.component";
-import { FirstLogin } from "src/app/guards/FirstLogin.guard";
-import { CalendarAdminComponent } from "src/app/pages/calendar-admin/calendar-admin.component";
+import { CalendarAdminComponent } from "../../pages/calendar-admin/calendar-admin.component";
+import { GestionUsuariosComponent } from "src/app/pages/gestion-usuarios/gestion-usuarios.component";
 import { CalendarViewComponent } from "src/app/pages/calendar-view/calendar-view.component";
+import { CheckRole } from "src/app/common/guards/checkRole.guard";
+import { FirstLogin } from "src/app/common/guards/FirstLogin.guard";
+import { IsLogged } from "src/app/common/guards/IsLogged.guard";
+import { UserComponent } from "src/app/pages/user-profile/user.component";
 
 export const AdminLayoutRoutes: Routes = [
   {
-    path: "calendar-view",
-    component: CalendarViewComponent,
+    path: "gestion-usuarios",
+    component: GestionUsuariosComponent,
+    canActivate: [FirstLogin, CheckRole, IsLogged],
+  },
+  {
+    path: "user",
+    component: UserComponent,
     canActivate: [FirstLogin, CheckRole, IsLogged],
   },
   {
@@ -19,8 +24,8 @@ export const AdminLayoutRoutes: Routes = [
     canActivate: [FirstLogin, CheckRole, IsLogged],
   },
   {
-    path: "users",
-    component: UsersComponent,
+    path: "calendar-view",
+    component: CalendarViewComponent,
     canActivate: [FirstLogin, CheckRole, IsLogged],
-  },
+  }
 ];

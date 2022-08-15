@@ -1,11 +1,11 @@
 {
-  "name": "sky-calendar",
-  "short_name": "sky-calendar",
+  "name": "Sky Calendar PWA",
+  "short_name": "Sky Calendar",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./#/login",
+  "start_url": "./",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

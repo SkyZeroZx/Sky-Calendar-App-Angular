@@ -11,8 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Constant } from 'src/app/Constants/Constant';
 import { IType } from 'src/app/entities/type';
 import { IUser } from 'src/app/entities/user';
-import { ServiciosService } from 'src/app/services/servicios.service';
-
+import { TaskService } from 'src/app/services/task/task.service';
+import { UserService } from 'src/app/services/users/user.service';
+ 
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
@@ -35,15 +36,9 @@ export class EditTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
-    private servicios: ServiciosService,
+    private userService: UserService,
+    private taskService: TaskService
   ) {
- /*   this.today = new Date();
-    this.minDate = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
-    this.maxDate = new Date(
-      this.today.getFullYear(),
-      this.today.getMonth(),
-      new Date(this.today.getFullYear(), this.today.getMonth() + 1, 0).getDate(),
-    );*/
   }
 
   ngOnInit(): void {
@@ -52,7 +47,6 @@ export class EditTaskComponent implements OnInit {
     this.listarUsers();
     this.listarTypeTask();
     this.detailsEdit();
-    console.log('in_editTask ', this.in_editTask);
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
@@ -60,54 +54,40 @@ export class EditTaskComponent implements OnInit {
   }
 
   editarTask() {
-    console.log('Form Edit Task Values ', this.editTaskForm.value);
-    this.servicios.updateTask(this.editTaskForm.value).subscribe({
+    this.taskService.updateTask(this.editTaskForm.value).subscribe({
       next: (res) => {
-        console.log(' Res editar Task ', res);
         this.respuestaEditTaskComponent.emit();
         if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success('Se actualizo exitosamente la tarea', 'Exito', {
-            timeOut: 3000,
-          });
+          this.toastrService.success('Se actualizo exitosamente la tarea', 'Exito');
         } else {
-          this.toastrService.error('Error al actualizar la tarea', 'Error', {
-            timeOut: 3000,
-          });
+          this.toastrService.error('Error al actualizar la tarea', 'Error');
         }
       },
       error: (_err) => {
-        console.log('  ERR EDITAR TASK ', _err);
         this.respuestaEditTaskComponent.emit();
-        this.toastrService.error('Error al actualizar la tarea', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error('Error al actualizar la tarea', 'Error');
       },
     });
   }
 
   listarUsers() {
-    this.servicios.getAllUsers().subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (res) => {
-        console.log('Listar Usuarios ->', res);
         this.listaUsuarios = res;
       },
       error: (err) => {
-        this.toastrService.error('Error al listar usuarios' + err, 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error');
       },
     });
   }
 
   listarTypeTask() {
-    this.servicios.getAllTypes().subscribe({
+    this.taskService.getAllTypes().subscribe({
       next: (res) => {
         this.listarTypes = res;
       },
       error: (err) => {
-        this.toastrService.error('Error al listar types' + err, 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error');
       },
     });
   }
@@ -118,37 +98,27 @@ export class EditTaskComponent implements OnInit {
 
   listarUserByTask() {
     // Enviamos el id del task
-    this.servicios.getUsersByTask(this.formatData()).subscribe({
+    this.taskService.getUsersByTask(this.formatData()).subscribe({
       next: (res) => {
         this.editTaskForm.controls.users.setValue(res);
       },
       error: (err) => {
-        console.log('Error Users By Task', err);
-        this.toastrService.error('Error al listar usuarios por tarea', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error('Error al listar usuarios por tarea', 'Error');
       },
     });
   }
 
   removeUserToTask(item: any) {
-    console.log('Usuario removido es ', item.value);
-    this.servicios.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
+    this.taskService.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success('Se removio exitosamente al usuario', 'Exito', {
-            timeOut: 3000,
-          });
+          this.toastrService.success('Se removio exitosamente al usuario', 'Exito');
         } else {
-          this.toastrService.error('Error al remover usuario', 'Error', {
-            timeOut: 3000,
-          });
+          this.toastrService.error('Error al remover usuario', 'Error');
         }
       },
       error: (_err) => {
-        this.toastrService.error('Error al remover usuario', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error('Error al remover usuario', 'Error');
       },
     });
   }
@@ -158,23 +128,16 @@ export class EditTaskComponent implements OnInit {
   }
 
   addUserToTask(item: any) {
-    console.log('Usuario agregado es ', item.id);
-    this.servicios.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
+    this.taskService.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success('Se agrego exitosamente al usuario', 'Exito', {
-            timeOut: 3000,
-          });
+          this.toastrService.success('Se agrego exitosamente al usuario', 'Exito');
         } else {
-          this.toastrService.error('Error al agregar usuario', 'Error', {
-            timeOut: 3000,
-          });
+          this.toastrService.error('Error al agregar usuario', 'Error');
         }
       },
       error: (_err) => {
-        this.toastrService.error('Error al agregar usuario', 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error('Error al agregar usuario', 'Error');
       },
     });
   }

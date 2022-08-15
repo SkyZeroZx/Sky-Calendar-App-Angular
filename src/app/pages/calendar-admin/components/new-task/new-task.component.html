@@ -1,5 +1,5 @@
 <form [formGroup]="crearNewTask" (ngSubmit)="crearTask()">
-    <div style="color: black;" class="modal-body">
+    <div   class="modal-body">
 
         <div class="col">
             <div class="form-group">
@@ -29,7 +29,7 @@
         <div class="col">
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Tipo (*)</label>
-                <ng-select [items]="listarTypes" [closeOnSelect]="true" [hideSelected]="true" bindValue="codType"
+                <ng-select [items]="listarTypes" [closeOnSelect]="true" [hideSelected]="true" bindValue="codType" 
                     [clearable]="false" (change)="validateTypeDate()" (keypress)="validateTypeDate()"
                     (keydown)="validateTypeDate()" bindLabel="typeDescription" placeholder="Seleccionar Tipo"
                     formControlName="codType">
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Usuarios (*)</label>
                 <ng-select [items]="listaUsuarios" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
-                    [clearable]="false" bindLabel="nombre" placeholder="Seleecionar usuario" formControlName="users">
+                    [clearable]="false" bindLabel="nombre" placeholder="Seleccionar usuario" formControlName="users">
                 </ng-select>
 
             </div>
