@@ -5,19 +5,24 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { Constant } from 'src/app/Constants/Constant';
-import { IType } from 'src/app/entities/type';
-import { IUser } from 'src/app/entities/user';
-import { TaskService } from 'src/app/services/task/task.service';
-import { UserService } from 'src/app/services/users/user.service';
- 
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Constant } from "src/app/Constants/Constant";
+import { IType } from "src/app/entities/type";
+import { IUser } from "src/app/entities/user";
+import { TaskService } from "src/app/services/task/task.service";
+import { UserService } from "src/app/services/users/user.service";
+
 @Component({
-  selector: 'app-edit-task',
-  templateUrl: './edit-task.component.html',
-  styleUrls: ['./edit-task.component.scss'],
+  selector: "app-edit-task",
+  templateUrl: "./edit-task.component.html",
+  styleUrls: ["./edit-task.component.scss"],
 })
 export class EditTaskComponent implements OnInit {
   editTaskForm: FormGroup;
@@ -38,8 +43,7 @@ export class EditTaskComponent implements OnInit {
     private toastrService: ToastrService,
     private userService: UserService,
     private taskService: TaskService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.crearFormularioNewTask();
@@ -58,14 +62,17 @@ export class EditTaskComponent implements OnInit {
       next: (res) => {
         this.respuestaEditTaskComponent.emit();
         if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success('Se actualizo exitosamente la tarea', 'Exito');
+          this.toastrService.success(
+            "Se actualizo exitosamente la tarea",
+            "Exito"
+          );
         } else {
-          this.toastrService.error('Error al actualizar la tarea', 'Error');
+          this.toastrService.error("Error al actualizar la tarea", "Error");
         }
       },
       error: (_err) => {
         this.respuestaEditTaskComponent.emit();
-        this.toastrService.error('Error al actualizar la tarea', 'Error');
+        this.toastrService.error("Error al actualizar la tarea", "Error");
       },
     });
   }
@@ -76,7 +83,7 @@ export class EditTaskComponent implements OnInit {
         this.listaUsuarios = res;
       },
       error: (err) => {
-        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error');
+        this.toastrService.error(`Error al listar usuarios ${err}`, "Error");
       },
     });
   }
@@ -87,7 +94,7 @@ export class EditTaskComponent implements OnInit {
         this.listarTypes = res;
       },
       error: (err) => {
-        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error');
+        this.toastrService.error(`Error al listar usuarios ${err}`, "Error");
       },
     });
   }
@@ -103,24 +110,29 @@ export class EditTaskComponent implements OnInit {
         this.editTaskForm.controls.users.setValue(res);
       },
       error: (err) => {
-        this.toastrService.error('Error al listar usuarios por tarea', 'Error');
+        this.toastrService.error("Error al listar usuarios por tarea", "Error");
       },
     });
   }
 
   removeUserToTask(item: any) {
-    this.taskService.deleteUserToTask(this.formatDataUserToTask(item.value.id)).subscribe({
-      next: (res) => {
-        if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success('Se removio exitosamente al usuario', 'Exito');
-        } else {
-          this.toastrService.error('Error al remover usuario', 'Error');
-        }
-      },
-      error: (_err) => {
-        this.toastrService.error('Error al remover usuario', 'Error');
-      },
-    });
+    this.taskService
+      .deleteUserToTask(this.formatDataUserToTask(item.value.id))
+      .subscribe({
+        next: (res) => {
+          if (res.message == Constant.MENSAJE_OK) {
+            this.toastrService.success(
+              "Se removio exitosamente al usuario",
+              "Exito"
+            );
+          } else {
+            this.toastrService.error("Error al remover usuario", "Error");
+          }
+        },
+        error: (_err) => {
+          this.toastrService.error("Error al remover usuario", "Error");
+        },
+      });
   }
 
   formatDataUserToTask(id: any) {
@@ -128,28 +140,37 @@ export class EditTaskComponent implements OnInit {
   }
 
   addUserToTask(item: any) {
-    this.taskService.addUserToTask(this.formatDataUserToTask(item.id)).subscribe({
-      next: (res) => {
-        if (res.message == Constant.MENSAJE_OK) {
-          this.toastrService.success('Se agrego exitosamente al usuario', 'Exito');
-        } else {
-          this.toastrService.error('Error al agregar usuario', 'Error');
-        }
-      },
-      error: (_err) => {
-        this.toastrService.error('Error al agregar usuario', 'Error');
-      },
-    });
+    this.taskService
+      .addUserToTask(this.formatDataUserToTask(item.id))
+      .subscribe({
+        next: (res) => {
+          if (res.message == Constant.MENSAJE_OK) {
+            this.toastrService.success(
+              "Se agrego exitosamente al usuario",
+              "Exito"
+            );
+          } else {
+            this.toastrService.error("Error al agregar usuario", "Error");
+          }
+        },
+        error: (_err) => {
+          this.toastrService.error("Error al agregar usuario", "Error");
+        },
+      });
   }
 
   detailsEdit() {
-    this.editTaskForm.controls.codTask.setValue(this.in_editTask?.event?._def?.publicId);
-    this.editTaskForm.controls.title.setValue(this.in_editTask?.event?._def?.title);
+    this.editTaskForm.controls.codTask.setValue(
+      this.in_editTask?.event?._def?.publicId
+    );
+    this.editTaskForm.controls.title.setValue(
+      this.in_editTask?.event?._def?.title
+    );
     this.editTaskForm.controls.description.setValue(
-      this.in_editTask?.event?._def?.extendedProps?.description,
+      this.in_editTask?.event?._def?.extendedProps?.description
     );
     this.editTaskForm.controls.codType.setValue(
-      this.in_editTask?.event?._def?.extendedProps?.codType,
+      this.in_editTask?.event?._def?.extendedProps?.codType
     );
     this.editTaskForm.controls.dateRange.setValue([
       this.in_editTask?.event?._instance?.range.start,
@@ -159,12 +180,18 @@ export class EditTaskComponent implements OnInit {
 
   crearFormularioNewTask() {
     this.editTaskForm = this.fb.group({
-      codTask: new FormControl('', Validators.compose([Validators.required])),
-      title: new FormControl('', Validators.compose([Validators.required])),
-      codType: new FormControl('', Validators.compose([Validators.required])),
-      description: new FormControl('', Validators.compose([Validators.required])),
-      dateRange: new FormControl(null, Validators.compose([Validators.required])),
-      users: new FormControl('', Validators.compose([Validators.required])),
+      codTask: new FormControl("", Validators.compose([Validators.required])),
+      title: new FormControl("", Validators.compose([Validators.required])),
+      codType: new FormControl("", Validators.compose([Validators.required])),
+      description: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
+      dateRange: new FormControl(
+        null,
+        Validators.compose([Validators.required])
+      ),
+      users: new FormControl("", Validators.compose([Validators.required])),
     });
   }
 }

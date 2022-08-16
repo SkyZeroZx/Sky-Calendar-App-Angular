@@ -28,9 +28,6 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
   //Variable booleana para validacion de password el cambio de contraseña (OldPassword & NewPassword)
   diferent: boolean = false;
-  // Arreglo de variables booleanas para mostrar el password segun se requiera
-  show_button: boolean[] = [false, false, false];
-  show_eye: boolean[] = [false, false, false];
 
   //Inicializamos el formulario al renderizar el componente
   ngOnInit() {

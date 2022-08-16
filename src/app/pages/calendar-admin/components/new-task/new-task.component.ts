@@ -91,9 +91,7 @@ export class NewTaskComponent implements OnInit {
         this.listaUsuarios = res;
       },
       error: (err) => {
-        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error', {
-          timeOut: 3000,
-        });
+        this.toastrService.error(`Error al listar usuarios ${err}`, 'Error');
       },
     });
   }

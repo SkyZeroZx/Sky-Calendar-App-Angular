@@ -297,7 +297,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  actualizarPerfil() {
+  updateProfile() {
     this.userService.updateUser(this.userProfileForm.value).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
