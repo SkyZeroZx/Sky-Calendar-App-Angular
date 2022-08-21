@@ -230,7 +230,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   // Obtener solicitud de registro de WebAuthn para el usuario desde el servicio
-  async getRegistrationAuthnWeb() {
+  getRegistrationAuthnWeb() {
     this.authService.getRegistrationAuthnWeb().subscribe({
       next: async (res) => {
         try {

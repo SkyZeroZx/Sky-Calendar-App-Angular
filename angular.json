@@ -53,7 +53,7 @@
               "optimization": {
                 "scripts": true,
                 "styles": {
-                  "minify": false,
+                  "minify": true,
                   "inlineCritical": false
                 },
                 "fonts": true
