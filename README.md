@@ -144,7 +144,7 @@ _Cuenta con soporte para logeo mediante huella dactilar o patron/pin del dispost
 
 ![AUTH 1](/docs/web-authn/web-authn_1.jpg)
 
-_Para habilitarlo ir al menu hamburguesa y desplegar opciones para habilitar la verificacion dactilar o por patron/pin_
+_Para habilitarlo ir al profile del usuario logeado _
 
 ![AUTH 2](/docs/web-authn/web-authn_2.jpg)
 

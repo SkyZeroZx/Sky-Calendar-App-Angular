@@ -18,6 +18,7 @@ import { InterceptorService } from "./services/interceptor/interceptor.service";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ErrorInterceptorService } from "./services/interceptor/error-interceptor.service";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 @NgModule({
   imports: [
@@ -28,11 +29,11 @@ import { ErrorInterceptorService } from "./services/interceptor/error-intercepto
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    SweetAlert2Module.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       toastClass: "alert",
-          positionClass: 'toast-top-right' 
- 
+      positionClass: 'toast-top-right' 
     }),
     NgxSpinnerModule,
     ServiceWorkerModule.register('custom-service-worker.js', {
@@ -40,9 +41,9 @@ import { ErrorInterceptorService } from "./services/interceptor/error-intercepto
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:5000'
-    }), 
+    })
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
+  declarations: [AppComponent , AdminLayoutComponent , AuthLayoutComponent],
   providers: [
     { provide: ToastrService, useClass: ToastrService },
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

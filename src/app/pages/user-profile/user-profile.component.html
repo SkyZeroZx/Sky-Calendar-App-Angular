@@ -1,4 +1,4 @@
-<div class=" content">
+<div class="content">
   <div class=" row">
     <div class=" col-md-12">
       <div class=" card card-user">
@@ -10,23 +10,24 @@
             <div class=" block block-three"></div>
             <div class=" block block-four"></div>
             <img alt="Perfil" class="avatar" [width]="200" [height]="200" src="assets/img/user.jpg" />
-            <p> {{userProfileForm.value.nombre + " " + userProfileForm.value.apellidoPaterno + " " + userProfileForm.value.apellidoMaterno }}</p>
+            <p> {{userProfileForm.value.nombre + " " + userProfileForm.value.apellidoPaterno + " " +
+              userProfileForm.value.apellidoMaterno }}</p>
             <h5 class=" title">Opciones</h5>
             <div class="row">
               <div class="col-md-3 px-md-1">
                 <div class=" form-group">
-                  <label  ><i [class]="userTheme.value ? 'fas fa-moon' : 'fas fa-sun' "></i>Theme</label> 
+                  <label><i [class]="userTheme.value ? 'fas fa-moon' : 'fas fa-sun' "></i>Theme</label>
                   <br>
-                  <mat-slide-toggle [formControl]="userTheme" ></mat-slide-toggle>
+                  <mat-slide-toggle [formControl]="userTheme"></mat-slide-toggle>
                 </div>
               </div>
-              <div  [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
+              <div [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
                 <div class=" form-group">
                   <label><i class="fas fa-bars"></i> Nav Bar</label> <br>
                   <mat-slide-toggle [formControl]="userNavBar"></mat-slide-toggle>
                 </div>
               </div>
-              <div   [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
+              <div [class]="shouldInstall() ? 'col-md-2 px-md-1'  : 'col-md-3 px-md-1' ">
                 <div class=" form-group">
                   <label><i class="fas fa-fingerprint"></i> FingerPrint</label> <br>
                   <mat-slide-toggle [formControl]="userFingerPrint"></mat-slide-toggle>
@@ -43,7 +44,7 @@
                   <label><i class="fa-solid fa-bell"></i> Notificaciones</label> <br>
                   <mat-slide-toggle [formControl]="notificacionesControl"></mat-slide-toggle>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
         </div>
@@ -58,13 +59,13 @@
               <div class=" col-md-5 pr-md-1">
                 <div class=" form-group">
                   <label>UserName</label>
-                  <input class=" form-control"  readonly placeholder="User" type="text" formControlName="username" />
+                  <input class=" form-control" readonly placeholder="User" type="text" formControlName="username" />
                 </div>
               </div>
               <div class=" col-md-4 pl-md-1">
                 <div class=" form-group">
                   <label> Actualizado </label>
-                  <input class=" form-control" type="text"  readonly  formControlName="updateAt" />
+                  <input class=" form-control" type="text" readonly formControlName="updateAt" />
                 </div>
               </div>
               <div class=" col-md-3 pl-md-1">
@@ -78,7 +79,7 @@
               <div class="col-md-4 pr-md-1">
                 <div class=" form-group">
                   <label> Nombre </label>
-                  <input class=" form-control" placeholder="Nombre" type="text" formControlName="nombre" />
+                  <input class=" form-control" placeholder="Nombre" type="text" formControlName="nombre" maxlength="120" />
                   <div *ngIf="userProfileForm.controls.nombre.invalid && userProfileForm.controls.nombre.touched">
                     <small id="requiredNombres" class="text-left"
                       *ngIf="userProfileForm.controls.nombre.errors?.required">
@@ -96,7 +97,7 @@
                 <div class=" form-group">
                   <label> Apellido Paterno </label>
                   <input class=" form-control" placeholder="Apellido Paterno" type="text"
-                    formControlName="apellidoPaterno" />
+                    formControlName="apellidoPaterno" maxlength="120"/>
                   <div
                     *ngIf="userProfileForm.controls.apellidoPaterno.invalid && userProfileForm.controls.apellidoPaterno.touched">
                     <small id="requiredPaterno" class="text-left"
@@ -115,7 +116,7 @@
                 <div class=" form-group">
                   <label> Apellido Materno </label>
                   <input class=" form-control" placeholder="Apellido Materno" type="text"
-                    formControlName="apellidoMaterno" />
+                    formControlName="apellidoMaterno" maxlength="120" />
                   <div
                     *ngIf="userProfileForm.controls.apellidoMaterno.invalid && userProfileForm.controls.apellidoMaterno.touched">
                     <small id="requiredPaterno" class="text-left"
@@ -134,10 +135,11 @@
           </form>
         </div>
         <div class=" card-footer">
-          <button class="btn btn-primary" [disabled]="userProfileForm.invalid"
-            (click)="updateProfile()">Editar</button>
+          <button class="btn btn-primary" [disabled]="userProfileForm.invalid" (click)="updateProfile()">Editar</button>
         </div>
       </div>
+
+
 
       <div class=" card">
         <div class=" card-header">

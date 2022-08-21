@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +7,7 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { SwPush } from "@angular/service-worker";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { startRegistration } from "@simplewebauthn/browser";
 import { ToastrService } from "ngx-toastr";
 import { Constant } from "src/app/Constants/Constant";
@@ -17,11 +18,11 @@ import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: "app-user",
-  templateUrl: "user.component.html",
-  styleUrls: ["./user.component.scss"],
+  selector: "app-user-profile",
+  templateUrl: "user-profile.component.html",
+  styleUrls: ["./user-profile.component.scss"],
 })
-export class UserComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
   constructor(
     private themeService: ThemeService,
     private fb: FormBuilder,
@@ -29,30 +30,32 @@ export class UserComponent implements OnInit {
     private authService: AuthService,
     private toastrService: ToastrService,
     private userService: UserService,
-    private router: Router
-  ) {
-    this.userTheme.setValue(this.darkTheme);
-    this.userNavBar.setValue(this.navBarPosition);
-  }
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
 
-  darkTheme: boolean = this.themeService.getLocalStorageItem("darkTheme");
-  navBarPosition: boolean = this.themeService.getLocalStorageItem("navBar");
-  fingerPrint: boolean = this.themeService.getLocalStorageItem("verified");
-  notificacionesEnabled: boolean =
-    this.themeService.getLocalStorageItem("notificaciones");
-
-  userTheme: FormControl = new FormControl(this.themeService.darkTheme);
-  userNavBar: FormControl = new FormControl(this.themeService.navBarPosition);
-  userFingerPrint: FormControl = new FormControl(this.fingerPrint);
+  // Creamos nuestro formControls para los switch de userTheme , NavBar , FingerPrint y Notificaciones
+  userTheme: FormControl = new FormControl(
+    this.themeService.getLocalStorageItem("darkTheme")
+  );
+  userNavBar: FormControl = new FormControl(
+    this.themeService.getLocalStorageItem("navBar")
+  );
+  userFingerPrint: FormControl = new FormControl(
+    this.themeService.getLocalStorageItem("verified")
+  );
   notificacionesControl: FormControl = new FormControl(
-    this.notificacionesEnabled
+    this.themeService.getLocalStorageItem("notificaciones")
   );
   installPWAControl: FormControl = new FormControl(false);
+  //Formulario del perfil del usuario
   userProfileForm: FormGroup = new FormGroup({});
-
+  ancho: number = window.innerWidth;
   ngOnInit() {
     this.createUserProfileForm();
     this.suscribeChange();
+    //  this.ancho  = window.innerWidth -55;
+    console.log(" window.innerWidth ", window.innerWidth);
   }
 
   createUserProfileForm() {
@@ -60,18 +63,18 @@ export class UserComponent implements OnInit {
       id: null,
       username: null,
       nombre: new FormControl(
-        '',
+        "",
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
-          Validators.maxLength(80),
+          Validators.maxLength(120),
           Validators.pattern("[A-Za-z ]+"),
         ])
       ),
       role: null,
       estado: null,
       apellidoMaterno: new FormControl(
-        '',
+        "",
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
@@ -80,7 +83,7 @@ export class UserComponent implements OnInit {
         ])
       ),
       apellidoPaterno: new FormControl(
-        '',
+        "",
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
@@ -91,7 +94,7 @@ export class UserComponent implements OnInit {
       createAt: null,
       updateAt: null,
     });
-    
+
     this.setProfileUser();
   }
 

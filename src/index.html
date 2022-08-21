@@ -16,96 +16,101 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png"/>
-  <link href="./assets/img/brand/favicon0.ico" rel="icon" type="ico">
-  <title>Sky Calendar PWA</title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet"/>
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--PWA -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
-     
-  <script>
-    function isNumberKey(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
-    }
-    function isNombre(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode
-        if ((evt.charCode > 64 && evt.charCode < 91) || (evt.charCode > 96 && evt.charCode < 123) || evt.charCode !== 32)
-            return false;
-        return true;
-    }
-</script>
-<script>
-    function tipodocumento(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^0-9]/g, "");
-        input.value = numbers;
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
+    <link href="./assets/img/brand/favicon0.ico" rel="icon" type="ico">
+    <title>Sky Calendar PWA</title>
+    <!-- Bootstrap 5 Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+        integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--PWA -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1976d2">
 
-    }
-    function process(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^0-9]/g, "");
-        input.value = numbers;
-    }
-    function alpha(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z ]/gi, "");
-        input.value = numbers;
-    }
-    function alphanum(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9]/gi, "");
-        input.value = numbers;
-    }
-    function usuario(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9]/gi, "");
-        input.value = numbers;
-    }
-    function usuario1(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9]/gi, "");
-        input.value = numbers;
-    }
-    function alpha2(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9\@\-\_\:\/\.]/gi, "");
-        input.value = numbers;
-    }
-    function nombres(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9 ]/gi, "");
-        input.value = numbers;
-    }
-    function mail(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9\@\-\_\.]/gi, "");
-        input.value = numbers;
-    }
-    function pass(input) {
-        let value = input.value;
-        let numbers = value.replace(/[^a-z0-9\@\-\_\:\/\.\(\)]/gi, "");
-        input.value = numbers;
-    }
-</script>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+        function isNombre(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if ((evt.charCode > 64 && evt.charCode < 91) || (evt.charCode > 96 && evt.charCode < 123) || evt.charCode !== 32)
+                return false;
+            return true;
+        }
+    </script>
+    <script>
+        function tipodocumento(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^0-9]/g, "");
+            input.value = numbers;
+
+        }
+        function process(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^0-9]/g, "");
+            input.value = numbers;
+        }
+        function alpha(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z ]/gi, "");
+            input.value = numbers;
+        }
+        function alphanum(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9]/gi, "");
+            input.value = numbers;
+        }
+        function usuario(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9]/gi, "");
+            input.value = numbers;
+        }
+        function usuario1(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9]/gi, "");
+            input.value = numbers;
+        }
+        function alpha2(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9\@\-\_\:\/\.]/gi, "");
+            input.value = numbers;
+        }
+        function nombres(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9 ]/gi, "");
+            input.value = numbers;
+        }
+        function mail(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9\@\-\_\.]/gi, "");
+            input.value = numbers;
+        }
+        function pass(input) {
+            let value = input.value;
+            let numbers = value.replace(/[^a-z0-9\@\-\_\:\/\.\(\)]/gi, "");
+            input.value = numbers;
+        }
+    </script>
 </head>
 
 <body>
-  <app-root></app-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+    <app-root></app-root>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 
 </html>

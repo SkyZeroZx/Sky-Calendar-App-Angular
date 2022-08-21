@@ -46,8 +46,7 @@ export class NavigationBarComponent implements OnInit {
           tab.classList.remove("active");
         });
         clickedTab.classList.add("active");
-        const clickedTabBGColor =
-          getComputedStyle(clickedTab).getPropertyValue("color");
+      //  const clickedTabBGColor = getComputedStyle(clickedTab).getPropertyValue("color");
       });
     });
   }

@@ -1,5 +1,3 @@
- 
-
 <div class="content">
     <div class="row">
         <div class="col">
@@ -7,7 +5,7 @@
                 <div class="card-header border-0">
                     <h3 class="mb-0">Gestion Usuarios</h3>
                 </div>
-                <br/>
+                <br />
                 <form [formGroup]="usuarioForm" (change)="onChangeForm()">
                     <div class="row">
                         <div class="col-sm-4">
@@ -63,21 +61,18 @@
                 </form>
 
                 <div class="card-header">
-                    <div class="row">
-                        &nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn info" (click)="crearUsuario()">
-                            <a><i class="fa fa-user-plus" aria-hidden="true"></i>
-                                Nuevo</a>
-                        </button>
-                        &nbsp;&nbsp;&nbsp;
-                        <button id="pdfUsers" type="button" class="btn danger" (click)="exportarPDF()">
-                            <a> <i class="fa fa-file-pdf" aria-hidden="true"></i> PDF</a>
-                        </button>
-                    </div>
+                    <button type="button" class="btn info" (click)="crearUsuario()">
+                        <a><i class="fa fa-user-plus" aria-hidden="true"></i>
+                            Nuevo</a>
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button id="pdfUsers" type="button" class="btn danger" (click)="exportarPDF()">
+                        <a> <i class="fa fa-file-pdf" aria-hidden="true"></i> PDF</a>
+                    </button>
                 </div>
 
                 <div class="table-responsive" *ngIf="listaUsuariosOk" style="padding:5px">
-                    <table  class=" table " >
+                    <table class=" table ">
                         <thead class=" text-primary">
                             <tr>
                                 <th scope="col">Codigo</th>
@@ -147,8 +142,8 @@
                     </table>
                 </div>
                 <div class="container d-flex justify-content-center ">
-                    <pagination-controls (pageChange)="p=$event" previousLabel="Anterior" nextLabel="Siguiente" class="paginator"
-                        responsive="true">
+                    <pagination-controls (pageChange)="p=$event" previousLabel="Anterior" nextLabel="Siguiente"
+                        class="paginator" responsive="true">
                     </pagination-controls>
                 </div>
             </div>
@@ -157,16 +152,17 @@
 </div>
 
 <!-- Modal Nuevo Usuario -->
-<div bsModal class="modal fade" #modalNewUser="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarUsuarios(); crearUsuarioOK = false"
-    tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
-    <div class="modal-dialog modal-lg" >
+<div bsModal class="modal fade" #modalNewUser="bs-modal" [config]="{backdrop: 'static'}"
+    (onHidden)="listarUsuarios(); crearUsuarioOK = false" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog modal-lg">
 
         <div class="modal-content card">
             <div class="modal-header">
                 <h4>Nuevo Usuario</h4>
                 <button type="button" class="btn-close close pull-right" aria-label="Close"
                     (click)="modalNewUser.hide()">
-                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                    <span>&times;</span>
                 </button>
             </div>
             <app-crear-user *ngIf="crearUsuarioOK"></app-crear-user>
@@ -182,10 +178,10 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content card">
             <div class="modal-header">
-                <h4 >Editar Usuario</h4>
+                <h4>Editar Usuario</h4>
                 <button id="modalEditClose" type="button" class="btn-close close pull-right" aria-label="Close"
                     (click)="modalEditUser.hide()">
-                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                    <span>&times;</span>
                 </button>
             </div>
             <app-edit-user [in_user]="userSeleccionado" *ngIf="editUsuarioOK"></app-edit-user>

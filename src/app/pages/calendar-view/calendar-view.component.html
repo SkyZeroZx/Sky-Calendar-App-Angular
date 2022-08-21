@@ -7,7 +7,7 @@
 
 
 
-<!-- Modal Edit Task -->
+<!-- Modal View Task -->
 <div bsModal class="modal fade" #modaViewTask="bs-modal" [config]="{backdrop: 'static'}" (onHidden)="listarTaskByUser()"
     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
     <div class="modal-dialog modal-lg" style="    transform: translate(0, 10%);">
@@ -19,7 +19,7 @@
                     <span aria-hidden="true" class="visually-hidden">&times;</span>
                 </button>
             </div>
-            <app-detail [in_detailTask]="dateSelect" *ngIf="taskViewOk"></app-detail>
+            <app-calendar-view-detail [in_detailTask]="dateSelect" *ngIf="taskViewOk"></app-calendar-view-detail>
 
         </div>
     </div>

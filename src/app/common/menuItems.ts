@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
     class: "yellow",
   },
   {
-    path: "/user",
+    path: "/user-profile",
     title: "Perfil",
     icon: "icon-single-02",
     class: "azure",
@@ -28,7 +28,7 @@ export const ROUTES_VIEWER : RouteInfo[] = [
     class: "yellow",
   },
   {
-    path: "/user",
+    path: "/user-profile",
     title: "Perfil",
     icon: "icon-single-02",
     class: "azure",

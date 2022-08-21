@@ -5,26 +5,22 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root",
 })
 export class ThemeService {
-  public darkTheme: boolean = this.getLocalStorageItem("darkTheme");
-  public navBarPosition: boolean = this.getLocalStorageItem("navBar");
-  public theme = new BehaviorSubject(this.darkTheme);
-  public navBar = new BehaviorSubject(this.navBarPosition);
+  public darkTheme: boolean;
+  public navBarPosition: boolean;
+  public theme: BehaviorSubject<boolean>;
+  public navBar: BehaviorSubject<boolean>;
   // Declaramos el evento que escucharemos para generar el boton de instalar la PWA
   public promptEvent;
-  constructor() {}
+
+  constructor() {
+    this.darkTheme = this.getLocalStorageItem("darkTheme");
+    this.navBarPosition = this.getLocalStorageItem("navBar");
+    this.theme = new BehaviorSubject(this.darkTheme);
+    this.navBar = new BehaviorSubject(this.navBarPosition);
+  }
 
   get getInstallPwa() {
     return this.promptEvent;
-  }
-
-  setTheme(option: boolean) {
-    localStorage.setItem("darkTheme", option.toString());
-    this.theme.next(option);
-  }
-
-  setNavBar(option: boolean) {
-    localStorage.setItem("navBar", option.toString());
-    this.navBar.next(option);
   }
 
   getLocalStorageItem(item: string): boolean {
@@ -37,5 +33,15 @@ export class ThemeService {
     } else {
       return true;
     }
+  }
+  
+  setTheme(option: boolean) {
+    localStorage.setItem("darkTheme", option.toString());
+    this.theme.next(option);
+  }
+
+  setNavBar(option: boolean) {
+    localStorage.setItem("navBar", option.toString());
+    this.navBar.next(option);
   }
 }

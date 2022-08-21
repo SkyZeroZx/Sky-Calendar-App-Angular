@@ -6,11 +6,11 @@ import { IType } from "src/app/entities/type";
 import { EventClickArg } from "@fullcalendar/core";
 import { TaskService } from "src/app/services/task/task.service";
 @Component({
-  selector: "app-detail",
-  templateUrl: "./detail.component.html",
-  styleUrls: ["./detail.component.scss"],
+  selector: "app-calendar-view-detail",
+  templateUrl: "./calendar-view-detail.component.html",
+  styleUrls: ["./calendar-view-detail..component.scss"],
 })
-export class DetailComponent implements OnInit {
+export class CalendarViewDetailComponent implements OnInit {
   viewForm: FormGroup;
   @Input()
   in_detailTask: EventClickArg;

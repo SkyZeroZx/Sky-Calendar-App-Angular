@@ -14,8 +14,8 @@ export class AdminLayoutComponent implements OnInit {
 
   }
   changeSidebarColor(color){
-    var sidebar = document.getElementsByClassName('sidebar')[0];
-    var mainPanel = document.getElementsByClassName('main-panel')[0];
+    let sidebar = document.getElementsByClassName('sidebar')[0];
+    let mainPanel = document.getElementsByClassName('main-panel')[0];
 
     this.sidebarColor = color;
 

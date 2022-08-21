@@ -67,13 +67,12 @@ body {
       background: transparent !important;
     }
   }
-  
 }
 
 .btn.btn-primary {
   background-image: linear-gradient(to bottom left, #5e72e4, #5e72e4, #5e72e4);
 }
-
+/*
 // Posicionamiento Modal Top
 .modal-dialog.modal-lg {
   transform: translate(0, 0%) !important;
@@ -82,11 +81,77 @@ body {
 .modal-dialog.modal-xl {
   transform: translate(0, 0%) !important;
 }
-
+*/
 i {
   cursor: pointer;
 }
 
-.col-md-12{
-  padding-left: 3px!important;
+.col-md-12 {
+  padding-left: 3px !important;
+}
+
+/*
+.camera-switch {
+  top: 21% !important;
+  right: 7% !important;
+  position: fixed !important;
+}*/
+
+
+.modal-dialog.modal-fullscreen{
+  transform: translate(0, 0%) !important;
+  max-width: 100vw !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+//@media (max-width: 1920px) {
+
+.webcam-wrapper video {
+  object-fit: fill;
+  width: 100vw !important;
+  height: 90vh !important;
+}
+
+//}
+.container-fluid.facial{
+
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+
+}
+.modal-body.face-enrollment {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+//@media (max-width: 800px) {
+//.webcam-wrapper video {
+//   object-fit: fill;
+
+//   height: 85vh !important;
+// }
+//}
+
+/*
+webcam-container .webcam-wrapper, .webcam-wrapper video {
+  width: 100% !important;
+  height: 100% !important;
+  }*/
+/* video {
+  
+    min-width: 100%; min-height:100%;
+    width: auto; height: auto;  
+ 
+}
+*/
+
+.webcam-wrapper video {
+  //width: 100vw !important;
+  // height: 100vh !important;
+  @media (max-width: 600px) {
+    //  padding: 0px !important;
+    // height: 100vh!important;
+  }
 }
