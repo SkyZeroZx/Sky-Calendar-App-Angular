@@ -15,7 +15,7 @@ export class CalendarViewDetailComponent implements OnInit {
   @Input()
   in_detailTask: EventClickArg;
   listarTypes: IType[] = [];
-  listarUsers : any[] = [];
+  listarUsers: any[] = [];
   constructor(
     private fb: FormBuilder,
     private toastrService: ToastrService,
@@ -34,10 +34,6 @@ export class CalendarViewDetailComponent implements OnInit {
     this.ngOnInit();
   }
 
-  formatData() {
-    return { id: this.in_detailTask?.event?._def?.publicId };
-  }
-
   listarTypeTask() {
     this.taskService.getAllTypes().subscribe({
       next: (res) => {
@@ -52,19 +48,21 @@ export class CalendarViewDetailComponent implements OnInit {
 
   listarUserByTask() {
     // Enviamos el id del task
-    this.taskService.getUsersByTask(this.formatData()).subscribe({
-      next: (res) => {
-        this.listarUsers = res
-        this.viewForm.controls.users.setValue(res);
-        this.viewForm.controls.users.disable();
-      },
-      error: (_err) => {
-        this.toastrService.error(
-          "Error al listar usuarios por tarea",
-          "Error"
-        );
-      },
-    });
+    this.taskService
+      .getUsersByTask(this.in_detailTask?.event?._def?.publicId)
+      .subscribe({
+        next: (res) => {
+          this.listarUsers = res;
+          this.viewForm.controls.users.setValue(res);
+          this.viewForm.controls.users.disable();
+        },
+        error: (_err) => {
+          this.toastrService.error(
+            "Error al listar usuarios por tarea",
+            "Error"
+          );
+        },
+      });
   }
 
   crearFormularioViewTask() {

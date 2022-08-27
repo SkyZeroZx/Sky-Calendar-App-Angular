@@ -99,20 +99,21 @@ export class EditTaskComponent implements OnInit {
     });
   }
 
-  formatData() {
-    return { id: this.in_editTask?.event?._def?.publicId };
-  }
-
   listarUserByTask() {
     // Enviamos el id del task
-    this.taskService.getUsersByTask(this.formatData()).subscribe({
-      next: (res) => {
-        this.editTaskForm.controls.users.setValue(res);
-      },
-      error: (err) => {
-        this.toastrService.error("Error al listar usuarios por tarea", "Error");
-      },
-    });
+    this.taskService
+      .getUsersByTask(this.in_editTask?.event?._def?.publicId)
+      .subscribe({
+        next: (res) => {
+          this.editTaskForm.controls.users.setValue(res);
+        },
+        error: (err) => {
+          this.toastrService.error(
+            "Error al listar usuarios por tarea",
+            "Error"
+          );
+        },
+      });
   }
 
   removeUserToTask(item: any) {

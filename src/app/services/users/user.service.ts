@@ -22,11 +22,7 @@ export class UserService {
   }
 
   deleteUser(id): Observable<any> {
-    return this.http.delete<any>(`${environment.API_URL}/users`, {
-      body: {
-        id: id,
-      },
-    });
+    return this.http.delete<any>(`${environment.API_URL}/users/${id}`);
   }
 
   createUser(user: UserUpdate): Observable<any> {
@@ -42,13 +38,13 @@ export class UserService {
   }
 
   getProfile(): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL}/users/profile`, null);
+    return this.http.get<any>(`${environment.API_URL}/users/profile`);
   }
 
-  sendNotification(data): Observable<any> {
+  sendNotification(token): Observable<any> {
     return this.http.post<any>(
       `${environment.API_URL}/notificacion/send`,
-      data
+      token
     );
   }
 }

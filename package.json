@@ -9,6 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "production" : "ng build --configuration production",
     "start:pwa": "ng build --prod && http-server -p 8080 -c-1 dist/",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },

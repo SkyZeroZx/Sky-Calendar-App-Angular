@@ -16,10 +16,7 @@ export interface IRegisterTask {
   user: [];
 }
 
-export interface ICodTask {
-  codTask: number;
-}
-
+ 
 export interface IUserByTask {
   id: string;
   nombre: string;

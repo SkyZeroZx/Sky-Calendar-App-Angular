@@ -6,7 +6,6 @@ import {
   IUserByTask,
   IRegisterTask,
   IAddUserTask,
-  ICodTask,
 } from "src/app/entities/task";
 import { IType } from "src/app/entities/type";
 import { environment } from "src/environments/environment";
@@ -25,8 +24,10 @@ export class TaskService {
     return this.http.get<any>(`${environment.API_URL}/task/user`);
   }
 
-  getUsersByTask(taskId: Object): Observable<IUserByTask[]> {
-    return this.http.post<any>(`${environment.API_URL}/task/task_user`, taskId);
+  getUsersByTask(codTask: Object): Observable<IUserByTask[]> {
+    return this.http.get<any>(
+      `${environment.API_URL}/task/task_user/${codTask}`
+    );
   }
 
   createNewTask(task: IRegisterTask) {
@@ -38,9 +39,9 @@ export class TaskService {
   }
 
   deleteUserToTask(userToTask: IAddUserTask): Observable<any> {
-    return this.http.delete<any>(`${environment.API_URL}/task`, {
-      body: userToTask,
-    });
+    return this.http.delete<any>(
+      `${environment.API_URL}/task?codUser=${userToTask.codUser}&codTask=${userToTask.codTask}`
+    );
   }
 
   addUserToTask(userToTask: IAddUserTask): Observable<any> {
@@ -50,10 +51,10 @@ export class TaskService {
     );
   }
 
-  deleteTask(task: ICodTask): Observable<any> {
-    return this.http.delete<any>(`${environment.API_URL}/task/remove_task`, {
-      body: task,
-    });
+  deleteTask(task: number): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.API_URL}/task/remove_task/${task}`
+    );
   }
 
   /********************* SERVICIOS TYPE ******************************** */

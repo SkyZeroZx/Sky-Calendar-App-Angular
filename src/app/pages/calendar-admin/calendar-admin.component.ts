@@ -131,12 +131,10 @@ export class CalendarAdminComponent implements OnInit {
     return { codTask: codTask, dateRange: [dateRange.start, dateRange.end] };
   }
 
-  formatDataRemoveTask(id) {
-    return { codTask: parseInt(id) };
-  }
+ 
 
   removeTask(id) {
-    this.servicios.deleteTask(this.formatDataRemoveTask(id)).subscribe({
+    this.servicios.deleteTask(parseInt(id)).subscribe({
       next: (res) => {
         if (res.message == Constant.MENSAJE_OK) {
           this.listarTask();
