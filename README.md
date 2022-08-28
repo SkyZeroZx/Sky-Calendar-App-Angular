@@ -4,6 +4,17 @@ _Es el modulo web del sistema de registro de tareas de calendario con notificaci
 
 _Adicionalmente funciona como PWA(Progresive Web App) que puede integrarse en cualquier dispositivo movil_
 
+## :ledger: Index
+
+- [Pre-Requisitos](#pre-requisitos-)
+- [Instalación](#instalación-)
+- [PWA](#ejecutando-como-pwa-)
+- [Web-Authentication](##web-authn-fingerprint-)
+- [Despligue](#despliegue-) 
+    -[Build](#build)
+    -[Docker](#docker)
+- [Construido](#construido-con-)
+
 ## Comenzando 🚀
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
@@ -158,6 +169,7 @@ _Más informacion de Web Authn : https://webauthn.io/_
 
 ## Despliegue 📦
 
+### Build
 _Previamente configurar la ruta del API que consumira nuestro proyecto en el archivo src/environments/environment.prod.ts campo API_URL_
 
 _Para realizar el despligue a produccion del proyecto ejecutar el siguiente comando_
@@ -169,6 +181,28 @@ ng build --configuration production
 _El cual creara la carpeta "dist" en la raiz de nuestro proyecto el cual podemos desplegar en cualquier servidor que ejecute HTML CSS y JS_
 
 _A su vez en un hosting con certificado HTTPS se podra ejecutar como una PWA que se podra "instalar"_
+
+### Docker
+
+_Para desplegar el proyecto mediante Docker se tiene los archivos `Dockerfile` y `docker-compose.prod.yaml`, los cuales tienen preconfigurado la imagen y dependencias necesarias para levantar el proyecto, se utilizo como base un servidor web Nginx_
+
+_Para construir la imagen y ejecutarla tenemos el siguiente comando_
+
+_Ejecutar el siguiente comando en la raiz del proyecto_
+
+```
+ docker-compose -f docker-compose.prod.yaml up --build
+```
+
+![Docker 1](/docs/docker/docker-1.png)
+
+![Docker 2](/docs/docker/docker-2.png)
+
+_En caso de requerir volver a ejecutar el contenedor del proyecto previamente creado ejecutar el comando:_
+
+```
+ docker-compose -f docker-compose.prod.yaml up
+```
 
 ## Construido con 🛠️
 
